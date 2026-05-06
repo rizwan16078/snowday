@@ -72,12 +72,14 @@ export function SystemUIProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export function useSystemUI() {
+const defaultContextValue: SystemUIContextValue = {
+  ribbon: defaultRibbon,
+  setRibbon: () => {},
+  offline: false,
+};
+
+export function useSystemUI(): SystemUIContextValue {
   const context = useContext(SystemUIContext);
-
-  if (!context) {
-    throw new Error("useSystemUI must be used within SystemUIProvider");
-  }
-
-  return context;
+  // Return defaults when called outside a SystemUIProvider (e.g. Navbar on non-home pages).
+  return context ?? defaultContextValue;
 }

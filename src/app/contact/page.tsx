@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { AnimatedPageWrapper } from "@/components/layout/AnimatedPageWrapper";
-import { Mail, MessageSquare, Twitter, Github } from "lucide-react";
+import { Mail, MessageSquare, Globe, Code } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -49,14 +49,14 @@ export default function ContactPage() {
           label="Share Ideas"
         />
         <ContactMethod 
-          icon={Twitter} 
+          icon={Globe} 
           title="Social Pulse" 
           description="Stay updated with live storm tracking and new engine deployments."
           href="#"
           label="Follow @SnowSense"
         />
         <ContactMethod 
-          icon={Github} 
+          icon={Code} 
           title="Open Intelligence" 
           description="Inquiries regarding our open-data integration and API capabilities."
           href="#"

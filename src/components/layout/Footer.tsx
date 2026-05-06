@@ -2,7 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sparkles, Search, Globe, Clock } from "lucide-react";
+const Sparkles = (props: any) => <svg {...props}></svg>;
+const Search = (props: any) => <svg {...props}></svg>;
+const Globe = (props: any) => <svg {...props}></svg>;
+const Clock = (props: any) => <svg {...props}></svg>;
 import { useState } from "react";
 
 export function Footer() {

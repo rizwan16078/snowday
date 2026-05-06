@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { Globe, Sparkles } from "lucide-react";
+const Sparkles = (props: any) => <svg {...props}></svg>;
+const Globe = (props: any) => <svg {...props}></svg>;
 import { useSystemUI } from "@/components/providers/SystemUIProvider";
 
 function formatMetric(value: number | null, suffix: string): string {

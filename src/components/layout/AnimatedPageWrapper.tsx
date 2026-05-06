@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
 export function AnimatedPageWrapper({ 
@@ -21,22 +21,16 @@ export function AnimatedPageWrapper({
       </div>
 
       <div className="relative z-10 w-full max-w-3xl space-y-12">
-        <motion.header 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        <header 
           className="text-center"
         >
           <h1 className="text-4xl md:text-5xl font-black font-display text-transparent bg-clip-text bg-gradient-to-br from-white to-white/50 mb-4">
             {title}
           </h1>
           {subtitle && <p className="text-lg text-white/50">{subtitle}</p>}
-        </motion.header>
+        </header>
         
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+        <div 
           className="glass-card rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(0,0,0,0.5)] relative overflow-hidden"
         >
           {/* Subtle inner highlights */}
@@ -46,7 +40,7 @@ export function AnimatedPageWrapper({
           <div className="relative z-10 space-y-10">
             {children}
           </div>
-        </motion.div>
+        </div>
       </div>
     </main>
   );
@@ -62,11 +56,7 @@ export function AnimatedSection({
   delay?: number; 
 }) {
   return (
-    <motion.section 
-      initial={{ opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, ease: "easeOut", delay }}
+    <section 
       className="space-y-4 group"
     >
       <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 inline-block relative">
@@ -76,6 +66,6 @@ export function AnimatedSection({
       <div className="text-white/70 leading-relaxed space-y-4 text-[15px] sm:text-base">
         {children}
       </div>
-    </motion.section>
+    </section>
   );
 }
