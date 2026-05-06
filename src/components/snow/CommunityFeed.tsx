@@ -4,7 +4,7 @@ import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { MapPin, RefreshCw } from "lucide-react";
-import { useSystemUI } from "@/components/providers/SystemUIProvider";
+import { useSystemUI } from "@/components/providers/SystemUIContext";
 import type { CommunityFeedItem } from "@/types/snow";
 
 interface CommunityFeedProps {

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 const Sparkles = (props: any) => <svg {...props}></svg>;
 const Globe = (props: any) => <svg {...props}></svg>;
-import { useSystemUI } from "@/components/providers/SystemUIProvider";
+import { useSystemUI } from "@/components/providers/SystemUIContext";
 
 function formatMetric(value: number | null, suffix: string): string {
   return value === null ? `--${suffix}` : `${Math.round(value)}${suffix}`;

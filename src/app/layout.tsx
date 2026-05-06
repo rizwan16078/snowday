@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { ClientNavbar } from "@/components/layout/ClientNavbar";
+import { ClientFooter } from "@/components/layout/ClientFooter";
 import { SystemUIProvider } from "@/components/providers/SystemUIProvider";
 
 
@@ -13,15 +13,7 @@ export const metadata: Metadata = {
   },
   description:
     "Will school be cancelled tomorrow? SnowSense™ gives you real-time snow day probability using live weather data, ice risk, and regional tolerance. Updated every 30 minutes.",
-  keywords: [
-    "snow day calculator",
-    "snow day predictor",
-    "will school be cancelled",
-    "school closure prediction",
-    "snow day probability",
-    "winter storm school",
-    "snowfall calculator",
-  ],
+  keywords: "snow day calculator, snow day predictor, will school be cancelled, school closure prediction, snow day probability, winter storm school, snowfall calculator",
   openGraph: {
     type: "website",
     title: "SnowSense™ — Snow Day Calculator",
@@ -50,9 +42,9 @@ export default function RootLayout({
         data-offline="false"
       >
         <SystemUIProvider>
-          <Navbar />
+          <ClientNavbar />
           <div className="flex-grow">{children}</div>
-          <Footer />
+          <ClientFooter />
         </SystemUIProvider>
       </body>
     </html>

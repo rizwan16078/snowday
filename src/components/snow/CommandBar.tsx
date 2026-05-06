@@ -10,7 +10,7 @@ import {
   X,
   Settings,
 } from "lucide-react";
-import { useSystemUI } from "@/components/providers/SystemUIProvider";
+import { useSystemUI } from "@/components/providers/SystemUIContext";
 import type { LocationSelection, SchoolType } from "@/types/snow";
 
 interface CommandBarProps {

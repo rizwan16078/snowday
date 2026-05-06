@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { ChevronDown, RefreshCw, AlertTriangle } from "lucide-react";
-import { useSystemUI } from "@/components/providers/SystemUIProvider";
+import { useSystemUI } from "@/components/providers/SystemUIContext";
 import { WeatherCanvas } from "@/components/snow/WeatherCanvas";
 import { HeroPrediction } from "@/components/snow/HeroPrediction";
 import { CommandBar } from "@/components/snow/CommandBar";
