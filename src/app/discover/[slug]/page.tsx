@@ -1,2 +1,6 @@
 import { redirect } from "next/navigation";
-export default function DiscoverSlugPage() { redirect("/"); }
+
+// Permanently redirect discover slug routes to blog
+export default function DiscoverSlugPage() {
+  redirect("/blog");
+}

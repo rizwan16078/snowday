@@ -56,11 +56,11 @@ export function Footer() {
              Predictions
            </h4>
            <nav className="flex flex-col space-y-3">
-             <Link href="/prediction?loc=new-york" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">New York, NY</Link>
-             <Link href="/prediction?loc=boston" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Boston, MA</Link>
-             <Link href="/prediction?loc=chicago" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Chicago, IL</Link>
-             <Link href="/prediction?loc=denver" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Denver, CO</Link>
-             <Link href="/snow-day-calculator" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200 font-bold text-blue-400">All Cities →</Link>
+             <Link href="/snow-day-calculator/new-york-ny" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">New York, NY</Link>
+             <Link href="/snow-day-calculator/boston-ma" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Boston, MA</Link>
+             <Link href="/snow-day-calculator/chicago-il" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Chicago, IL</Link>
+             <Link href="/snow-day-calculator/denver-co" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Denver, CO</Link>
+             <Link href="/snow-day-calculator" className="text-sm font-bold text-blue-400 hover:text-white transition-colors duration-200">All Cities →</Link>
            </nav>
         </div>
 
@@ -70,6 +70,7 @@ export function Footer() {
              Resources
            </h4>
            <nav className="flex flex-col space-y-3">
+             <Link href="/blog" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Blog &amp; Guides</Link>
              <Link href="/#how-it-works" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">How it Works</Link>
              <Link href="/about" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">About Us</Link>
              <Link href="/contact" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Contact</Link>

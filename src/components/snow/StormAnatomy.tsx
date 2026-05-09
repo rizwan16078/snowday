@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import type { SnowDayPrediction } from "@/types/snow";
 import { Snowflake, Thermometer, Wind, Clock } from "lucide-react";
 
@@ -116,35 +116,40 @@ function getScoreColor(score: number) {
   return "#ef4444";
 }
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-  },
-};
 
 export function StormAnatomy({ prediction }: StormAnatomyProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll<HTMLElement>(".storm-card").forEach((el, i) => {
+              setTimeout(() => el.classList.add("storm-card--visible"), i * 100);
+            });
+            entry.target.querySelectorAll<HTMLElement>(".storm-bar").forEach((el) => {
+              const width = el.dataset.width ?? "0";
+              setTimeout(() => { el.style.width = `${width}%`; }, 400);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       className="w-full max-w-4xl mx-auto px-5"
       aria-label="Storm anatomy breakdown"
     >
       {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-10"
-      >
+      <div className="text-center mb-10 animate-fade-in-up">
         <p className="text-[10px] text-blue-400/60 uppercase tracking-[0.3em] font-bold mb-2">
           SnowSense™ Intelligence
         </p>
@@ -154,25 +159,19 @@ export function StormAnatomy({ prediction }: StormAnatomyProps) {
         <p className="text-sm text-white/30 mt-2 max-w-md mx-auto">
           Every factor analyzed in real-time to calculate your snow day probability
         </p>
-      </motion.div>
+      </div>
 
       {/* 2x2 Grid */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {cards.map((card) => {
           const score = prediction.factors[card.key];
           const scoreColor = getScoreColor(score);
 
           return (
-            <motion.div
+            <div
               key={card.key}
-              variants={cardVariants}
-              className="group relative overflow-hidden rounded-2xl glass-card p-6 hover:border-white/12 transition-all duration-500"
+              className="storm-card group relative overflow-hidden rounded-2xl glass-card p-6 hover:border-white/12 transition-all duration-500 opacity-0 translate-y-6"
+              style={{ transition: "opacity 0.6s ease, transform 0.6s ease" }}
             >
               {/* Gradient accent */}
               <div
@@ -227,18 +226,16 @@ export function StormAnatomy({ prediction }: StormAnatomyProps) {
                   {card.getSubtext(prediction)}
                 </p>
 
-                {/* Progress bar */}
+                {/* Progress bar — CSS width animation via data-width */}
                 <div className="mt-4 h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
-                  <motion.div
-                    className="h-full rounded-full"
+                  <div
+                    className="storm-bar h-full rounded-full transition-[width] duration-[1200ms] ease-out"
+                    data-width={score}
                     style={{
+                      width: "0%",
                       background: `linear-gradient(90deg, ${card.accentColor}88, ${card.accentColor})`,
                       boxShadow: `0 0 8px ${card.accentColor}40`,
                     }}
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${score}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
                   />
                 </div>
 
@@ -247,10 +244,10 @@ export function StormAnatomy({ prediction }: StormAnatomyProps) {
                   {card.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           );
         })}
-      </motion.div>
+      </div>
     </section>
   );
 }

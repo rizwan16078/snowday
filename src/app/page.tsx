@@ -4,9 +4,27 @@ import { SnowSenseEntry } from "@/components/snow/SnowSenseEntry";
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "SnowSense™ Prediction Intelligence",
+  title: "Snow Day Calculator",
   description:
-    "Real-time, edge-rendered snow day prediction intelligence powered by weather, geospatial, and temporal modeling.",
+    "Will school be cancelled tomorrow? Get your real-time snow day probability powered by live weather data, ice risk analysis, and regional tolerance modeling.",
+  alternates: {
+    canonical: "https://www.snowsense.app",
+    languages: { "en": "https://www.snowsense.app" },
+  },
+  openGraph: {
+    type: "website",
+    url: "https://www.snowsense.app",
+    title: "SnowSense™ — Snow Day Calculator",
+    description: "Real-time snow day probability for your location.",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "SnowSense™ Snow Day Calculator",
+      },
+    ],
+  },
 };
 
 interface HomePageProps {

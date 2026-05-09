@@ -186,6 +186,9 @@ export default function SnowDayShell({
           </div>
         ) : (
           <>
+            <h1 className="sr-only">
+              {locationLabel ? `${locationLabel} Snow Day Calculator` : "SnowSense™ Snow Day Calculator"}
+            </h1>
             <HeroPrediction
               probability={activePrediction?.probability}
               status={activePrediction?.status}

@@ -1,23 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 /**
  * PremiumFAQ — Location-aware FAQ system
- * Accordion with smooth animations.
+ * Accordion with CSS-only animations (no framer-motion).
  * Ready for schema markup (JSON-LD).
- * FAQ questions are populated with the user's current location from URL.
  */
 
 interface PremiumFAQProps {
-  location?: string; // e.g., "Boston, MA" — from URL state
+  location?: string;
 }
 
 function buildFaqs(location: string) {
   const city = location.split(",")[0]?.trim() || "your city";
-
   return [
     {
       q: `How many inches of snow cancel school in ${city}?`,
@@ -60,66 +57,50 @@ export function PremiumFAQ({ location = "your city" }: PremiumFAQProps) {
 
   return (
     <section className="w-full max-w-3xl mx-auto px-5" aria-label="Frequently asked questions">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-10"
-      >
+      <div className="text-center mb-10">
         <p className="text-[10px] text-zinc-400 uppercase tracking-[0.3em] font-bold mb-2">
           Common Questions
         </p>
         <h2 className="text-2xl sm:text-3xl font-display font-black text-white/90">
           Frequently Asked Questions
         </h2>
-      </motion.div>
+      </div>
 
       <div className="space-y-3">
         {faqs.map((faq, i) => {
           const isOpen = openIdx === i;
           return (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              className={`rounded-2xl transition-all duration-300 ${isOpen
+              className={`rounded-2xl transition-all duration-300 ${
+                isOpen
                   ? "bg-white/[0.04] border border-white/10"
                   : "bg-white/[0.02] border border-white/[0.02] hover:bg-white/[0.03]"
-                }`}
+              }`}
             >
               <button
                 onClick={() => setOpenIdx(isOpen ? null : i)}
                 className="w-full flex items-center justify-between p-5 text-left"
                 aria-expanded={isOpen}
               >
-                <span className="text-sm font-semibold text-white/90 pr-8">
-                  {faq.q}
-                </span>
+                <span className="text-sm font-semibold text-white/90 pr-8">{faq.q}</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-white/40 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180 text-white/80" : ""
-                    }`}
+                  className={`w-4 h-4 text-white/40 shrink-0 transition-transform duration-300 ${
+                    isOpen ? "rotate-180 text-white/80" : ""
+                  }`}
                 />
               </button>
 
-              <AnimatePresence>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="overflow-hidden"
-                  >
-                    <div className="p-5 pt-0 text-sm text-white/50 leading-relaxed border-t border-white/5">
-                      {faq.a}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+              {/* CSS-only accordion — max-height transition replaces AnimatePresence */}
+              <div
+                className="overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out"
+                style={{ maxHeight: isOpen ? "400px" : "0px", opacity: isOpen ? 1 : 0 }}
+              >
+                <div className="p-5 pt-0 text-sm text-white/50 leading-relaxed border-t border-white/5">
+                  {faq.a}
+                </div>
+              </div>
+            </div>
           );
         })}
       </div>
@@ -134,10 +115,7 @@ export function PremiumFAQ({ location = "your city" }: PremiumFAQProps) {
             mainEntity: faqs.map((faq) => ({
               "@type": "Question",
               name: faq.q,
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: faq.a,
-              },
+              acceptedAnswer: { "@type": "Answer", text: faq.a },
             })),
           }),
         }}

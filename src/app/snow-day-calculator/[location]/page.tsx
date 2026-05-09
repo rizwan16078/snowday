@@ -6,6 +6,8 @@ import { geocodeSearch } from "@/lib/geocoding";
 import { HeroPrediction } from "@/components/snow/HeroPrediction";
 import { DetailsPanel } from "@/components/snow/DetailsPanel";
 import { WeatherCanvas } from "@/components/snow/WeatherCanvas";
+import { CityContentSection } from "@/components/snow/CityContentSection";
+import { getCityContent } from "@/lib/city-content";
 import type { GeocodingResult } from "@/types/snow";
 import { ChevronDown } from "lucide-react";
 
@@ -27,16 +29,41 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { location: slug } = await params;
   const loc = await resolveLocation(slug);
   if (!loc) {
-    return { title: "Snow Day Calculator" };
+    const fallbackName = slug.replace(/-/g, " ");
+    return { 
+      title: `Location Not Found - ${fallbackName}`,
+      description: `We couldn't find a snow day prediction for ${fallbackName}. Search for another city or school district on SnowSense™.`
+    };
   }
 
   const name = [loc.city, loc.state].filter(Boolean).join(", ");
+  const canonicalUrl = `https://www.snowsense.app/snow-day-calculator/${slug}`;
   return {
-    title: `${name} Snow Day Calculator — Will School Close Tomorrow?`,
-    description: `Check real-time snow day probability for ${name}. Live weather data, ice risk, and regional analysis updated every 30 minutes by SnowSense™.`,
+    title: `${name} Snow Day Calculator`,
+    description: `Will school be cancelled in ${name} tomorrow? Get real-time snow day predictions powered by live weather, ice risk, and regional data.`,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: { "en": canonicalUrl },
+    },
     openGraph: {
+      type: "website",
+      url: canonicalUrl,
       title: `${name} Snow Day Calculator`,
-      description: `Will school be cancelled in ${name} tomorrow? Live prediction powered by SnowSense™.`,
+      description: `Live snow day probability for ${name}. Check if school will be cancelled tomorrow.`,
+      images: [
+        {
+          url: "/og-default.png",
+          width: 1200,
+          height: 630,
+          alt: `${name} Snow Day Calculator — SnowSense™`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${name} Snow Day Calculator`,
+      description: `Will school be cancelled in ${name} tomorrow?`,
+      images: ["/og-default.png"],
     },
   };
 }
@@ -164,6 +191,10 @@ export default async function LocationPage({ params }: Props) {
             </ol>
           </nav>
 
+          <h1 className="sr-only">
+            {locationName} Snow Day Calculator
+          </h1>
+
           <HeroPrediction
             probability={prediction.probability}
             status={prediction.status}
@@ -217,6 +248,16 @@ export default async function LocationPage({ params }: Props) {
             </div>
           </section>
         )}
+
+        {/* City-Specific Content — static SEO section */}
+        {(() => {
+          const cityContent = getCityContent(slug);
+          return cityContent ? (
+            <section className="relative z-10 py-16">
+              <CityContentSection content={cityContent} />
+            </section>
+          ) : null;
+        })()}
       </div>
     </>
   );

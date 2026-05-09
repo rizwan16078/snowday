@@ -1,2 +1,6 @@
 import { redirect } from "next/navigation";
-export default function DiscoverTrendingPage() { redirect("/"); }
+
+// Permanently redirect discover/trending-now to blog
+export default function DiscoverTrendingPage() {
+  redirect("/blog");
+}
