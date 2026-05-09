@@ -43,6 +43,13 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
+  verification: {
+    google: "3PvIcRMWQ1_8FpO11Tk6IZVbSSCwM6EIctAF-3WQDWc",
+    yandex: "68fc3e33cc627447",
+    other: {
+      "msvalidate.01": "2B1BC6D0939A71E8F71442B1F50A9065",
+    },
+  },
 };
 
 const websiteSchema = {
