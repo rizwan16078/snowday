@@ -9,10 +9,6 @@ export const metadata: Metadata = {
     "Persistent SnowSense™ prediction route for edge-rendered snow day intelligence and offline caching.",
   alternates: {
     canonical: "/prediction",
-    languages: { 
-      "en": "/prediction",
-      "x-default": "/prediction"
-    },
   },
 };
 

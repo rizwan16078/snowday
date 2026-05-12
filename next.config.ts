@@ -56,10 +56,36 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: securityHeaders,
       },
+      {
+        // Long-cache for static branded assets in /public (svg/png/jpg/ico/webp/avif).
+        // Filenames are content-stable here; replace via deploy to invalidate.
+        source: "/:path*.(svg|png|jpg|jpeg|gif|webp|avif|ico)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" },
+        ],
+      },
+      {
+        // Service worker must never be cached aggressively
+        source: "/sw.js",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
+        ],
+      },
     ];
   },
   async redirects() {
     return [
+      // Apex (non-www) → www canonical host. Permanent (308) so search engines
+      // consolidate link equity onto the canonical hostname. Defensive — the
+      // host edge layer may already redirect, but a `307` from the edge does
+      // not preserve PageRank; this rule guarantees 308 if requests ever reach
+      // the Next runtime with the apex host.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "snowdaycalculate.com" }],
+        destination: "https://www.snowdaycalculate.com/:path*",
+        permanent: true,
+      },
       {
         source: "/about-us",
         destination: "/about",

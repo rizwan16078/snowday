@@ -6,10 +6,6 @@ export const metadata: Metadata = {
   description: "Privacy policy for SnowSense™.",
   alternates: {
     canonical: "/legal/privacy",
-    languages: { 
-      "en": "/legal/privacy",
-      "x-default": "/legal/privacy"
-    },
   },
 };
 

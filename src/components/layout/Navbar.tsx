@@ -122,8 +122,14 @@ export function Navbar() {
             </div>
           ) : null}
 
-          <Link href="/about" className="p-2 text-zinc-400 transition-colors hover:text-white">
-            <Globe className="h-5 w-5" />
+          <Link
+            href="/about"
+            aria-label="About SnowSense"
+            title="About SnowSense"
+            className="p-2 text-zinc-400 transition-colors hover:text-white"
+          >
+            <Globe className="h-5 w-5" aria-hidden="true" />
+            <span className="sr-only">About SnowSense</span>
           </Link>
 
           <Link href="/prediction">

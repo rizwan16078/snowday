@@ -6,10 +6,6 @@ export const metadata: Metadata = {
   description: "Directory of all SnowSense™ pages.",
   alternates: {
     canonical: "/sitemap",
-    languages: { 
-      "en": "/sitemap",
-      "x-default": "/sitemap"
-    },
   },
 };
 

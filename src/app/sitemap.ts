@@ -1,7 +1,9 @@
 import { MetadataRoute } from "next";
-import { getAllSlugs } from "@/lib/blog-data";
+import { blogPosts, getAllSlugs } from "@/lib/blog-data";
 
-const BASE = "https://www.snowdaycalculate.com";
+const BASE = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.snowdaycalculate.com"
+).replace(/\/$/, "");
 
 const cities = [
   // Northeast
@@ -26,19 +28,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: BASE, lastModified: now, changeFrequency: "hourly", priority: 1 },
     { url: `${BASE}/snow-day-calculator`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE}/prediction`, lastModified: now, changeFrequency: "hourly", priority: 0.8 },
+    { url: `${BASE}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.4 },
-    { url: `${BASE}/legal/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE}/sitemap`, lastModified: now, changeFrequency: "monthly", priority: 0.3 },
-    { url: `${BASE}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE}/legal/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE}/legal/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  const blogRoutes: MetadataRoute.Sitemap = getAllSlugs().map((slug) => ({
-    url: `${BASE}/blog/${slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
+  const postBySlug = new Map(blogPosts.map((p) => [p.slug, p]));
+  const blogRoutes: MetadataRoute.Sitemap = getAllSlugs().map((slug) => {
+    const post = postBySlug.get(slug);
+    const lastModified = post?.date ? new Date(post.date) : now;
+    return {
+      url: `${BASE}/blog/${slug}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    };
+  });
 
   const cityRoutes: MetadataRoute.Sitemap = cities.map((slug) => ({
     url: `${BASE}/snow-day-calculator/${slug}`,

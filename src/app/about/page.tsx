@@ -8,10 +8,6 @@ export const metadata: Metadata = {
   description: "Learn more about SnowSense™, the intelligent snow day prediction engine.",
   alternates: {
     canonical: "/about",
-    languages: { 
-      "en": "/about",
-      "x-default": "/about"
-    },
   },
 };
 

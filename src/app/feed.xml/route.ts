@@ -32,7 +32,7 @@ export async function GET() {
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <image>
-      <url>${SITE_URL}/icon.png</url>
+      <url>${SITE_URL}/icon.svg</url>
       <title>SnowSense™</title>
       <link>${SITE_URL}</link>
     </image>${items}

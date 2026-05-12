@@ -7,10 +7,6 @@ export const metadata: Metadata = {
   description: "Get in touch with the SnowSense™ team.",
   alternates: {
     canonical: "/contact",
-    languages: { 
-      "en": "/contact",
-      "x-default": "/contact"
-    },
   },
 };
 

@@ -6,10 +6,6 @@ export const metadata: Metadata = {
   description: "Terms of Service for SnowSense™.",
   alternates: {
     canonical: "/legal/terms",
-    languages: { 
-      "en": "/legal/terms",
-      "x-default": "/legal/terms"
-    },
   },
 };
 

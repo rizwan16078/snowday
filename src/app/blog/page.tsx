@@ -10,17 +10,13 @@ export const metadata: Metadata = {
     "Expert guides on snow day predictions, school closure thresholds, regional weather science, and how superintendents make the call to cancel school.",
   alternates: {
     canonical: "/blog",
-    languages: { 
-      "en": "/blog",
-      "x-default": "/blog"
-    },
   },
   openGraph: {
     type: "website",
     url: "https://www.snowdaycalculate.com/blog",
     title: "Snow Day Blog — SnowSense™",
     description: "Expert snow day guides, weather science, and regional analysis.",
-    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
+    images: [{ url: "/og-default.svg", width: 1200, height: 630 }],
   },
 };
 

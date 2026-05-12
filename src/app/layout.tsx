@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "SnowSense™",
     images: [
       {
-        url: "/og-default.png",
+        url: "/og-default.svg",
         width: 1200,
         height: 630,
         alt: "SnowSense™ — Real-Time Snow Day Calculator",
@@ -31,7 +31,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SnowSense™ — Snow Day Calculator",
     description: "What's the chance school is cancelled tomorrow? Check now →",
-    images: ["/og-default.png"],
+    images: ["/og-default.svg"],
+  },
+  alternates: {
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
   },
   robots: {
     index: true,

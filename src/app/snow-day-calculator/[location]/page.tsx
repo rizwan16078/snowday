@@ -7,6 +7,7 @@ import { HeroPrediction } from "@/components/snow/HeroPrediction";
 import { DetailsPanel } from "@/components/snow/DetailsPanel";
 import { WeatherCanvas } from "@/components/snow/WeatherCanvas";
 import { CityContentSection } from "@/components/snow/CityContentSection";
+import { CustomDistrictCTA } from "@/components/snow/CustomDistrictCTA";
 import { getCityContent } from "@/lib/city-content";
 import type { GeocodingResult } from "@/types/snow";
 import { ChevronDown } from "lucide-react";
@@ -26,7 +27,10 @@ async function resolveLocation(slug: string): Promise<GeocodingResult | null> {
 export const revalidate = 1800;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { location: slug } = await params;
+  const { location: rawSlug } = await params;
+  // Normalize to lowercase — URLs should be lowercase per SEO best practice.
+  // Prevents accidental uppercase slugs from leaking into the canonical/OG URLs.
+  const slug = rawSlug.toLowerCase();
   const loc = await resolveLocation(slug);
   if (!loc) {
     const fallbackName = slug.replace(/-/g, " ");
@@ -43,10 +47,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `Will school be cancelled in ${name} tomorrow? Get real-time snow day predictions powered by live weather, ice risk, and regional data.`,
     alternates: {
       canonical: `/snow-day-calculator/${slug}`,
-      languages: { 
-        "en": `/snow-day-calculator/${slug}`,
-        "x-default": `/snow-day-calculator/${slug}`
-      },
     },
     openGraph: {
       type: "website",
@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: `Live snow day probability for ${name}. Check if school will be cancelled tomorrow.`,
       images: [
         {
-          url: "/og-default.png",
+          url: "/og-default.svg",
           width: 1200,
           height: 630,
           alt: `${name} Snow Day Calculator — SnowSense™`,
@@ -66,13 +66,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: `${name} Snow Day Calculator`,
       description: `Will school be cancelled in ${name} tomorrow?`,
-      images: ["/og-default.png"],
+      images: ["/og-default.svg"],
     },
   };
 }
 
 export default async function LocationPage({ params }: Props) {
-  const { location: slug } = await params;
+  const { location: rawSlug } = await params;
+  const slug = rawSlug.toLowerCase();
   const loc = await resolveLocation(slug);
 
   if (!loc) {
@@ -207,14 +208,7 @@ export default async function LocationPage({ params }: Props) {
           />
           
           <div className="mt-8 text-center">
-            <Link
-              href={`/?loc=${slug}&daysUsed=2&type=public`}
-              rel="nofollow"
-              className="px-8 py-3 rounded-full font-bold text-sm text-white transition-all inline-block hover:scale-105 active:scale-95"
-              style={{ background: "linear-gradient(135deg,#1d4ed8,#3b82f6)", boxShadow: "0 4px 20px rgba(59,130,246,0.3)" }}
-            >
-              Check Custom District Settings
-            </Link>
+            <CustomDistrictCTA slug={slug} daysUsed={2} schoolType="public" />
           </div>
 
           {!prediction.isFallback && (

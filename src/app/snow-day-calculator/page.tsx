@@ -7,26 +7,22 @@ export const metadata: Metadata = {
     "Find snow day predictions for any US city, zip code, or school district. Real-time forecasts powered by SnowSense™.",
   alternates: {
     canonical: "/snow-day-calculator",
-    languages: { 
-      "en": "/snow-day-calculator",
-      "x-default": "/snow-day-calculator"
-    },
   },
 };
 
 const featuredCities = [
-  { name: "Boston, MA", slug: "boston" },
-  { name: "Chicago, IL", slug: "chicago" },
-  { name: "New York, NY", slug: "new-york" },
-  { name: "Denver, CO", slug: "denver" },
-  { name: "Minneapolis, MN", slug: "minneapolis" },
-  { name: "Pittsburgh, PA", slug: "pittsburgh" },
-  { name: "Buffalo, NY", slug: "buffalo" },
-  { name: "Cleveland, OH", slug: "cleveland" },
-  { name: "Detroit, MI", slug: "detroit" },
-  { name: "Philadelphia, PA", slug: "philadelphia" },
-  { name: "Washington, DC", slug: "washington" },
-  { name: "Hartford, CT", slug: "hartford" },
+  { name: "Boston, MA", slug: "boston-ma" },
+  { name: "Chicago, IL", slug: "chicago-il" },
+  { name: "New York, NY", slug: "new-york-ny" },
+  { name: "Denver, CO", slug: "denver-co" },
+  { name: "Minneapolis, MN", slug: "minneapolis-mn" },
+  { name: "Pittsburgh, PA", slug: "pittsburgh-pa" },
+  { name: "Buffalo, NY", slug: "buffalo-ny" },
+  { name: "Cleveland, OH", slug: "cleveland-oh" },
+  { name: "Detroit, MI", slug: "detroit-mi" },
+  { name: "Philadelphia, PA", slug: "philadelphia-pa" },
+  { name: "Washington, DC", slug: "washington-dc" },
+  { name: "Hartford, CT", slug: "hartford-ct" },
 ];
 
 export default function SnowDayIndexPage() {
@@ -49,7 +45,7 @@ export default function SnowDayIndexPage() {
           {featuredCities.map((city) => (
             <Link
               key={city.slug}
-              href={`/prediction?loc=${city.slug}`}
+              href={`/snow-day-calculator/${city.slug}`}
               className="glass-card rounded-2xl px-4 py-4 text-sm font-semibold text-white/80 hover:text-white transition-all hover:scale-[1.02] flex items-center gap-2"
             >
               <span aria-hidden="true">📍</span>

@@ -9,10 +9,6 @@ export const metadata: Metadata = {
     "Will school be cancelled tomorrow? Get your real-time snow day probability powered by live weather data, ice risk analysis, and regional tolerance modeling.",
   alternates: {
     canonical: "/",
-    languages: { 
-      "en": "/",
-      "x-default": "/"
-    },
   },
   openGraph: {
     type: "website",
@@ -21,7 +17,7 @@ export const metadata: Metadata = {
     description: "Real-time snow day probability for your location.",
     images: [
       {
-        url: "/og-default.png",
+        url: "/og-default.svg",
         width: 1200,
         height: 630,
         alt: "SnowSense™ Snow Day Calculator",

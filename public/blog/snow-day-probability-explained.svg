@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Snow Day Probability Explained">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050a14"/>
+      <stop offset="60%" stop-color="#0b1d3a"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g transform="translate(80,80)" opacity="0.9">
+    <circle cx="60" cy="60" r="56" stroke="#ffffff" stroke-width="6" fill="none"/>
+    <text x="60" y="76" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-weight="800" font-size="38" fill="#ffffff">67%</text>
+  </g>
+  <text x="80" y="320" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-weight="800" font-size="72" fill="#ffffff" letter-spacing="-2">Reading the</text>
+  <text x="80" y="400" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-weight="800" font-size="72" fill="#ffffff" letter-spacing="-2">Probability Score</text>
+  <text x="80" y="490" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-weight="500" font-size="28" fill="#cbd5e1">What That % Really Means</text>
+  <text x="80" y="550" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20" fill="#60a5fa" opacity="0.85">snowdaycalculate.com/blog</text>
+</svg>
