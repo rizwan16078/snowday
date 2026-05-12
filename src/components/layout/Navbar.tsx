@@ -65,7 +65,7 @@ export function Navbar() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationSchema) }}
       />
       <nav className="mx-auto flex max-w-7xl items-center gap-4 px-5 sm:px-8">
-        <Link href="/prediction" className="group flex shrink-0 items-center gap-3">
+        <Link href="/" className="group flex shrink-0 items-center gap-3">
           <motion.div
             whileHover={{ rotate: 180 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
