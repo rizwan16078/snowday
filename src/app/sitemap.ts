@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: BASE, lastModified: now, changeFrequency: "hourly", priority: 1 },
     { url: `${BASE}/snow-day-calculator`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE}/weather`, lastModified: now, changeFrequency: "hourly", priority: 0.9 },
     { url: `${BASE}/prediction`, lastModified: now, changeFrequency: "hourly", priority: 0.8 },
     { url: `${BASE}/weather-guide`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/weather-terms`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
