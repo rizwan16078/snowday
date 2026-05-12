@@ -21,8 +21,8 @@
   --color-possible: #f59e0b;
   --color-likely: #22c55e;
 
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Outfit", "Inter", system-ui, sans-serif;
+  --font-sans: var(--font-inter, "Inter"), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-outfit, "Outfit"), var(--font-inter, "Inter"), system-ui, sans-serif;
 
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
@@ -393,6 +393,26 @@ details > summary::-webkit-details-marker {
 
 .radar-dot-pulse {
   animation: radar-dot-pulse 2s ease-in-out infinite;
+}
+
+/* ── Radar scan-bar: thin moving line that sweeps top→bottom across the tile ── */
+@keyframes radar-scanbar {
+  0%   { transform: translateY(0);     opacity: 0; }
+  10%  { opacity: 0.9; }
+  90%  { opacity: 0.9; }
+  100% { transform: translateY(380px); opacity: 0; }
+}
+.radar-scanbar {
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(74, 222, 128, 0.55) 25%,
+    rgba(134, 239, 172, 0.85) 50%,
+    rgba(74, 222, 128, 0.55) 75%,
+    transparent 100%
+  );
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.5);
+  animation: radar-scanbar 4.5s ease-in-out infinite;
 }
 
 /* ── Framer-motion replacement: fade-in-up ── */

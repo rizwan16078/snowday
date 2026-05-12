@@ -34,6 +34,72 @@ export interface WeatherData {
   source: "nws" | "open-meteo";
 }
 
+export interface WeatherOutlookCurrent {
+  time: string;
+  temperature: number;
+  apparentTemperature: number;
+  humidityPercent: number;
+  precipitationMM: number;
+  rainMM: number;
+  showersMM: number;
+  snowfallMM: number;
+  weatherCode: number;
+  cloudCoverPercent: number;
+  windSpeedKph: number;
+  windDirectionDeg: number;
+  windGustKph: number;
+  visibilityM: number;
+  isDay: number;
+}
+
+export interface WeatherOutlookHourlyPoint {
+  time: string;
+  temperature: number;
+  apparentTemperature: number;
+  humidityPercent: number;
+  precipitationMM: number;
+  precipitationProbability: number;
+  weatherCode: number;
+  windSpeedKph: number;
+  isDay: number;
+}
+
+export interface WeatherOutlookDailyPoint {
+  date: string;
+  weatherCode: number;
+  temperatureMax: number;
+  temperatureMin: number;
+  apparentTemperatureMax: number;
+  apparentTemperatureMin: number;
+  sunrise: string;
+  sunset: string;
+  daylightDurationSeconds: number;
+  sunshineDurationSeconds: number;
+  uvIndexMax: number;
+  precipitationSumMM: number;
+  precipitationProbabilityMax: number;
+  windSpeedMaxKph: number;
+  windGustsMaxKph: number;
+}
+
+export interface AirQualitySnapshot {
+  time: string;
+  usAqi: number;
+  pm2_5: number;
+  pm10: number;
+  ozone: number;
+  uvIndex: number;
+}
+
+export interface WeatherOutlookData {
+  timezone: string;
+  current: WeatherOutlookCurrent;
+  hourly: WeatherOutlookHourlyPoint[];
+  daily: WeatherOutlookDailyPoint[];
+  airQuality: AirQualitySnapshot | null;
+  source: "open-meteo";
+}
+
 export type PrecipitationType = "snow" | "rain" | "mixed" | "none";
 
 export interface HourlyForecastPoint {

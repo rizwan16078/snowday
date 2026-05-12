@@ -55,15 +55,15 @@ export default function ContactPage() {
           icon={Globe} 
           title="Social Pulse" 
           description="Stay updated with live storm tracking and new engine deployments."
-          href="#"
+          href="https://twitter.com/snowdaycalculate"
           label="Follow @SnowSense"
         />
         <ContactMethod 
           icon={Code} 
           title="Open Intelligence" 
           description="Inquiries regarding our open-data integration and API capabilities."
-          href="#"
-          label="Developer Portal"
+          href="/about"
+          label="View Methodology"
         />
       </div>
 

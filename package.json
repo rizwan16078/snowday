@@ -10,10 +10,8 @@
   },
   "dependencies": {
     "@serwist/next": "^9.5.9",
-    "@tanstack/react-query": "^5.99.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.11",
-    "lodash": "^4.18.1",
     "lucide-react": "^1.8.0",
     "next": "^16.2.4",
     "react": "^19.2.5",

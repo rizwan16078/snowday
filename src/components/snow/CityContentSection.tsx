@@ -16,7 +16,7 @@ const ratingColor = {
 export function CityContentSection({ content }: Props) {
   return (
     <section
-      className="w-full max-w-4xl mx-auto px-5 space-y-6"
+      className="w-full max-w-6xl mx-auto px-5 space-y-6"
       aria-label={`Snow day guide for ${content.city}, ${content.state}`}
     >
       {/* Section Header */}

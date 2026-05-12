@@ -47,7 +47,10 @@ const nextConfig: NextConfig = {
   reactStrictMode: false,
   trailingSlash: false,
   experimental: {
-    optimizePackageImports: [],
+    // Per-symbol tree-shaking for these packages. Without this, importing a few
+    // icons from lucide-react or a few APIs from framer-motion pulls the entire
+    // barrel into client chunks. With it, only the named imports ship.
+    optimizePackageImports: ["lucide-react", "framer-motion"],
   },
   async headers() {
     return [
@@ -94,6 +97,23 @@ const nextConfig: NextConfig = {
       {
         source: "/contact-us",
         destination: "/contact",
+        permanent: true,
+      },
+      // Legacy CMS-style entry URLs → home. Some SEO auditors specifically
+      // check that index.php / index.html resolve rather than 403/404.
+      {
+        source: "/index.php",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/index.html",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/home",
+        destination: "/",
         permanent: true,
       },
     ];

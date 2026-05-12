@@ -1,8 +1,27 @@
 import type { Metadata } from "next";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { BackToTop } from "@/components/layout/BackToTop";
 import { SystemUIProvider } from "@/components/providers/SystemUIProvider";
+
+// Self-hosted variable fonts via next/font. Automatically:
+//  - Applies font-display: swap (prevents FOIT, fixes audit warning)
+//  - Subsets to latin only (keeps payload small)
+//  - Serves from same-origin (no external runtime preconnect needed)
+//  - Exposes CSS variables for use in globals.css and Tailwind theme
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+});
 
 
 export const metadata: Metadata = {
@@ -102,9 +121,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
       <body
-        className="antialiased bg-[#050a14] text-white flex flex-col min-h-screen overflow-x-hidden"
+        className="antialiased bg-[#050a14] text-white flex flex-col min-h-screen overflow-x-hidden font-sans"
         data-offline="false"
       >
         <script
@@ -119,6 +138,7 @@ export default function RootLayout({
           <Navbar />
           <div className="flex-grow">{children}</div>
           <Footer />
+          <BackToTop />
         </SystemUIProvider>
       </body>
     </html>

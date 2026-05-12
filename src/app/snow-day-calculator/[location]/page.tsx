@@ -42,6 +42,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const name = [loc.city, loc.state].filter(Boolean).join(", ");
   const canonicalUrl = `https://www.snowdaycalculate.com/snow-day-calculator/${slug}`;
+  // Dynamic OG card — city pages emit a personalized share preview.
+  const ogUrl = `/api/og?loc=${encodeURIComponent(name)}`;
   return {
     title: `${name} Snow Day Calculator`,
     description: `Will school be cancelled in ${name} tomorrow? Get real-time snow day predictions powered by live weather, ice risk, and regional data.`,
@@ -55,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: `Live snow day probability for ${name}. Check if school will be cancelled tomorrow.`,
       images: [
         {
-          url: "/og-default.svg",
+          url: ogUrl,
           width: 1200,
           height: 630,
           alt: `${name} Snow Day Calculator — SnowSense™`,
@@ -66,7 +68,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: `${name} Snow Day Calculator`,
       description: `Will school be cancelled in ${name} tomorrow?`,
-      images: ["/og-default.svg"],
+      images: [ogUrl],
     },
   };
 }

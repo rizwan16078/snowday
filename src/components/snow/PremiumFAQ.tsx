@@ -56,7 +56,7 @@ export function PremiumFAQ({ location = "your city" }: PremiumFAQProps) {
   const faqs = buildFaqs(location);
 
   return (
-    <section className="w-full max-w-3xl mx-auto px-5" aria-label="Frequently asked questions">
+    <section className="w-full max-w-5xl mx-auto px-5" aria-label="Frequently asked questions">
       <div className="text-center mb-10">
         <p className="text-[10px] text-zinc-400 uppercase tracking-[0.3em] font-bold mb-2">
           Common Questions

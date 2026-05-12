@@ -1,12 +1,65 @@
 "use client";
 
-import { useState } from "react";
+import type { ComponentPropsWithoutRef } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-const Sparkles = (props: any) => <svg {...props}></svg>;
-const Globe = (props: any) => <svg {...props}></svg>;
 import { useSystemUI } from "@/components/providers/SystemUIContext";
+
+/**
+ * Inline brand snowflake — the SnowSense logo. Rendered as a visible SVG
+ * with role="img" + aria-label so audit tools detect a logo in the header,
+ * and screen readers announce it as a logo. Sized via className from the
+ * caller (h-7 w-7 on the homepage navbar).
+ */
+function Sparkles(props: ComponentPropsWithoutRef<"svg">) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      role="img"
+      aria-label="SnowSense logo"
+      {...props}
+    >
+      <line x1="12" y1="2" x2="12" y2="22" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+      <line x1="19.07" y1="4.93" x2="4.93" y2="19.07" />
+      <path d="M9 5l3-3 3 3" />
+      <path d="M9 19l3 3 3-3" />
+      <path d="M5 9l-3 3 3 3" />
+      <path d="M19 9l3 3-3 3" />
+    </svg>
+  );
+}
+
+/**
+ * Inline globe icon with meridians/parallels — used by the /about button.
+ */
+function Globe(props: ComponentPropsWithoutRef<"svg">) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      role="img"
+      aria-label="Globe"
+      {...props}
+    >
+      <circle cx="12" cy="12" r="10" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z" />
+    </svg>
+  );
+}
 
 function formatMetric(value: number | null, suffix: string): string {
   return value === null ? `--${suffix}` : `${Math.round(value)}${suffix}`;
@@ -14,10 +67,16 @@ function formatMetric(value: number | null, suffix: string): string {
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [weatherHref, setWeatherHref] = useState("/weather");
   const pathname = usePathname();
   const { scrollY } = useScroll();
   const { ribbon } = useSystemUI();
   const isPredictionRoute = pathname === "/" || pathname === "/prediction";
+
+  useEffect(() => {
+    const query = window.location.search;
+    setWeatherHref(query ? `/weather${query}` : "/weather");
+  }, [pathname]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 20);
@@ -105,23 +164,6 @@ export function Navbar() {
         </div>
 
         <div className="ml-auto flex items-center gap-2 sm:gap-4">
-          {!isPredictionRoute ? (
-            <div className="hidden items-center gap-8 md:flex">
-              <Link
-                href="/snow-day-calculator"
-                className="text-sm font-semibold uppercase tracking-wider text-zinc-400 transition-colors duration-300 hover:text-white"
-              >
-                By City
-              </Link>
-              <Link
-                href="/prediction"
-                className="text-sm font-semibold uppercase tracking-wider text-zinc-400 transition-colors duration-300 hover:text-white"
-              >
-                Prediction
-              </Link>
-            </div>
-          ) : null}
-
           <Link
             href="/about"
             aria-label="About SnowSense"
@@ -132,7 +174,7 @@ export function Navbar() {
             <span className="sr-only">About SnowSense</span>
           </Link>
 
-          <Link href="/prediction">
+          <Link href={weatherHref}>
             <motion.button
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}

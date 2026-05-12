@@ -59,7 +59,7 @@ const regions = [
 
 export function RegionalLinks() {
   return (
-    <section className="w-full max-w-4xl mx-auto px-5" aria-label="Regional snow day predictions">
+    <section className="w-full max-w-6xl mx-auto px-5" aria-label="Regional snow day predictions">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

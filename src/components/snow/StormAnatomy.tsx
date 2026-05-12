@@ -145,7 +145,7 @@ export function StormAnatomy({ prediction }: StormAnatomyProps) {
   return (
     <section
       ref={sectionRef}
-      className="w-full max-w-4xl mx-auto px-5"
+      className="w-full max-w-6xl mx-auto px-5"
       aria-label="Storm anatomy breakdown"
     >
       {/* Section Header */}

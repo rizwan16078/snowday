@@ -61,7 +61,7 @@ const accuracy = {
 
 export function TrustLayer() {
   return (
-    <section className="w-full max-w-4xl mx-auto px-5" id="how-it-works" aria-label="How SnowSense works">
+    <section className="w-full max-w-6xl mx-auto px-5" id="how-it-works" aria-label="How SnowSense works">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

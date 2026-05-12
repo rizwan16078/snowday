@@ -40,14 +40,45 @@ const statusColor: Record<string, string> = {
 function buildShareUrl(
   locationSlug: string,
   daysUsed: number,
-  schoolType: SchoolType
+  schoolType: SchoolType,
+  prediction: SnowDayPrediction
 ): string {
   const params = new URLSearchParams({
     loc: locationSlug,
     daysUsed: daysUsed.toString(),
     type: schoolType,
+    p: String(prediction.probability),
+    s: prediction.status,
   });
   return `${typeof window !== "undefined" ? window.location.origin : ""}/?${params}`;
+}
+
+/**
+ * Fetch the dynamic OG card PNG so we can attach it to the native share
+ * sheet via Web Share Level 2 (Messages / Mail / AirDrop will then carry
+ * the image, not just the link).
+ */
+async function fetchOgCardFile(
+  locationStr: string,
+  prediction: SnowDayPrediction
+): Promise<File | null> {
+  if (typeof window === "undefined") return null;
+  try {
+    const params = new URLSearchParams({
+      loc: locationStr,
+      p: String(prediction.probability),
+      s: prediction.status,
+    });
+    const res = await fetch(`/api/og?${params.toString()}`, {
+      cache: "force-cache",
+    });
+    if (!res.ok) return null;
+    const blob = await res.blob();
+    const filename = `snowsense-${locationStr.replace(/[\s,]+/g, "-").toLowerCase()}.png`;
+    return new File([blob], filename, { type: blob.type || "image/png" });
+  } catch {
+    return null;
+  }
 }
 
 function drawShareImage(
@@ -136,22 +167,35 @@ export function ShareSystem({
   const [copied, setCopied] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const shareUrl = buildShareUrl(locationSlug, daysUsed, schoolType);
+  const shareUrl = buildShareUrl(locationSlug, daysUsed, schoolType, prediction);
   const shareText = `${statusEmoji[prediction.status] ?? "❄️"} ${prediction.probability}% chance of a snow day in ${locationStr}! Check your area:`;
 
   const handleNativeShare = useCallback(async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: `SnowSense™ — ${locationStr}`,
-          text: shareText,
-          url: shareUrl,
-        });
-      } catch {
-        // User cancelled or error — fall through to copy
-      }
+    if (!navigator.share) return;
+
+    // Try Web Share Level 2 (attach the OG card image as a File). Falls back
+    // to URL-only share if the OS or browser doesn't accept files.
+    const file = await fetchOgCardFile(locationStr, prediction);
+    const payloadWithFile: ShareData =
+      file && typeof navigator.canShare === "function" && navigator.canShare({ files: [file] })
+        ? {
+            title: `SnowSense™ — ${locationStr}`,
+            text: shareText,
+            url: shareUrl,
+            files: [file],
+          }
+        : {
+            title: `SnowSense™ — ${locationStr}`,
+            text: shareText,
+            url: shareUrl,
+          };
+
+    try {
+      await navigator.share(payloadWithFile);
+    } catch {
+      // User cancelled or share failed — silently no-op (user can use the modal copy/save).
     }
-  }, [locationStr, shareText, shareUrl]);
+  }, [locationStr, prediction, shareText, shareUrl]);
 
   const handleCopyLink = useCallback(async () => {
     try {
@@ -163,14 +207,30 @@ export function ShareSystem({
     }
   }, [shareUrl]);
 
-  const handleDownload = useCallback(() => {
+  const handleDownload = useCallback(async () => {
+    const filename = `snowday-${locationStr
+      .replace(/[\s,]+/g, "-")
+      .toLowerCase()}.png`;
+
+    // Primary: fetch the OG card PNG — same image receivers will see.
+    const file = await fetchOgCardFile(locationStr, prediction);
+    if (file) {
+      const url = URL.createObjectURL(file);
+      const link = document.createElement("a");
+      link.download = filename;
+      link.href = url;
+      link.click();
+      // Release the blob URL on the next tick (after the click is dispatched).
+      setTimeout(() => URL.revokeObjectURL(url), 0);
+      return;
+    }
+
+    // Fallback: synchronous canvas-drawn card.
     const canvas = canvasRef.current;
     if (!canvas) return;
     drawShareImage(canvas, locationStr, prediction);
     const link = document.createElement("a");
-    link.download = `snowday-${locationStr
-      .replace(/[\s,]+/g, "-")
-      .toLowerCase()}.png`;
+    link.download = filename;
     link.href = canvas.toDataURL("image/png");
     link.click();
   }, [locationStr, prediction]);

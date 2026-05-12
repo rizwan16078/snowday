@@ -3,31 +3,91 @@ import { SnowSenseEntry } from "@/components/snow/SnowSenseEntry";
 
 export const runtime = "edge";
 
-export const metadata: Metadata = {
-  title: "Snow Day Calculator",
-  description:
-    "Will school be cancelled tomorrow? Get your real-time snow day probability powered by live weather data, ice risk analysis, and regional tolerance modeling.",
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    type: "website",
-    url: "https://www.snowdaycalculate.com",
-    title: "SnowSense™ — Snow Day Calculator",
-    description: "Real-time snow day probability for your location.",
-    images: [
-      {
-        url: "/og-default.svg",
-        width: 1200,
-        height: 630,
-        alt: "SnowSense™ Snow Day Calculator",
-      },
-    ],
-  },
-};
-
 interface HomePageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+/**
+ * Pretty-print a slug like "boston-ma" → "Boston, MA".
+ * Trailing 2-letter state codes get uppercased + comma-separated.
+ */
+function prettifySlug(slug: string): string {
+  const parts = slug.split("-");
+  if (parts.length < 2) return slug.replace(/-/g, " ");
+  const last = parts[parts.length - 1];
+  if (/^[a-z]{2}$/.test(last)) {
+    const head = parts.slice(0, -1).map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
+    return `${head}, ${last.toUpperCase()}`;
+  }
+  return parts.map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
+}
+
+function paramStr(v: string | string[] | undefined): string | null {
+  if (typeof v === "string" && v.length > 0) return v;
+  return null;
+}
+
+export async function generateMetadata({
+  searchParams,
+}: HomePageProps): Promise<Metadata> {
+  const sp = await searchParams;
+  const locParam = paramStr(sp.loc);
+  const pParam = paramStr(sp.p);
+  const sParam = paramStr(sp.s);
+
+  const locationLabel = locParam ? prettifySlug(locParam) : null;
+  const probability = pParam ? Math.max(0, Math.min(100, Number.parseInt(pParam, 10) || 0)) : null;
+  const status = sParam ?? null;
+
+  // Build the dynamic OG image URL — params decide whether it renders the
+  // generic hero card or the personalized "X% chance in <city>" card.
+  const ogParams = new URLSearchParams();
+  if (locationLabel) ogParams.set("loc", locationLabel);
+  if (probability !== null) ogParams.set("p", String(probability));
+  if (status) ogParams.set("s", status);
+  const ogQuery = ogParams.toString();
+  const ogUrl = `/api/og${ogQuery ? `?${ogQuery}` : ""}`;
+
+  const title = locationLabel
+    ? `${probability !== null ? `${probability}%` : ""} Snow Day Probability — ${locationLabel}`.trim()
+    : "Snow Day Calculator";
+  const description = locationLabel
+    ? `${probability !== null ? `${probability}% chance` : "Live snow day probability"} of school being cancelled in ${locationLabel}. Powered by live weather data, ice risk analysis, and regional tolerance modeling.`
+    : "Will school be cancelled tomorrow? Get your real-time snow day probability powered by live weather data, ice risk analysis, and regional tolerance modeling.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: "/",
+    },
+    openGraph: {
+      type: "website",
+      url: "https://www.snowdaycalculate.com",
+      title: locationLabel
+        ? `${probability !== null ? `${probability}% · ` : ""}SnowSense™ — ${locationLabel}`
+        : "SnowSense™ — Snow Day Calculator",
+      description,
+      images: [
+        {
+          url: ogUrl,
+          width: 1200,
+          height: 630,
+          alt: locationLabel
+            ? `Snow day probability card for ${locationLabel}`
+            : "SnowSense™ Snow Day Calculator",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: locationLabel
+        ? `${probability !== null ? `${probability}% · ` : ""}SnowSense™ — ${locationLabel}`
+        : "SnowSense™ — Snow Day Calculator",
+      description,
+      images: [ogUrl],
+    },
+  };
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {

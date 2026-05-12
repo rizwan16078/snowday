@@ -1,6 +1,6 @@
-"use client";
-
-// import { motion } from "framer-motion";
+// Server component — uses no client hooks, no framer-motion (was removed earlier
+// but the "use client" directive lingered, unnecessarily pushing about/contact/
+// legal pages into the client bundle).
 import { ReactNode } from "react";
 
 export function AnimatedPageWrapper({ 

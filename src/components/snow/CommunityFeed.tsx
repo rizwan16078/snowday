@@ -24,7 +24,7 @@ export function CommunityFeed({ items }: CommunityFeedProps) {
   const featured = items[0];
 
   return (
-    <section className="mx-auto w-full max-w-4xl px-5" aria-label="Community predictions">
+    <section className="mx-auto w-full max-w-6xl px-5" aria-label="Community predictions">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
