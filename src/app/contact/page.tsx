@@ -5,6 +5,13 @@ import { Mail, MessageSquare, Globe, Code } from "lucide-react";
 export const metadata: Metadata = {
   title: "Contact Us",
   description: "Get in touch with the SnowSense™ team.",
+  alternates: {
+    canonical: "/contact",
+    languages: { 
+      "en": "/contact",
+      "x-default": "/contact"
+    },
+  },
 };
 
 function ContactMethod({ icon: Icon, title, description, href, label }: { icon: any, title: string, description: string, href: string, label: string }) {

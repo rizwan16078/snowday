@@ -5,6 +5,13 @@ export const metadata: Metadata = {
   title: "Snow Day Calculator by Location",
   description:
     "Find snow day predictions for any US city, zip code, or school district. Real-time forecasts powered by SnowSense™.",
+  alternates: {
+    canonical: "/snow-day-calculator",
+    languages: { 
+      "en": "/snow-day-calculator",
+      "x-default": "/snow-day-calculator"
+    },
+  },
 };
 
 const featuredCities = [

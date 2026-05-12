@@ -18,13 +18,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getBlogPost(slug);
   if (!post) return { title: "Article Not Found" };
 
-  const canonicalUrl = `https://www.snowsense.app/blog/${slug}`;
+  const canonicalUrl = `https://www.snowdaycalculate.com/blog/${slug}`;
   return {
     title: post.metaTitle,
     description: post.metaDescription,
     alternates: {
-      canonical: canonicalUrl,
-      languages: { en: canonicalUrl },
+      canonical: `/blog/${slug}`,
+      languages: { 
+        en: `/blog/${slug}`,
+        "x-default": `/blog/${slug}`
+      },
     },
     openGraph: {
       type: "article",
@@ -172,16 +175,16 @@ export default async function BlogPostPage({ params }: Props) {
     "@type": "Article",
     headline: post.metaTitle,
     description: post.metaDescription,
-    image: `https://www.snowsense.app${post.image}`,
+    image: `https://www.snowdaycalculate.com${post.image}`,
     datePublished: post.date,
     dateModified: post.date,
     author: { "@type": "Organization", name: "SnowSense™" },
     publisher: {
       "@type": "Organization",
       name: "SnowSense™",
-      url: "https://www.snowsense.app",
+      url: "https://www.snowdaycalculate.com",
     },
-    mainEntityOfPage: `https://www.snowsense.app/blog/${slug}`,
+    mainEntityOfPage: `https://www.snowdaycalculate.com/blog/${slug}`,
   };
 
   return (

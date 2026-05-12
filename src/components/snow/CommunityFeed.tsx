@@ -71,7 +71,7 @@ export function CommunityFeed({ items }: CommunityFeedProps) {
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {items.slice(0, 6).map((item, index) => (
-            <motion.div
+            <motion.article
               key={item.id}
               initial={{ opacity: 0, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -100,7 +100,7 @@ export function CommunityFeed({ items }: CommunityFeedProps) {
                 </span>
                 <span className="text-[10px] text-white/15">{item.timeAgo}</span>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
 

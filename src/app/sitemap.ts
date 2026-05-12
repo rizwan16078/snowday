@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { getAllSlugs } from "@/lib/blog-data";
 
-const BASE = "https://www.snowsense.app";
+const BASE = "https://www.snowdaycalculate.com";
 
 const cities = [
   // Northeast

@@ -23,8 +23,34 @@ export function Navbar() {
     setIsScrolled(latest > 20);
   });
 
+  const siteNavigationSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SiteNavigationElement",
+        name: "Home",
+        url: "https://www.snowdaycalculate.com/",
+      },
+      {
+        "@type": "SiteNavigationElement",
+        name: "By City",
+        url: "https://www.snowdaycalculate.com/snow-day-calculator",
+      },
+      {
+        "@type": "SiteNavigationElement",
+        name: "Prediction",
+        url: "https://www.snowdaycalculate.com/prediction",
+      },
+      {
+        "@type": "SiteNavigationElement",
+        name: "About",
+        url: "https://www.snowdaycalculate.com/about",
+      },
+    ],
+  };
+
   return (
-    <motion.nav
+    <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -34,7 +60,11 @@ export function Navbar() {
           : "bg-transparent py-5"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center gap-4 px-5 sm:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationSchema) }}
+      />
+      <nav className="mx-auto flex max-w-7xl items-center gap-4 px-5 sm:px-8">
         <Link href="/prediction" className="group flex shrink-0 items-center gap-3">
           <motion.div
             whileHover={{ rotate: 180 }}
@@ -117,7 +147,7 @@ export function Navbar() {
             </motion.button>
           </Link>
         </div>
-      </div>
-    </motion.nav>
+      </nav>
+    </motion.header>
   );
 }

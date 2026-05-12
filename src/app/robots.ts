@@ -10,6 +10,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/*?loc=", "/*?daysUsed=", "/*?type="],
       },
     ],
-    sitemap: "https://www.snowsense.app/sitemap.xml",
+    sitemap: "https://www.snowdaycalculate.com/sitemap.xml",
   };
 }

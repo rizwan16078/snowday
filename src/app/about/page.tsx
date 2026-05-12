@@ -6,6 +6,13 @@ import { ReactNode } from "react";
 export const metadata: Metadata = {
   title: "About",
   description: "Learn more about SnowSense™, the intelligent snow day prediction engine.",
+  alternates: {
+    canonical: "/about",
+    languages: { 
+      "en": "/about",
+      "x-default": "/about"
+    },
+  },
 };
 
 function PillarCard({ icon: Icon, title, description, delay = 0 }: { icon: any, title: string, description: string, delay?: number }) {

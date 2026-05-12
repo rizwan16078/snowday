@@ -4,6 +4,13 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Sitemap",
   description: "Directory of all SnowSense™ pages.",
+  alternates: {
+    canonical: "/sitemap",
+    languages: { 
+      "en": "/sitemap",
+      "x-default": "/sitemap"
+    },
+  },
 };
 
 export default function SitemapPage() {
@@ -21,6 +28,9 @@ export default function SitemapPage() {
           </li>
           <li>
             <Link href="/about" className="hover:text-blue-400 transition-colors">About Us</Link>
+          </li>
+          <li>
+            <Link href="/blog" className="hover:text-blue-400 transition-colors">Blog &amp; Guides</Link>
           </li>
           <li>
             <Link href="/contact" className="hover:text-blue-400 transition-colors">Contact</Link>

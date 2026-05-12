@@ -4,6 +4,13 @@ import { AnimatedPageWrapper, AnimatedSection } from "@/components/layout/Animat
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "Privacy policy for SnowSense™.",
+  alternates: {
+    canonical: "/legal/privacy",
+    languages: { 
+      "en": "/legal/privacy",
+      "x-default": "/legal/privacy"
+    },
+  },
 };
 
 export default function PrivacyPolicyPage() {

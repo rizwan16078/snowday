@@ -8,12 +8,15 @@ export const metadata: Metadata = {
   description:
     "Will school be cancelled tomorrow? Get your real-time snow day probability powered by live weather data, ice risk analysis, and regional tolerance modeling.",
   alternates: {
-    canonical: "https://www.snowsense.app",
-    languages: { "en": "https://www.snowsense.app" },
+    canonical: "/",
+    languages: { 
+      "en": "/",
+      "x-default": "/"
+    },
   },
   openGraph: {
     type: "website",
-    url: "https://www.snowsense.app",
+    url: "https://www.snowdaycalculate.com",
     title: "SnowSense™ — Snow Day Calculator",
     description: "Real-time snow day probability for your location.",
     images: [

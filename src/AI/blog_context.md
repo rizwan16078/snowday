@@ -1,8 +1,10 @@
+Blog content
+
 🧠 PHASE 1 — check my tone below
 
 
  Tone Profile Document: The "Academic Survival Guide"
-Core Identity The tone for this blog acts as the "Empathetic Nerd." It is the smart, older sibling or experienced classmate who has survived the exact same academic panic the reader is currently experiencing. The voice is deeply relatable, mathematically precise, and entirely focused on de-escalating the reader's anxiety with cold, hard facts and a touch of humor.
+Core Identity The tone for this blog acts as the "Empathetic Nerd." It is the smart, older sibling or experienced classmate who has survived the exact same academic panic the reader is currently experiencing. The voice is deeply relatable, mathematically precise, and entirely focused on de-escaalating the reader's anxiety with cold, hard facts and a touch of humor.
 Tone Reassuring, conversational, analytical, and slightly self-aware. It treats the stakes of a test score with the seriousness the student feels, but grounds the solution in simple, undeniable logic.
 Writing Voice Primarily second-person ("You") and first-person plural ("We"). It builds immediate camaraderie by acknowledging the universal dread of grading systems, then seamlessly transitions into an authoritative guide on how to calculate and interpret those grades.
 Sentence Structure Patterns
@@ -44,7 +46,7 @@ Rewritten (Applying the Extracted Tone): Staring at a raw score like 34/45 on th
 You are an SEO research specialist.
 
 INPUT:
-- Primary Keywords: How do I calculate my marks percentage from total marks?
+- Primary Keywords: i have shared in the chat if you dont find it ask me a question about them before going forwar
 
 TASK:
 
@@ -113,6 +115,13 @@ OUTPUT:
 - Content Gaps List
 - Recommended Differentiation Strategy
 
+🧱 PHASE 3.5 — The SME (Subject Matter Expert)
+
+I'm writing a blog post answering this question. Ask me anything you need to know to answer to in order to write a blog post that is truly helpful and unique. It should include my experience, expertise, case studies, examples, opinions, etc. Keep it limited to 10 questions. Ask me them one at a time. I'm lazy. I'll be using voice mode to answer them. Give me time to breathe in between the questions.
+
+Dont skip this phase
+
+
 
 🧱 PHASE 4 — Page Outline & Visual Strategy Prompt
 
@@ -121,6 +130,7 @@ You are a senior SEO content architect.
 INPUT:
 - Tone Profile (Phase 1)
 - Research & Gaps (Phase 2 & 3)
+- SME Interview Notes (Phase 3.5)
 
 TASK:
 
@@ -170,6 +180,7 @@ You are a senior SEO content writer.
 INPUT:
 - Approved Outline (Phase 4)
 - Tone Profile (Phase 1)
+- SME Interview Notes (Phase 3.5)
 
 STRICT RULES:
 
@@ -210,7 +221,7 @@ STRICT RULES:
    - Hedges: “some experts believe…”
 
 OUTPUT:
-- Fully written SEO article (300+ words minimum)
+- Fully written SEO article (350+ words minimum)
 
 
 ✅ PHASE 6 — QA & SEO Audit Prompt
@@ -273,4 +284,5 @@ Do NOT skip validation steps.
 OUTPUT:
 - Final publish-ready article
 - QA report
+
 

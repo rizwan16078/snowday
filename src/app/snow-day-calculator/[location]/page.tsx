@@ -37,13 +37,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const name = [loc.city, loc.state].filter(Boolean).join(", ");
-  const canonicalUrl = `https://www.snowsense.app/snow-day-calculator/${slug}`;
+  const canonicalUrl = `https://www.snowdaycalculate.com/snow-day-calculator/${slug}`;
   return {
     title: `${name} Snow Day Calculator`,
     description: `Will school be cancelled in ${name} tomorrow? Get real-time snow day predictions powered by live weather, ice risk, and regional data.`,
     alternates: {
-      canonical: canonicalUrl,
-      languages: { "en": canonicalUrl },
+      canonical: `/snow-day-calculator/${slug}`,
+      languages: { 
+        "en": `/snow-day-calculator/${slug}`,
+        "x-default": `/snow-day-calculator/${slug}`
+      },
     },
     openGraph: {
       type: "website",
@@ -206,6 +209,7 @@ export default async function LocationPage({ params }: Props) {
           <div className="mt-8 text-center">
             <Link
               href={`/?loc=${slug}&daysUsed=2&type=public`}
+              rel="nofollow"
               className="px-8 py-3 rounded-full font-bold text-sm text-white transition-all inline-block hover:scale-105 active:scale-95"
               style={{ background: "linear-gradient(135deg,#1d4ed8,#3b82f6)", boxShadow: "0 4px 20px rgba(59,130,246,0.3)" }}
             >

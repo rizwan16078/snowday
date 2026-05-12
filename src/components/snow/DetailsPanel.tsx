@@ -54,7 +54,7 @@ export function DetailsPanel({ prediction }: DetailsPanelProps) {
   const weather = prediction.rawWeather;
 
   return (
-    <motion.div
+    <motion.section
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
@@ -162,7 +162,7 @@ export function DetailsPanel({ prediction }: DetailsPanelProps) {
         )}
         <span>Engine v1.0 · SSR</span>
       </motion.div>
-    </motion.div>
+    </motion.section>
   );
 }
 

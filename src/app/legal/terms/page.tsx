@@ -4,6 +4,13 @@ import { AnimatedPageWrapper, AnimatedSection } from "@/components/layout/Animat
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: "Terms of Service for SnowSense™.",
+  alternates: {
+    canonical: "/legal/terms",
+    languages: { 
+      "en": "/legal/terms",
+      "x-default": "/legal/terms"
+    },
+  },
 };
 
 export default function TermsOfServicePage() {
