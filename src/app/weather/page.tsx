@@ -5,12 +5,12 @@ import { headers } from "next/headers";
 import {
   Activity,
   ArrowRight,
-  CalendarDays,
   Calendar,
+  CalendarDays,
   Cloud,
   CloudLightning,
-  Clock3,
   Clock,
+  Clock3,
   CloudRain,
   CloudSun,
   Compass,
@@ -735,7 +735,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                         </p>
                         <ProgressBar
                           value={day.precipitationProbabilityMax}
-                          className="mt-2 bg-gradient-to-r from-cyan-300 to-blue-500"
+                          className="bg-gradient-to-r from-cyan-300 to-blue-500"
                         />
                       </div>
                       <div>

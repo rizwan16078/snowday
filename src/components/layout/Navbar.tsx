@@ -67,15 +67,16 @@ function formatMetric(value: number | null, suffix: string): string {
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [weatherHref, setWeatherHref] = useState("/weather");
+  // The "Should I Go Out?" CTA now points at /weather (the full weather dashboard).
+  const [ctaHref, setCtaHref] = useState("/weather");
   const pathname = usePathname();
   const { scrollY } = useScroll();
   const { ribbon } = useSystemUI();
-  const isPredictionRoute = pathname === "/" || pathname === "/prediction";
+  const isPredictionRoute = pathname === "/" || pathname === "/prediction" || pathname === "/weather";
 
   useEffect(() => {
     const query = window.location.search;
-    setWeatherHref(query ? `/weather${query}` : "/weather");
+    setCtaHref(query ? `/weather${query}` : "/weather");
   }, [pathname]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -123,16 +124,16 @@ export function Navbar() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationSchema) }}
       />
-      <nav className="mx-auto flex max-w-7xl items-center gap-4 px-5 sm:px-8">
-        <Link href="/" className="group flex shrink-0 items-center gap-3">
+      <nav className="mx-auto flex max-w-7xl items-center gap-2 px-3 sm:gap-4 sm:px-8">
+        <Link href="/" className="group flex min-w-0 shrink items-center gap-2 sm:shrink-0 sm:gap-3">
           <motion.div
             whileHover={{ rotate: 180 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="flex items-center justify-center"
+            className="flex shrink-0 items-center justify-center"
           >
-            <Sparkles className="h-7 w-7 text-blue-300 drop-shadow-[0_0_12px_rgba(147,197,253,0.55)] transition-all duration-500 group-hover:drop-shadow-[0_0_18px_rgba(147,197,253,0.75)]" />
+            <Sparkles className="h-6 w-6 text-blue-300 drop-shadow-[0_0_12px_rgba(147,197,253,0.55)] transition-all duration-500 group-hover:drop-shadow-[0_0_18px_rgba(147,197,253,0.75)] sm:h-7 sm:w-7" />
           </motion.div>
-          <span className="font-display text-xl font-black uppercase italic tracking-tight text-white sm:text-2xl">
+          <span className="truncate font-display text-lg font-black uppercase italic tracking-tight text-white sm:text-2xl">
             SnowSense™
           </span>
         </Link>
@@ -163,18 +164,18 @@ export function Navbar() {
           </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-2 sm:gap-4">
+        <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-4">
           <Link
             href="/about"
             aria-label="About SnowSense"
             title="About SnowSense"
-            className="p-2 text-zinc-400 transition-colors hover:text-white"
+            className="hidden p-2 text-zinc-400 transition-colors hover:text-white min-[390px]:block"
           >
             <Globe className="h-5 w-5" aria-hidden="true" />
             <span className="sr-only">About SnowSense</span>
           </Link>
 
-          <Link href={weatherHref}>
+          <Link href={ctaHref}>
             <motion.button
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
@@ -186,10 +187,13 @@ export function Navbar() {
                 ],
               }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-transparent bg-blue-600 px-4 py-2 font-bold tracking-wide text-white transition-all hover:border-white/20 sm:px-6 sm:py-2.5"
+              className="group relative inline-flex max-w-[10.75rem] items-center justify-center gap-2 overflow-hidden rounded-full border border-transparent bg-blue-600 px-3 py-2 font-bold tracking-wide text-white transition-all hover:border-white/20 sm:max-w-none sm:px-6 sm:py-2.5"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <span className="relative z-10 text-sm whitespace-nowrap">
+              <span className="relative z-10 text-sm whitespace-nowrap sm:hidden">
+                Go Out?
+              </span>
+              <span className="relative z-10 hidden text-sm whitespace-nowrap sm:inline">
                 Should I Go Out?
               </span>
             </motion.button>

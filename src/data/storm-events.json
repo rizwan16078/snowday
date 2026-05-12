@@ -1,0 +1,8 @@
+{
+  "_meta": {
+    "generatedAt": null,
+    "source": "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/",
+    "note": "Run `node scripts/ingest-storm-events.mjs` to populate. Until then, the 'Recent storms' UI card auto-hides on every city page."
+  },
+  "byCity": {}
+}

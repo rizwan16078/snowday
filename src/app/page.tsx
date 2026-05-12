@@ -49,11 +49,11 @@ export async function generateMetadata({
   const ogUrl = `/api/og${ogQuery ? `?${ogQuery}` : ""}`;
 
   const title = locationLabel
-    ? `${probability !== null ? `${probability}%` : ""} Snow Day Probability — ${locationLabel}`.trim()
-    : "Snow Day Calculator";
+    ? `${probability !== null ? `${probability}% Chance` : "Snow Day Calculator"} — Will School Be Cancelled in ${locationLabel}?`
+    : "Snow Day Calculator — Will School Be Cancelled Tomorrow?";
   const description = locationLabel
-    ? `${probability !== null ? `${probability}% chance` : "Live snow day probability"} of school being cancelled in ${locationLabel}. Powered by live weather data, ice risk analysis, and regional tolerance modeling.`
-    : "Will school be cancelled tomorrow? Get your real-time snow day probability powered by live weather data, ice risk analysis, and regional tolerance modeling.";
+    ? `${probability !== null ? `${probability}% probability` : "Live snow day probability"} of school being cancelled tomorrow in ${locationLabel}. Real-time forecast powered by NWS, Open-Meteo, and HRRR weather data calibrated against local closure thresholds.`
+    : "Will school be cancelled tomorrow? Free snow day calculator with real-time probability, powered by NWS and Open-Meteo data and calibrated against regional school-closure thresholds. Updated every 30 minutes.";
 
   return {
     title,

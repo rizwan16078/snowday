@@ -1,3 +1,5 @@
+import { generatedBlogPosts } from "./generated-blog-data";
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -12,7 +14,7 @@ export interface BlogPost {
   content: string;
 }
 
-export const blogPosts: BlogPost[] = [
+const manualBlogPosts: BlogPost[] = [
   {
     slug: "how-many-inches-of-snow-cancels-school",
     title: "How Many Inches of Snow Cancels School?",
@@ -430,6 +432,10 @@ The [SnowSense™ calculator](/) factors temperature and wind chill into the **W
 Check your current conditions at our [snow day calculator](/snow-day-calculator) or run your location directly on the [homepage](/).`,
   },
 ];
+
+export const blogPosts: BlogPost[] = [...manualBlogPosts, ...generatedBlogPosts].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
 
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug);

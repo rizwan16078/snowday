@@ -7,8 +7,25 @@ import { HeroPrediction } from "@/components/snow/HeroPrediction";
 import { DetailsPanel } from "@/components/snow/DetailsPanel";
 import { WeatherCanvas } from "@/components/snow/WeatherCanvas";
 import { CityContentSection } from "@/components/snow/CityContentSection";
+import { CityEditorialSection } from "@/components/snow/CityEditorialSection";
+import { NearbyCitiesBlock } from "@/components/snow/NearbyCitiesBlock";
+import { CityDistrictsBlock } from "@/components/snow/CityDistrictsBlock";
 import { CustomDistrictCTA } from "@/components/snow/CustomDistrictCTA";
 import { getCityContent } from "@/lib/city-content";
+import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
+import {
+  getCityRecord,
+  getNearbyCities,
+  getTopCitiesByPopulation,
+  type CityRecord,
+} from "@/lib/cities/helpers";
+import { generateCityContent } from "@/lib/cities/content";
+import { getDistrictsForCity } from "@/lib/districts/helpers";
+import {
+  getRecentStorms,
+  getStormDataGeneratedAt,
+} from "@/lib/storm-events";
+import { RecentStormsCard } from "@/components/snow/RecentStormsCard";
 import type { GeocodingResult } from "@/types/snow";
 import { ChevronDown } from "lucide-react";
 
@@ -16,14 +33,50 @@ interface Props {
   params: Promise<{ location: string }>;
 }
 
-// Resolve slug → geocoding result
+/**
+ * generateStaticParams — pre-render the top 100 cities at build time.
+ * The rest are rendered on-demand via ISR and cached. `dynamicParams: true`
+ * (the Next.js default) is what makes the uncovered slugs still work.
+ *
+ * Why 100 and not all 480: each pre-rendered city costs one geocode-skipped
+ * weather API call at build. 100 is a comfortable build-time budget that
+ * still covers all the heavy-traffic cities. The other 380 pre-render on
+ * first user/crawler visit, then cache for 30 minutes.
+ */
+export async function generateStaticParams() {
+  return getTopCitiesByPopulation(100).map((c) => ({ location: c.slug }));
+}
+
+/**
+ * Convert a CityRecord from the catalog into the GeocodingResult shape the
+ * prediction engine expects. Avoids a live geocode API call for known slugs.
+ */
+function recordToGeocoding(c: CityRecord): GeocodingResult {
+  return {
+    lat: c.lat,
+    lon: c.lon,
+    city: c.name,
+    state: c.stateName,
+    country: "United States",
+    slug: c.slug,
+  };
+}
+
+/**
+ * Resolve a slug to a geocoding-compatible result. Catalog first (fast,
+ * deterministic, no API hit); falls back to live geocoding for user-typed
+ * slugs that aren't in the catalog.
+ */
 async function resolveLocation(slug: string): Promise<GeocodingResult | null> {
+  const record = getCityRecord(slug);
+  if (record) return recordToGeocoding(record);
+  // Unknown slug — fall back to external geocoding
   const query = slug.replace(/-/g, " ");
   const results = await geocodeSearch(query);
   return results[0] ?? null;
 }
 
-// ISR — revalidate every 30 minutes
+// ISR — revalidate every 30 minutes so the live prediction stays fresh.
 export const revalidate = 1800;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -44,9 +97,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const canonicalUrl = `https://www.snowdaycalculate.com/snow-day-calculator/${slug}`;
   // Dynamic OG card — city pages emit a personalized share preview.
   const ogUrl = `/api/og?loc=${encodeURIComponent(name)}`;
+
+  // Per-city unique meta description (H2 + M2 fix). If the slug is in our
+  // catalog, use the climate-zone-specific generator which produces a
+  // meaningfully different description per city. Unknown slugs get the
+  // generic template fallback.
+  const record = getCityRecord(slug);
+  const generated = record ? generateCityContent(record) : null;
+  const description =
+    generated?.metaDescription ??
+    `Will school be cancelled in ${name} tomorrow? Get real-time snow day predictions powered by live weather, ice risk, and regional data.`;
+
   return {
     title: `${name} Snow Day Calculator`,
-    description: `Will school be cancelled in ${name} tomorrow? Get real-time snow day predictions powered by live weather, ice risk, and regional data.`,
+    description,
     alternates: {
       canonical: `/snow-day-calculator/${slug}`,
     },
@@ -176,11 +240,23 @@ export default async function LocationPage({ params }: Props) {
     ],
   };
 
+  // BreadcrumbList (H4 fix). Improves SERP rendering: trail shown directly
+  // in mobile results instead of a long URL path.
+  const breadcrumbSchema = breadcrumbListSchema([
+    { name: "Home", path: "/" },
+    { name: "Snow Day Calculator", path: "/snow-day-calculator" },
+    { name: locationName, path: `/snow-day-calculator/${slug}` },
+  ]);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <div className="relative min-h-screen">
         <WeatherCanvas probability={prediction.probability} isFallback={prediction.isFallback} />
@@ -197,9 +273,17 @@ export default async function LocationPage({ params }: Props) {
             </ol>
           </nav>
 
-          <h1 className="sr-only">
-            {locationName} Snow Day Calculator
-          </h1>
+          {/* Visible H1 (B3 fix). City + state in the heading is the strongest
+              on-page signal for local queries like "boston snow day calculator". */}
+          <header className="text-center mb-4 sm:mb-6 px-4">
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">
+              {locationName} Snow Day Calculator
+            </h1>
+            <p className="mt-2 text-sm sm:text-base font-medium text-white/55 max-w-xl mx-auto">
+              Real-time probability that schools in {locationName} will be cancelled
+              tomorrow, based on live forecast data and local closure thresholds.
+            </p>
+          </header>
 
           <HeroPrediction
             probability={prediction.probability}
@@ -249,14 +333,86 @@ export default async function LocationPage({ params }: Props) {
           </section>
         )}
 
-        {/* City-Specific Content — static SEO section */}
+        {/* City-Specific Content — SEO section.
+            Strategy: premium hand-authored cities (the original 8 in
+            city-content.ts) get the richer CityContentSection rendering.
+            All other cities get the template-generated editorial (500+
+            words per climate zone) from the new catalog system. */}
         {(() => {
-          const cityContent = getCityContent(slug);
-          return cityContent ? (
-            <section className="relative z-10 py-16">
-              <CityContentSection content={cityContent} />
-            </section>
-          ) : null;
+          const premiumContent = getCityContent(slug);
+          if (premiumContent) {
+            return (
+              <section className="relative z-10 py-16">
+                <CityContentSection content={premiumContent} />
+              </section>
+            );
+          }
+          const record = getCityRecord(slug);
+          if (record) {
+            const generated = generateCityContent(record);
+            return (
+              <CityEditorialSection
+                content={generated}
+                cityName={record.displayName}
+                stateName={record.stateName}
+              />
+            );
+          }
+          return null;
+        })()}
+
+        {/* Recent storms from the NWS Storm Events DB (E-E-A-T).
+            Card self-hides when the static dataset has no events for this
+            slug (e.g., long-tail cities or non-snow regions). */}
+        {(() => {
+          const record = getCityRecord(slug);
+          if (!record) return null;
+          const storms = getRecentStorms(record.slug, 4);
+          if (storms.length === 0) return null;
+          return (
+            <RecentStormsCard
+              cityName={record.displayName}
+              storms={storms}
+              generatedAt={getStormDataGeneratedAt()}
+            />
+          );
+        })()}
+
+        {/* School districts serving this city — internal linking to
+            /school-district/[slug] pages. Block self-hides if catalog has
+            no district matched to this city slug. */}
+        {(() => {
+          const record = getCityRecord(slug);
+          if (!record) return null;
+          const districts = getDistrictsForCity(record.slug).map((d) => ({
+            slug: d.slug,
+            name: d.name,
+            enrollment: d.enrollment,
+            type: d.type,
+          }));
+          return (
+            <CityDistrictsBlock cityName={record.displayName} districts={districts} />
+          );
+        })()}
+
+        {/* Nearby Cities block (M4 fix) — only rendered for catalog cities.
+            Improves internal linking density, keeps visitors on-site for a
+            second page view, and gives Google a web of related local pages
+            to discover.  */}
+        {(() => {
+          const record = getCityRecord(slug);
+          if (!record) return null;
+          const nearby = getNearbyCities(record, 6).map((c) => ({
+            slug: c.slug,
+            name: c.name,
+            state: c.state,
+            stateName: c.stateName,
+            distanceKm: c.distanceKm,
+            snowInches: c.snowInches,
+          }));
+          return (
+            <NearbyCitiesBlock originName={record.displayName} nearby={nearby} />
+          );
         })()}
       </div>
     </>

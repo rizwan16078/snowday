@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { SystemUIProvider } from "@/components/providers/SystemUIProvider";
+import { PWAInstallPrompt } from "@/components/pwa/PWAInstallPrompt";
 
 // Self-hosted variable fonts via next/font. Automatically:
 //  - Applies font-display: swap (prevents FOIT, fixes audit warning)
@@ -139,6 +140,7 @@ export default function RootLayout({
           <div className="flex-grow">{children}</div>
           <Footer />
           <BackToTop />
+          <PWAInstallPrompt />
         </SystemUIProvider>
       </body>
     </html>

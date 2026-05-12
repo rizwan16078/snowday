@@ -150,6 +150,8 @@ export function Footer() {
             Resources
           </h4>
           <nav className="flex flex-col space-y-3">
+            <Link href="/weather-guide"  className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Weather Guide</Link>
+            <Link href="/weather-terms"  className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Weather Glossary</Link>
             <Link href="/blog"           className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Blog &amp; Guides</Link>
             <Link href="/#how-it-works"  className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">How it Works</Link>
             <Link href="/about"          className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">About Us</Link>

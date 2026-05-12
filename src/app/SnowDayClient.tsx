@@ -186,9 +186,18 @@ export default function SnowDayShell({
           </div>
         ) : (
           <>
-            <h1 className="sr-only">
-              {locationLabel ? `${locationLabel} Snow Day Calculator` : "SnowSense™ Snow Day Calculator"}
-            </h1>
+            {/* Visible, static H1 — must not depend on visitor IP (B1 fix).
+                Static text is the primary ranking signal; dynamic location
+                is shown separately by HeroPrediction via locationLabel. */}
+            <header className="animate-slide-up text-center mb-4 sm:mb-6">
+              <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">
+                Snow Day Calculator
+              </h1>
+              <p className="mt-2 text-sm sm:text-base font-medium text-white/55 max-w-xl mx-auto">
+                Will school be cancelled tomorrow? Real-time probability powered by live
+                weather, ice risk, and regional school-closure data.
+              </p>
+            </header>
             <HeroPrediction
               probability={activePrediction?.probability}
               status={activePrediction?.status}

@@ -17,10 +17,18 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "Learn more about SnowSense™, the intelligent snow day prediction engine.",
+  title: "About SnowSense — How We Predict Snow Days",
+  description:
+    "How SnowSense™ predicts snow day probability: live NWS and Open-Meteo data, HRRR storm modeling, regional school-closure thresholds, and edge-rendered forecasts updated every 30 minutes.",
   alternates: {
     canonical: "/about",
+  },
+  openGraph: {
+    type: "website",
+    title: "About SnowSense — How We Predict Snow Days",
+    description:
+      "The team, data sources, and methodology behind SnowSense™ snow day predictions.",
+    url: "https://www.snowdaycalculate.com/about",
   },
 };
 

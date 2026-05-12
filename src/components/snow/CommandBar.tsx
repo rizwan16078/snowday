@@ -250,11 +250,11 @@ export function CommandBar({
         role="toolbar"
         aria-label="Prediction controls"
       >
-        <div className="glass-command mx-3 mb-3 rounded-2xl px-3 py-2.5">
-          <div className="flex items-center gap-2">
+        <div className="glass-command mx-2 mb-2 rounded-2xl px-2.5 py-2.5 sm:mx-3 sm:mb-3 sm:px-3">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="flex min-w-0 flex-1 items-center gap-2 rounded-xl px-3 py-2 transition-colors hover:bg-white/5"
+              className="flex min-w-0 flex-[1_1_14rem] items-center gap-2 rounded-xl px-3 py-2 transition-colors hover:bg-white/5"
               aria-label={`Location: ${locationStr}. Tap to change.`}
             >
               <MapPin className="h-4 w-4 shrink-0 text-blue-400" />
@@ -263,27 +263,29 @@ export function CommandBar({
               </span>
             </button>
 
-            <button
-              onClick={onCalibrationToggle}
-              className="shrink-0 rounded-xl bg-white/5 px-3 py-2 transition-colors hover:bg-white/8"
-              aria-label="Open calibration"
-            >
-              <span className="flex items-center gap-1.5">
-                <Settings className="h-3.5 w-3.5 text-cyan-300/80" />
-                <span className="text-xs font-semibold text-white/50">{daysUsed}d</span>
-              </span>
-            </button>
+            <div className="ml-auto flex shrink-0 items-center gap-2">
+              <button
+                onClick={onCalibrationToggle}
+                className="shrink-0 rounded-xl bg-white/5 px-3 py-2 transition-colors hover:bg-white/8"
+                aria-label="Open calibration"
+              >
+                <span className="flex items-center gap-1.5">
+                  <Settings className="h-3.5 w-3.5 text-cyan-300/80" />
+                  <span className="text-xs font-semibold text-white/50">{daysUsed}d</span>
+                </span>
+              </button>
 
-            <button
-              onClick={onRefresh}
-              disabled={isLoading || offline}
-              className="shrink-0 rounded-xl bg-blue-600 p-2 transition-colors hover:bg-blue-500 disabled:opacity-30"
-              aria-label="Refresh prediction"
-            >
-              <RefreshCw
-                className={`h-4 w-4 text-white ${isLoading ? "animate-spin" : ""}`}
-              />
-            </button>
+              <button
+                onClick={onRefresh}
+                disabled={isLoading || offline}
+                className="shrink-0 rounded-xl bg-blue-600 p-2 transition-colors hover:bg-blue-500 disabled:opacity-30"
+                aria-label="Refresh prediction"
+              >
+                <RefreshCw
+                  className={`h-4 w-4 text-white ${isLoading ? "animate-spin" : ""}`}
+                />
+              </button>
+            </div>
           </div>
         </div>
 
