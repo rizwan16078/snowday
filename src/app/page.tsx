@@ -50,10 +50,10 @@ export async function generateMetadata({
 
   const title = locationLabel
     ? `${probability !== null ? `${probability}% Chance` : "Snow Day Calculator"} — Will School Be Cancelled in ${locationLabel}?`
-    : "Snow Day Calculator — Will School Be Cancelled Tomorrow?";
+    : "Snow Day Calculator by ZIP Code, City, or District";
   const description = locationLabel
     ? `${probability !== null ? `${probability}% probability` : "Live snow day probability"} of school being cancelled tomorrow in ${locationLabel}. Real-time forecast powered by NWS, Open-Meteo, and HRRR weather data calibrated against local closure thresholds.`
-    : "Will school be cancelled tomorrow? Free snow day calculator with real-time probability, powered by NWS and Open-Meteo data and calibrated against regional school-closure thresholds. Updated every 30 minutes.";
+    : "Will school be cancelled tomorrow? Use the SnowSense snow day calculator to check your auto-detected forecast or search by ZIP code, city, or district. Updated every 30 minutes.";
 
   return {
     title,
@@ -66,7 +66,7 @@ export async function generateMetadata({
       url: "https://www.snowdaycalculate.com",
       title: locationLabel
         ? `${probability !== null ? `${probability}% · ` : ""}SnowSense™ — ${locationLabel}`
-        : "SnowSense™ — Snow Day Calculator",
+        : "SnowSense™ — Snow Day Calculator by ZIP Code",
       description,
       images: [
         {
@@ -83,7 +83,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: locationLabel
         ? `${probability !== null ? `${probability}% · ` : ""}SnowSense™ — ${locationLabel}`
-        : "SnowSense™ — Snow Day Calculator",
+        : "SnowSense™ — Snow Day Calculator by ZIP Code",
       description,
       images: [ogUrl],
     },

@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { SnowDayPrediction, SchoolType } from "@/types/snow";
-import { Share2, Link, Download, Check, X } from "lucide-react";
+import { Share2, Link, Download, Check, X, Send, Image as ImageIcon } from "lucide-react";
 
 /**
  * ShareSystem — Viral sharing experience
@@ -53,6 +54,19 @@ function buildShareUrl(
   return `${typeof window !== "undefined" ? window.location.origin : ""}/?${params}`;
 }
 
+function buildShareCardSrc(
+  locationStr: string,
+  prediction: SnowDayPrediction
+): string {
+  const params = new URLSearchParams({
+    loc: locationStr,
+    p: String(prediction.probability),
+    s: prediction.status,
+  });
+
+  return `/api/og?${params.toString()}`;
+}
+
 /**
  * Fetch the dynamic OG card PNG so we can attach it to the native share
  * sheet via Web Share Level 2 (Messages / Mail / AirDrop will then carry
@@ -64,12 +78,7 @@ async function fetchOgCardFile(
 ): Promise<File | null> {
   if (typeof window === "undefined") return null;
   try {
-    const params = new URLSearchParams({
-      loc: locationStr,
-      p: String(prediction.probability),
-      s: prediction.status,
-    });
-    const res = await fetch(`/api/og?${params.toString()}`, {
+    const res = await fetch(buildShareCardSrc(locationStr, prediction), {
       cache: "force-cache",
     });
     if (!res.ok) return null;
@@ -100,9 +109,9 @@ function drawShareImage(
 
   // Background
   const bg = ctx.createLinearGradient(0, 0, W, H);
-  bg.addColorStop(0, "#060c1e");
-  bg.addColorStop(0.5, "#0c1830");
-  bg.addColorStop(1, "#050810");
+  bg.addColorStop(0, "#050a14");
+  bg.addColorStop(0.45, "#0a1530");
+  bg.addColorStop(1, "#0e2a5c");
   ctx.fillStyle = bg;
   ctx.roundRect(0, 0, W, H, 20);
   ctx.fill();
@@ -114,46 +123,152 @@ function drawShareImage(
   ctx.stroke();
 
   const color = statusColor[prediction.status] ?? "#3b82f6";
+  const message =
+    prediction.status === "Very Likely"
+      ? "Snow day conditions are lining up for tomorrow."
+      : prediction.status === "Possible"
+        ? "Tomorrow is in the watch zone for a closure call."
+        : "A closure looks less likely, but conditions can still shift overnight.";
 
-  // Subtle glow behind number
-  ctx.shadowBlur = 80;
-  ctx.shadowColor = color;
-  ctx.fillStyle = "transparent";
-  ctx.fillRect(W / 2 - 50, 120, 100, 80);
-  ctx.shadowBlur = 0;
+  // Background accents
+  const glow = ctx.createRadialGradient(480, 260, 20, 480, 260, 180);
+  glow.addColorStop(0, `${color}40`);
+  glow.addColorStop(1, "transparent");
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(480, 260, 180, 0, Math.PI * 2);
+  ctx.fill();
 
-  // Header
-  ctx.fillStyle = "rgba(255,255,255,0.25)";
-  ctx.font = "500 11px Inter, system-ui, sans-serif";
+  const blueGlow = ctx.createRadialGradient(520, 30, 10, 520, 30, 140);
+  blueGlow.addColorStop(0, "rgba(59,130,246,0.25)");
+  blueGlow.addColorStop(1, "transparent");
+  ctx.fillStyle = blueGlow;
+  ctx.beginPath();
+  ctx.arc(520, 30, 140, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Header pill
+  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  ctx.strokeStyle = "rgba(255,255,255,0.12)";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.roundRect(370, 22, 190, 34, 999);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = "rgba(255,255,255,0.72)";
+  ctx.font = "700 11px Inter, system-ui, sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText("SnowSense™ Prediction", W / 2, 48);
+  ctx.fillText("TOMORROW'S FORECAST", 465, 43);
 
-  // Location
+  // Brand
+  ctx.shadowBlur = 0;
   ctx.fillStyle = "#ffffff";
-  ctx.font = "bold 20px Inter, system-ui, sans-serif";
-  ctx.fillText(locationStr, W / 2, 85);
+  ctx.textAlign = "left";
+  ctx.font = "800 24px Inter, system-ui, sans-serif";
+  ctx.fillText("SnowSense™", 34, 46);
 
-  // Probability number
+  // Left copy
+  ctx.fillStyle = "rgba(255,255,255,0.55)";
+  ctx.font = "700 11px Inter, system-ui, sans-serif";
+  ctx.fillText("LIVE SNOW DAY OUTLOOK", 34, 92);
+
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "900 36px Inter, system-ui, sans-serif";
+  ctx.fillText(locationStr, 34, 132);
+
+  ctx.fillStyle = "rgba(255,255,255,0.68)";
+  ctx.font = "500 16px Inter, system-ui, sans-serif";
+  wrapCanvasText(ctx, message, 34, 162, 240, 22);
+
+  // Badges
+  drawBadge(ctx, 34, 236, 96, "UPDATED LIVE", "rgba(255,255,255,0.85)", "rgba(255,255,255,0.08)", "rgba(255,255,255,0.12)");
+  drawBadge(ctx, 140, 236, 145, `${statusEmoji[prediction.status] ?? "❄️"} ${prediction.status.toUpperCase()}`, color, `${color}18`, `${color}44`);
+
+  // Probability panel
+  ctx.fillStyle = "rgba(255,255,255,0.05)";
+  ctx.strokeStyle = `${color}55`;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.roundRect(340, 92, 226, 190, 28);
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.fillStyle = "rgba(255,255,255,0.42)";
+  ctx.font = "700 11px Inter, system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("PROBABILITY", 453, 124);
+
   ctx.fillStyle = color;
-  ctx.font = "900 88px Inter, system-ui, sans-serif";
-  ctx.fillText(`${prediction.probability}%`, W / 2, 195);
-
-  // Glow
-  ctx.shadowBlur = 40;
+  ctx.shadowBlur = 26;
   ctx.shadowColor = color;
-  ctx.fillText(`${prediction.probability}%`, W / 2, 195);
+  ctx.font = "900 82px Inter, system-ui, sans-serif";
+  ctx.fillText(`${prediction.probability}%`, 453, 200);
   ctx.shadowBlur = 0;
 
-  // Status
-  ctx.fillStyle = color;
-  ctx.font = "700 16px Inter, system-ui, sans-serif";
-  ctx.letterSpacing = "2px";
-  ctx.fillText(prediction.status.toUpperCase(), W / 2, 235);
+  ctx.font = "800 18px Inter, system-ui, sans-serif";
+  ctx.fillText(prediction.status.toUpperCase(), 453, 236);
 
   // Footer
-  ctx.fillStyle = "rgba(255,255,255,0.15)";
-  ctx.font = "400 10px Inter, system-ui, sans-serif";
-  ctx.fillText("snowsense.app", W / 2, 310);
+  ctx.textAlign = "left";
+  ctx.fillStyle = "rgba(255,255,255,0.74)";
+  ctx.font = "700 16px Inter, system-ui, sans-serif";
+  ctx.fillText("Real-time forecast card", 34, 312);
+
+  ctx.textAlign = "right";
+  ctx.fillStyle = "rgba(255,255,255,0.48)";
+  ctx.font = "700 14px Inter, system-ui, sans-serif";
+  ctx.fillText("snowdaycalculate.com", 566, 312);
+}
+
+function drawBadge(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  width: number,
+  text: string,
+  textColor: string,
+  fillColor: string,
+  borderColor: string
+) {
+  ctx.fillStyle = fillColor;
+  ctx.strokeStyle = borderColor;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.roundRect(x, y, width, 30, 999);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = textColor;
+  ctx.textAlign = "center";
+  ctx.font = "800 10px Inter, system-ui, sans-serif";
+  ctx.fillText(text, x + width / 2, y + 19);
+}
+
+function wrapCanvasText(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  y: number,
+  maxWidth: number,
+  lineHeight: number
+) {
+  const words = text.split(" ");
+  let line = "";
+  let currentY = y;
+
+  for (const word of words) {
+    const nextLine = line ? `${line} ${word}` : word;
+    if (ctx.measureText(nextLine).width > maxWidth && line) {
+      ctx.fillText(line, x, currentY);
+      line = word;
+      currentY += lineHeight;
+    } else {
+      line = nextLine;
+    }
+  }
+
+  if (line) {
+    ctx.fillText(line, x, currentY);
+  }
 }
 
 export function ShareSystem({
@@ -165,35 +280,44 @@ export function ShareSystem({
 }: ShareSystemProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [sharingCard, setSharingCard] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const shareUrl = buildShareUrl(locationSlug, daysUsed, schoolType, prediction);
   const shareText = `${statusEmoji[prediction.status] ?? "❄️"} ${prediction.probability}% chance of a snow day in ${locationStr}! Check your area:`;
+  const shareCardSrc = buildShareCardSrc(locationStr, prediction);
 
   const handleNativeShare = useCallback(async () => {
     if (!navigator.share) return;
 
-    // Try Web Share Level 2 (attach the OG card image as a File). Falls back
-    // to URL-only share if the OS or browser doesn't accept files.
+    setSharingCard(true);
+
     const file = await fetchOgCardFile(locationStr, prediction);
-    const payloadWithFile: ShareData =
-      file && typeof navigator.canShare === "function" && navigator.canShare({ files: [file] })
-        ? {
-            title: `SnowSense™ — ${locationStr}`,
-            text: shareText,
-            url: shareUrl,
-            files: [file],
-          }
-        : {
-            title: `SnowSense™ — ${locationStr}`,
-            text: shareText,
-            url: shareUrl,
-          };
 
     try {
-      await navigator.share(payloadWithFile);
+      if (
+        file &&
+        typeof navigator.canShare === "function" &&
+        navigator.canShare({ files: [file] })
+      ) {
+        await navigator.share({
+          title: `SnowSense™ — ${locationStr}`,
+          text: `${shareText} ${shareUrl}`,
+          files: [file],
+        });
+      } else {
+        await navigator.share({
+          title: `SnowSense™ — ${locationStr}`,
+          text: shareText,
+          url: shareUrl,
+        });
+      }
+
+      setIsOpen(false);
     } catch {
       // User cancelled or share failed — silently no-op (user can use the modal copy/save).
+    } finally {
+      setSharingCard(false);
     }
   }, [locationStr, prediction, shareText, shareUrl]);
 
@@ -245,13 +369,7 @@ export function ShareSystem({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
-        onClick={() => {
-          if (supportsShare) {
-            handleNativeShare();
-          } else {
-            setIsOpen(true);
-          }
-        }}
+        onClick={() => setIsOpen(true)}
         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass hover:bg-white/8 transition-all text-sm font-semibold text-white/60 hover:text-white/90"
         aria-label="Share this prediction"
       >
@@ -278,7 +396,7 @@ export function ShareSystem({
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="glass-card rounded-3xl p-6 w-full max-w-sm space-y-5"
+              className="glass-card rounded-3xl p-6 w-full max-w-md space-y-5"
             >
               <div className="flex items-center justify-between">
                 <p className="text-sm font-bold text-white/80">
@@ -293,36 +411,39 @@ export function ShareSystem({
                 </button>
               </div>
 
-              {/* Preview */}
-              <div
-                className="rounded-2xl p-5 text-center"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #060c1e, #0c1830, #050810)",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                }}
-              >
-                <p className="text-[10px] text-white/25 uppercase tracking-widest mb-2">
-                  SnowSense™
-                </p>
-                <p className="text-white font-bold text-sm mb-1">
-                  {locationStr}
-                </p>
-                <div
-                  className="text-5xl font-black my-3"
-                  style={{
-                    color: statusColor[prediction.status],
-                    textShadow: `0 0 30px ${statusColor[prediction.status]}44`,
-                  }}
-                >
-                  {prediction.probability}%
+              {/* Customized share card */}
+              <div className="space-y-3">
+                <div className="overflow-hidden rounded-[28px] border border-white/10 bg-[#07101f] shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+                  <Image
+                    src={shareCardSrc}
+                    alt={`Share card for ${locationStr}`}
+                    width={1200}
+                    height={630}
+                    className="block h-auto w-full"
+                  />
                 </div>
-                <p
-                  className="text-xs font-bold uppercase tracking-widest"
-                  style={{ color: statusColor[prediction.status] }}
-                >
-                  {prediction.status}
-                </p>
+                <div className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/35">
+                        Custom Share Card
+                      </p>
+                      <p className="mt-1 text-sm text-white/70">
+                        Share the branded image card instead of a plain website link preview.
+                      </p>
+                    </div>
+                    <div
+                      className="shrink-0 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.24em]"
+                      style={{
+                        background: `${statusColor[prediction.status]}18`,
+                        border: `1px solid ${statusColor[prediction.status]}33`,
+                        color: statusColor[prediction.status],
+                      }}
+                    >
+                      {prediction.status}
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* URL preview */}
@@ -333,7 +454,32 @@ export function ShareSystem({
               </div>
 
               {/* Action buttons */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {supportsShare ? (
+                  <button
+                    onClick={handleNativeShare}
+                    disabled={sharingCard}
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl transition-all text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-50"
+                    style={{
+                      background: `linear-gradient(135deg, ${statusColor[prediction.status]}22, rgba(59,130,246,0.08))`,
+                      border: `1px solid ${statusColor[prediction.status]}44`,
+                      color: "#ffffff",
+                    }}
+                    aria-label="Share the custom card"
+                  >
+                    {sharingCard ? (
+                      <>
+                        <ImageIcon className="w-4 h-4 animate-pulse" />
+                        Preparing card...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        Share Card
+                      </>
+                    )}
+                  </button>
+                ) : null}
                 <button
                   onClick={handleCopyLink}
                   className="flex items-center justify-center gap-2 py-3 rounded-xl glass hover:bg-white/8 transition-all text-sm font-semibold text-white/70 hover:text-white"
@@ -353,7 +499,7 @@ export function ShareSystem({
                 </button>
                 <button
                   onClick={handleDownload}
-                  className="flex items-center justify-center gap-2 py-3 rounded-xl transition-all text-sm font-semibold"
+                  className="flex items-center justify-center gap-2 py-3 rounded-xl transition-all text-sm font-semibold sm:col-span-2"
                   style={{
                     background: `linear-gradient(135deg, ${
                       statusColor[prediction.status]
@@ -364,7 +510,7 @@ export function ShareSystem({
                   aria-label="Download prediction as image"
                 >
                   <Download className="w-4 h-4" />
-                  Save Image
+                  Save Card
                 </button>
               </div>
             </motion.div>

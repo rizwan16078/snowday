@@ -32,11 +32,11 @@ export const metadata: Metadata = {
     template: "%s | SnowSense™",
   },
   description:
-    "Will school be cancelled tomorrow? Check your real-time snow day probability with live weather data, ice risk, and regional analysis.",
+    "Will school be cancelled tomorrow? Check your real-time snow day probability with live weather data, ice risk, and regional analysis. Search by ZIP code, city, or district.",
   openGraph: {
     type: "website",
     title: "SnowSense™ — Snow Day Calculator",
-    description: "Real-time snow day probability for your location. Updated every 30 minutes.",
+    description: "Real-time snow day probability for your location. Search by ZIP code, city, or district. Updated every 30 minutes.",
     siteName: "SnowSense™",
     images: [
       {
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "SnowSense™ — Snow Day Calculator",
-    description: "What's the chance school is cancelled tomorrow? Check now →",
+    description: "Check the snow day forecast for your ZIP code, city, or district.",
     images: ["/og-default.svg"],
   },
   alternates: {
@@ -98,7 +98,7 @@ const webAppSchema = {
   operatingSystem: "Web Browser",
   browserRequirements: "Requires JavaScript",
   description:
-    "Free snow day probability calculator. Enter your city to get a real-time prediction of whether school will be cancelled tomorrow, updated every 30 minutes.",
+    "Free snow day probability calculator. Enter your ZIP code, city, or district to get a real-time prediction of whether school will be cancelled tomorrow, updated every 30 minutes.",
   offers: {
     "@type": "Offer",
     price: "0",

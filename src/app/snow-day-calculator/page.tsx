@@ -14,8 +14,8 @@ import {
 } from "@/lib/districts/helpers";
 
 export const metadata: Metadata = {
-  title: `Snow Day Calculator by Location — ${ALL_CITIES.length}+ US Cities`,
-  description: `Live snow day predictions for ${ALL_CITIES.length}+ US cities across all 50 states. Real-time probability updated every 30 minutes, calibrated to local closure thresholds. Find your city or browse by state.`,
+  title: `Snow Day Calculator by ZIP Code, City, or District — ${ALL_CITIES.length}+ US Cities`,
+  description: `Live snow day predictions for ${ALL_CITIES.length}+ US cities across all 50 states. Search by ZIP code, city, or district, or use your auto-detected location. Updated every 30 minutes.`,
   alternates: {
     canonical: "/snow-day-calculator",
   },
@@ -54,12 +54,12 @@ export default function SnowDayIndexPage() {
             Snow Day Calculator by Location
           </h1>
           <p className="text-white/55 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Live snow day probability for{" "}
+            Search by ZIP code, city, or district to get the live snow day probability for{" "}
             <strong className="text-white/80">
               {ALL_CITIES.length.toLocaleString()} US cities
             </strong>{" "}
-            across all {stateSlugs.length} covered states. Pick your city or
-            browse by state.
+            across all {stateSlugs.length} covered states, or start with your
+            auto-detected location.
           </p>
         </header>
 
@@ -149,7 +149,7 @@ export default function SnowDayIndexPage() {
               boxShadow: "0 4px 20px rgba(59,130,246,0.3)",
             }}
           >
-            🔮 Use My Location
+            🔮 Use Auto-Detected Location
           </Link>
         </div>
       </main>

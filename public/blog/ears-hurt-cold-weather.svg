@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Ears Hurt Cold Weather">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050a14"/>
+      <stop offset="60%" stop-color="#0b1d3a"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g transform="translate(80,80)" stroke="#ffffff" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.85">
+    <polyline points="0,100 30,60 60,80 90,30 120,50"/>
+    <line x1="0" y1="120" x2="120" y2="120"/>
+  </g>
+  <text x="80" y="320" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-weight="800" font-size="72" fill="#ffffff" letter-spacing="-2">Ears Hurt Cold Weather</text>
+  <text x="80" y="490" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-weight="500" font-size="28" fill="#cbd5e1">SnowSense™ Educational Guide</text>
+  <text x="80" y="550" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20" fill="#60a5fa" opacity="0.85">snowdaycalculate.com/blog</text>
+</svg>

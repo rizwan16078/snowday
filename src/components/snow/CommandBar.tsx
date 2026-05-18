@@ -162,9 +162,9 @@ export function CommandBar({
                     setIsSearchOpen(false);
                   }
                 }}
-                placeholder="Search city or district..."
+                placeholder="Search ZIP code, city, or district..."
                 className="w-full rounded-xl bg-white/5 py-2 pl-9 pr-8 text-sm text-white placeholder-white/30 transition-colors focus:bg-white/8 focus:outline-none"
-                aria-label="Search for a location"
+                aria-label="Search by ZIP code, city, or district"
                 aria-autocomplete="list"
                 aria-controls="cmd-location-results"
               />
@@ -323,9 +323,9 @@ export function CommandBar({
                     value={query}
                     onChange={handleInput}
                     autoFocus
-                    placeholder="City, state, or district..."
-                    className="w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-10 pr-4 text-base text-white placeholder-white/30 transition-colors focus:border-blue-400/50 focus:outline-none"
-                    aria-label="Search for a location"
+                  placeholder="ZIP code, city, or district..."
+                  className="w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-10 pr-4 text-base text-white placeholder-white/30 transition-colors focus:border-blue-400/50 focus:outline-none"
+                  aria-label="Search by ZIP code, city, or district"
                   />
                   {searching ? (
                     <div className="absolute right-3 top-1/2 -translate-y-1/2">

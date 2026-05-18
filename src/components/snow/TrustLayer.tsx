@@ -13,7 +13,7 @@ const steps = [
   {
     icon: <Cloud className="w-5 h-5" />,
     title: "Multi-Source Weather Data",
-    description: "We aggregate data from the National Weather Service, Open-Meteo, and NOAA to build a comprehensive weather picture for your location.",
+    description: "We combine public forecast inputs for your location, including live weather, snow accumulation, temperature, and timing signals.",
     accent: "#60a5fa",
   },
   {
@@ -31,7 +31,7 @@ const steps = [
   {
     icon: <Zap className="w-5 h-5" />,
     title: "Edge Computing",
-    description: "Results are computed at the edge and cached globally. Fresh data every 30 minutes, served in under 100ms worldwide.",
+    description: "Results are rendered quickly with cached weather inputs refreshed throughout the day so the forecast stays responsive.",
     accent: "#f59e0b",
   },
   {
@@ -42,22 +42,30 @@ const steps = [
   },
   {
     icon: <Shield className="w-5 h-5" />,
-    title: "Accuracy Guarantee",
-    description: "Our model maintains 85%+ accuracy during active winter storm seasons, validated against actual school closure data.",
+    title: "Local Context Matters",
+    description: "The same snowfall can lead to different decisions depending on road treatment, bus routes, timing, and district tolerance.",
     accent: "#f43f5e",
   },
 ];
 
-const accuracy = {
-  overall: 87,
-  lastUpdated: "Weekly",
-  regions: [
-    { name: "Northeast", score: 91 },
-    { name: "Midwest", score: 88 },
-    { name: "Mountain West", score: 84 },
-    { name: "Southeast", score: 82 },
-  ],
-};
+const forecastSignals = [
+  {
+    name: "Snowfall",
+    detail: "Accumulation and hourly intensity",
+  },
+  {
+    name: "Ice Risk",
+    detail: "Mixed precipitation and road impact",
+  },
+  {
+    name: "Timing",
+    detail: "Whether the storm hits commute hours",
+  },
+  {
+    name: "Local Tolerance",
+    detail: "How the region typically handles winter weather",
+  },
+];
 
 export function TrustLayer() {
   return (
@@ -107,7 +115,7 @@ export function TrustLayer() {
         ))}
       </div>
 
-      {/* Accuracy Badge */}
+      {/* Forecast signals */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -122,28 +130,23 @@ export function TrustLayer() {
                 <Shield className="w-5 h-5 text-emerald-400" />
               </div>
               <div>
-                <p className="text-sm font-bold text-white/90">Accuracy Rating</p>
-                <p className="text-[10px] text-white/30">Updated {accuracy.lastUpdated}</p>
+                <p className="text-sm font-bold text-white/90">What the forecast weighs</p>
+                <p className="text-[10px] text-white/30">Core inputs used on every prediction</p>
               </div>
             </div>
-            <div className="flex items-baseline gap-1 mt-3">
-              <span className="text-4xl font-display font-black text-emerald-400">
-                {accuracy.overall}%
-              </span>
-              <span className="text-sm text-white/30">overall</span>
+            <div className="mt-3 max-w-md text-sm text-white/45 leading-relaxed">
+              SnowSense is a forecast aid, not an official closure notice. Final school decisions still depend on district leadership and real-world road conditions.
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {accuracy.regions.map((r) => (
-              <div key={r.name} className="text-center">
+            {forecastSignals.map((signal) => (
+              <div key={signal.name} className="text-center">
                 <p className="text-[10px] text-white/30 uppercase tracking-wider mb-1">
-                  {r.name}
+                  {signal.name}
                 </p>
-                <p className="text-lg font-bold font-display" style={{
-                  color: r.score >= 90 ? "#22c55e" : r.score >= 85 ? "#f59e0b" : "#60a5fa",
-                }}>
-                  {r.score}%
+                <p className="text-sm font-semibold text-emerald-300">
+                  {signal.detail}
                 </p>
               </div>
             ))}

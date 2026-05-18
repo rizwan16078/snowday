@@ -22,7 +22,7 @@ function buildFaqs(location: string) {
     },
     {
       q: "How accurate is the Snow Day Calculator?",
-      a: "Our prediction engine maintains an 85%+ accuracy rate during active winter storm seasons. We achieve this by analyzing multiple forecast models alongside historical school closure data and regional temperature tolerances.",
+      a: "Treat SnowSense as a forecast aid, not an official closure notice. We weigh snowfall, ice risk, temperature, storm timing, and local tolerance, but districts can still make different calls based on road crews, bus routes, and superintendent judgment.",
     },
     {
       q: "How often do you update the predictions?",

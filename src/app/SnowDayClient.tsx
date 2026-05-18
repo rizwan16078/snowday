@@ -13,13 +13,11 @@ import { ShareSystem } from "@/components/snow/ShareSystem";
 import { StormAnatomy } from "@/components/snow/StormAnatomy";
 import { HourlyCurve } from "@/components/snow/HourlyCurve";
 import { RadarPreview } from "@/components/snow/RadarPreview";
-import { CommunityFeed } from "@/components/snow/CommunityFeed";
 import { TrustLayer } from "@/components/snow/TrustLayer";
 import { RegionalLinks } from "@/components/snow/RegionalLinks";
 import { PremiumFAQ } from "@/components/snow/PremiumFAQ";
 import { buildRibbonData } from "@/lib/snowsense";
 import type {
-  CommunityFeedItem,
   LocationSelection,
   ResolvedLocation,
   SchoolType,
@@ -32,7 +30,6 @@ interface SnowDayShellProps {
   location: ResolvedLocation;
   daysUsed: number;
   schoolType: SchoolType;
-  communityFeed: CommunityFeedItem[];
   initialRibbon: SnowSenseRibbon;
   radarSrc: string;
 }
@@ -46,7 +43,6 @@ export default function SnowDayShell({
   location,
   daysUsed,
   schoolType,
-  communityFeed,
   initialRibbon,
   radarSrc,
 }: SnowDayShellProps) {
@@ -194,8 +190,9 @@ export default function SnowDayShell({
                 Snow Day Calculator
               </h1>
               <p className="mt-2 text-sm sm:text-base font-medium text-white/55 max-w-xl mx-auto">
-                Will school be cancelled tomorrow? Real-time probability powered by live
-                weather, ice risk, and regional school-closure data.
+                Will school be cancelled tomorrow? Check your auto-detected forecast or
+                search by ZIP code, city, or district for a real-time probability built
+                from live weather, ice risk, and regional school-closure data.
               </p>
             </header>
             <HeroPrediction
@@ -256,7 +253,6 @@ export default function SnowDayShell({
               <StormAnatomy prediction={activePrediction} />
               <HourlyCurve prediction={activePrediction} />
               <RadarPreview radarSrc={radarSrc} locationLabel={locationLabel} />
-              <CommunityFeed items={communityFeed} />
             </>
           ) : null}
           <TrustLayer />

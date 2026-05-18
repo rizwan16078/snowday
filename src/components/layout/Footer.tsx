@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
 
 // ── Social icons (inline SVG — no extra deps) ──────────────────────────────
 
@@ -71,18 +69,6 @@ const CONTACT_EMAIL = "hello@snowdaycalculate.com";
 // ────────────────────────────────────────────────────────────────────────────
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-  const pathname = usePathname();
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setSubscribed(true);
-    setTimeout(() => setSubscribed(false), 3000);
-    setEmail("");
-  };
-
   return (
     <footer className="w-full relative z-10 border-t border-white/[0.04] bg-[#050a14] pt-16 pb-8 text-white">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 sm:gap-8 mb-16">
@@ -155,10 +141,12 @@ export function Footer() {
             <Link href="/blog"           className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Blog &amp; Guides</Link>
             <Link href="/#how-it-works"  className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">How it Works</Link>
             <Link href="/about"          className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">About Us</Link>
+            <Link href="/team"           className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Authors & Team</Link>
             <Link href="/contact"        className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Contact</Link>
             <Link href="/sitemap"        className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Sitemap</Link>
             <Link href="/legal/privacy"  className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Privacy Policy</Link>
-            <a    href="/feed.xml"        className="text-sm text-zinc-400 hover:text-white transition-colors duration-200 flex items-center gap-1">
+            <Link href="/legal/editorial-guidelines" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Editorial Guidelines</Link>
+            <a    href="/feed.xml" type="application/rss+xml" rel="alternate" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200 flex items-center gap-1">
               <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5 text-orange-400">
                 <path d="M6.18 15.64a2.18 2.18 0 012.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 012.18-2.18M4 4.44A15.56 15.56 0 0119.56 20h-2.83A12.73 12.73 0 004 7.27V4.44m0 5.66a9.9 9.9 0 019.9 9.9h-2.83A7.07 7.07 0 004 12.93V10.1z" />
               </svg>
@@ -167,38 +155,34 @@ export function Footer() {
           </nav>
         </div>
 
-        {/* Col 4: Newsletter */}
+        {/* Col 4: Find your forecast */}
         <div className="col-span-1 flex flex-col space-y-5">
           <h4 className="font-display font-bold uppercase tracking-widest text-zinc-300 text-sm">
-            Snow Alerts
+            Find Your Forecast
           </h4>
-          <p className="text-xs text-zinc-500 font-medium">Get notified when a snow storm is approaching your area.</p>
-          <form onSubmit={handleSubscribe} className="relative flex items-center">
-            <div className="absolute left-3 text-zinc-500">
-              <IconMail />
-            </div>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-xl py-2 pl-9 pr-10 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
-            />
-            <button
-              type="submit"
-              className="absolute right-2 p-1 text-zinc-400 hover:text-blue-400 transition-colors disabled:opacity-50"
-              disabled={subscribed}
+          <p className="text-xs text-zinc-500 font-medium leading-relaxed">
+            Start with your auto-detected location or search by ZIP code, city, or district.
+          </p>
+          <div className="flex flex-col gap-2">
+            <Link
+              href="/prediction"
+              className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm font-semibold text-white/80 transition-colors hover:border-white/20 hover:text-white"
             >
-              {subscribed ? (
-                <span className="text-xs text-green-400 font-bold">✓</span>
-              ) : (
-                <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                </svg>
-              )}
-            </button>
-          </form>
+              Open live forecast
+            </Link>
+            <Link
+              href="/snow-day-calculator"
+              className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-zinc-400 transition-colors hover:border-white/20 hover:text-white"
+            >
+              Browse cities and states
+            </Link>
+            <Link
+              href="/school-district/lausd-ca"
+              className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-zinc-400 transition-colors hover:border-white/20 hover:text-white"
+            >
+              View a district example
+            </Link>
+          </div>
         </div>
 
       </div>
@@ -217,25 +201,10 @@ export function Footer() {
           </div>
 
           <div className="flex items-center gap-6 flex-wrap justify-center">
-            {/* Legal links */}
             <div className="flex items-center gap-x-6 text-xs text-zinc-500">
               <Link href="/legal/privacy" className="hover:text-white transition-colors">Privacy</Link>
               <Link href="/legal/terms"   className="hover:text-white transition-colors">Terms</Link>
             </div>
-
-            {/* DMCA Badge */}
-            <a
-              href="https://www.dmca.com/Protection/Status.aspx?ID=placeholder"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="DMCA Protected"
-              className="flex items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-zinc-500 hover:text-white hover:border-white/20 transition-all"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3 text-blue-400">
-                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-              </svg>
-              DMCA Protected
-            </a>
           </div>
 
         </div>

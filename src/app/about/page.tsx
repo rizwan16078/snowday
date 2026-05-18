@@ -14,6 +14,7 @@ import {
   FileText,
   ShieldCheck,
   ExternalLink,
+  type LucideIcon,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
   },
 };
 
-function PillarCard({ icon: Icon, title, description, delay = 0 }: { icon: any, title: string, description: string, delay?: number }) {
+function PillarCard({ icon: Icon, title, description }: { icon: LucideIcon, title: string, description: string }) {
   return (
     <div className="group relative p-6 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] hover:border-white/10 transition-all duration-500 hover:-translate-y-1">
       <div className="w-12 h-12 rounded-xl bg-blue-600/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
@@ -53,7 +54,7 @@ function ServiceItem({
   description,
   accent,
 }: {
-  icon: any;
+  icon: LucideIcon;
   title: string;
   description: string;
   accent: string;
@@ -167,12 +168,12 @@ export default function AboutPage() {
       title="Intelligence Behind the Storm" 
       subtitle="Fusing high-fidelity meteorological data with regional decision logic."
     >
-      <AnimatedSection title="The Mission" delay={0.1}>
+      <AnimatedSection title="Our Story & Mission" delay={0.1}>
         <p className="text-lg text-white/90 leading-relaxed italic">
-          "Will school be cancelled tomorrow?" 
+          &ldquo;Will school be cancelled tomorrow?&rdquo;
         </p>
         <p>
-          It's a question of safety, logistics, and anticipation. SnowSense™ was engineered to replace anecdotal guesswork with a high-performance prediction system that models the complex interplay of atmospheric conditions and local infrastructure.
+          It&apos;s a question of safety, logistics, and anticipation. SnowSense™ was engineered to replace anecdotal guesswork with a high-performance prediction system that models the complex interplay of atmospheric conditions and local infrastructure.
         </p>
       </AnimatedSection>
 
@@ -180,26 +181,22 @@ export default function AboutPage() {
         <PillarCard 
           icon={Zap} 
           title="Real-Time Analysis" 
-          description="We ingest live updates from NWS and Open-Meteo every 15 minutes to capture rapid atmospheric shifts."
-          delay={0.1}
+          description="We ingest live updates from NWS and Open-Meteo throughout the day to capture rapid atmospheric shifts."
         />
         <PillarCard 
           icon={Cpu} 
           title="Dynamic Logic" 
           description="Our algorithm adjusts probability based on regional infrastructure—6 inches in Maine is a Tuesday; in Texas, it's a shutdown."
-          delay={0.2}
         />
         <PillarCard 
           icon={Shield} 
           title="Safety First" 
           description="We prioritize ice risk and wind chill factors, which are often more dangerous for bus routes than pure snowfall."
-          delay={0.3}
         />
         <PillarCard 
           icon={BarChart3} 
           title="Probability Engine" 
           description="We use cumulative distribution modeling to provide a nuanced percentage, not just a binary yes or no."
-          delay={0.4}
         />
       </div>
 
@@ -231,13 +228,13 @@ export default function AboutPage() {
           <ServiceItem
             icon={MapPin}
             title="City-Specific Modeling"
-            description="14,000+ districts mapped with regional tolerance calibration — no one-size-fits-all forecasts."
+            description="City and district forecast pages with regional tolerance calibration — no one-size-fits-all forecasts."
             accent="#22d3ee"
           />
           <ServiceItem
             icon={Bell}
-            title="Snow Day Alerts"
-            description="Threshold notifications when probability climbs into the cancellation zone. Privacy-first, no account."
+            title="Forecast Updates"
+            description="Fresh prediction pages and forecast context designed to help families check conditions quickly."
             accent="#f59e0b"
           />
           <ServiceItem
@@ -259,23 +256,22 @@ export default function AboutPage() {
             </div>
             <div className="space-y-3">
               <h4 className="font-bold text-white text-base">
-                Independently Validated, Publicly Sourced
+                Publicly Sourced, Methodology Driven
               </h4>
               <p className="text-sm text-white/60 leading-relaxed">
-                Every forecast SnowSense™ produces is back-tested against historical
-                school closure records from public district archives. We disclose every
-                data input we use, the regional weights we apply, and the model's
-                year-over-year accuracy. Nothing is proprietary or black-box.
+                SnowSense™ uses public weather data and explains the major signals
+                behind each forecast. We focus on transparent inputs and regional
+                context rather than promising perfect accuracy or official closure authority.
               </p>
               <div className="flex flex-wrap gap-2 pt-1">
                 <span className="text-[10px] uppercase tracking-wider font-bold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
-                  87% Avg Accuracy
+                  Public Weather Data
                 </span>
                 <span className="text-[10px] uppercase tracking-wider font-bold px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">
-                  5+ Source Feeds
+                  Regional Thresholds
                 </span>
                 <span className="text-[10px] uppercase tracking-wider font-bold px-2.5 py-1 rounded-full bg-violet-500/10 text-violet-300 border border-violet-500/20">
-                  14k+ Districts
+                  District Forecast Pages
                 </span>
               </div>
             </div>
@@ -358,7 +354,15 @@ export default function AboutPage() {
       <AnimatedSection title="Global Reach" delay={0.55}>
         <div className="flex items-center gap-3 text-white/50 text-sm">
           <Globe className="w-4 h-4" />
-          <span>Processing predictions for 14,000+ school districts across North America.</span>
+          <span>Processing predictions across hundreds of US cities and linked district forecast pages.</span>
+        </div>
+      </AnimatedSection>
+
+      <AnimatedSection title="Parent Company" delay={0.6}>
+        <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] text-sm text-white/50">
+          <p>
+            SnowSense™ is operated and maintained by <strong className="text-white/70">SnowDayCalculate LLC</strong>, our legal parent entity dedicated to meteorological accessibility and educational data services.
+          </p>
         </div>
       </AnimatedSection>
     </AnimatedPageWrapper>

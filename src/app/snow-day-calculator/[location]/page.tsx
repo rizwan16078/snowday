@@ -11,6 +11,7 @@ import { CityEditorialSection } from "@/components/snow/CityEditorialSection";
 import { NearbyCitiesBlock } from "@/components/snow/NearbyCitiesBlock";
 import { CityDistrictsBlock } from "@/components/snow/CityDistrictsBlock";
 import { CustomDistrictCTA } from "@/components/snow/CustomDistrictCTA";
+import { HighIntentCitySection } from "@/components/snow/HighIntentCitySection";
 import { getCityContent } from "@/lib/city-content";
 import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
 import {
@@ -21,6 +22,10 @@ import {
 } from "@/lib/cities/helpers";
 import { generateCityContent } from "@/lib/cities/content";
 import { getDistrictsForCity } from "@/lib/districts/helpers";
+import {
+  buildNearbyCityComparisonNotes,
+  isHighIntentCity,
+} from "@/lib/high-intent-content";
 import {
   getRecentStorms,
   getStormDataGeneratedAt,
@@ -248,6 +253,33 @@ export default async function LocationPage({ params }: Props) {
     { name: locationName, path: `/snow-day-calculator/${slug}` },
   ]);
 
+  const cityRecord = getCityRecord(slug);
+  const premiumContent = cityRecord ? getCityContent(slug) : undefined;
+  const generatedContent = cityRecord ? generateCityContent(cityRecord) : null;
+  const storms = cityRecord ? getRecentStorms(cityRecord.slug, 4) : [];
+  const cityDistricts = cityRecord
+    ? getDistrictsForCity(cityRecord.slug).map((district) => ({
+        slug: district.slug,
+        name: district.name,
+        enrollment: district.enrollment,
+        type: district.type,
+        websiteUrl: district.websiteUrl,
+        websiteDomain: district.websiteDomain,
+      }))
+    : [];
+  const nearbyCities = cityRecord ? getNearbyCities(cityRecord, 6) : [];
+  const nearbyCityComparisons = cityRecord
+    ? buildNearbyCityComparisonNotes(cityRecord, nearbyCities)
+    : [];
+  const showHighIntentSection =
+    !!cityRecord && isHighIntentCity(slug);
+  const highIntentThresholdLabel = premiumContent
+    ? `${premiumContent.closureThresholdInches} inches`
+    : generatedContent?.closureThreshold.short ?? "";
+  const highIntentThresholdContext = premiumContent?.snowDayContext
+    ?? generatedContent?.closureThreshold.paragraph
+    ?? "";
+
   return (
     <>
       <script
@@ -338,82 +370,64 @@ export default async function LocationPage({ params }: Props) {
             city-content.ts) get the richer CityContentSection rendering.
             All other cities get the template-generated editorial (500+
             words per climate zone) from the new catalog system. */}
-        {(() => {
-          const premiumContent = getCityContent(slug);
-          if (premiumContent) {
-            return (
-              <section className="relative z-10 py-16">
-                <CityContentSection content={premiumContent} />
-              </section>
-            );
-          }
-          const record = getCityRecord(slug);
-          if (record) {
-            const generated = generateCityContent(record);
-            return (
-              <CityEditorialSection
-                content={generated}
-                cityName={record.displayName}
-                stateName={record.stateName}
-              />
-            );
-          }
-          return null;
-        })()}
+        {premiumContent ? (
+          <section className="relative z-10 py-16">
+            <CityContentSection content={premiumContent} />
+          </section>
+        ) : cityRecord && generatedContent ? (
+          <CityEditorialSection
+            content={generatedContent}
+            cityName={cityRecord.displayName}
+            stateName={cityRecord.stateName}
+          />
+        ) : null}
+
+        {showHighIntentSection && highIntentThresholdLabel && highIntentThresholdContext ? (
+          <HighIntentCitySection
+            cityName={cityRecord.displayName}
+            thresholdLabel={highIntentThresholdLabel}
+            thresholdContext={highIntentThresholdContext}
+            districts={cityDistricts}
+            storms={storms}
+            comparisons={nearbyCityComparisons}
+          />
+        ) : null}
 
         {/* Recent storms from the NWS Storm Events DB (E-E-A-T).
             Card self-hides when the static dataset has no events for this
             slug (e.g., long-tail cities or non-snow regions). */}
-        {(() => {
-          const record = getCityRecord(slug);
-          if (!record) return null;
-          const storms = getRecentStorms(record.slug, 4);
-          if (storms.length === 0) return null;
-          return (
-            <RecentStormsCard
-              cityName={record.displayName}
-              storms={storms}
-              generatedAt={getStormDataGeneratedAt()}
-            />
-          );
-        })()}
+        {cityRecord && storms.length > 0 ? (
+          <RecentStormsCard
+            cityName={cityRecord.displayName}
+            storms={storms}
+            generatedAt={getStormDataGeneratedAt()}
+          />
+        ) : null}
 
         {/* School districts serving this city — internal linking to
             /school-district/[slug] pages. Block self-hides if catalog has
             no district matched to this city slug. */}
-        {(() => {
-          const record = getCityRecord(slug);
-          if (!record) return null;
-          const districts = getDistrictsForCity(record.slug).map((d) => ({
-            slug: d.slug,
-            name: d.name,
-            enrollment: d.enrollment,
-            type: d.type,
-          }));
-          return (
-            <CityDistrictsBlock cityName={record.displayName} districts={districts} />
-          );
-        })()}
+        {cityRecord ? (
+          <CityDistrictsBlock cityName={cityRecord.displayName} districts={cityDistricts} />
+        ) : null}
 
         {/* Nearby Cities block (M4 fix) — only rendered for catalog cities.
             Improves internal linking density, keeps visitors on-site for a
             second page view, and gives Google a web of related local pages
             to discover.  */}
-        {(() => {
-          const record = getCityRecord(slug);
-          if (!record) return null;
-          const nearby = getNearbyCities(record, 6).map((c) => ({
-            slug: c.slug,
-            name: c.name,
-            state: c.state,
-            stateName: c.stateName,
-            distanceKm: c.distanceKm,
-            snowInches: c.snowInches,
-          }));
-          return (
-            <NearbyCitiesBlock originName={record.displayName} nearby={nearby} />
-          );
-        })()}
+        {cityRecord ? (
+          <NearbyCitiesBlock
+            originName={cityRecord.displayName}
+            nearby={nearbyCities.map((city) => ({
+              slug: city.slug,
+              name: city.name,
+              state: city.state,
+              stateName: city.stateName,
+              distanceKm: city.distanceKm,
+              snowInches: city.snowInches,
+            }))}
+          />
+        ) : null}
       </div>
     </>
   );

@@ -3,6 +3,7 @@
 import type { ComponentPropsWithoutRef } from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useSystemUI } from "@/components/providers/SystemUIContext";
@@ -126,6 +127,9 @@ export function Navbar() {
       />
       <nav className="mx-auto flex max-w-7xl items-center gap-2 px-3 sm:gap-4 sm:px-8">
         <Link href="/" className="group flex min-w-0 shrink items-center gap-2 sm:shrink-0 sm:gap-3">
+          {/* SEO Hidden Logo Image - Crawlers explicitly look for an <img> tag with "logo" alt text */}
+          <Image src="/logo.svg" alt="SnowSense Logo" width={32} height={32} className="sr-only" priority />
+          
           <motion.div
             whileHover={{ rotate: 180 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}

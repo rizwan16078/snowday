@@ -19,6 +19,7 @@ import { fetchWeather } from "@/lib/weather";
 import { runPredictionEngine } from "@/lib/prediction-engine";
 import { HeroPrediction } from "@/components/snow/HeroPrediction";
 import { DetailsPanel } from "@/components/snow/DetailsPanel";
+import { HighIntentDistrictSection } from "@/components/snow/HighIntentDistrictSection";
 import { WeatherCanvas } from "@/components/snow/WeatherCanvas";
 import {
   ALL_DISTRICTS,
@@ -28,6 +29,12 @@ import {
 } from "@/lib/districts/helpers";
 import { generateDistrictContent } from "@/lib/districts/content";
 import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
+import { generateCityContent } from "@/lib/cities/content";
+import {
+  buildDistrictComparisonNotes,
+  isHighIntentDistrict,
+} from "@/lib/high-intent-content";
+import { getRecentStorms } from "@/lib/storm-events";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -108,9 +115,17 @@ export default async function DistrictPage({ params }: Props) {
   }
 
   // Related districts in the same state (excluding this one)
-  const relatedInState = getDistrictsInState(district.state)
-    .filter((d) => d.slug !== district.slug)
-    .slice(0, 5);
+  const allRelatedInState = getDistrictsInState(district.state).filter(
+    (relatedDistrict) => relatedDistrict.slug !== district.slug
+  );
+  const relatedInState = allRelatedInState.slice(0, 5);
+  const cityClosureContext = generateCityContent(city);
+  const recentStorms = getRecentStorms(city.slug, 3);
+  const districtComparisons = buildDistrictComparisonNotes(
+    district,
+    allRelatedInState
+  );
+  const showHighIntentSection = isHighIntentDistrict(slug);
 
   // ─── Structured data ─────────────────────────────────────────────────────
   const breadcrumbSchema = breadcrumbListSchema([
@@ -319,6 +334,19 @@ export default async function DistrictPage({ params }: Props) {
           </section>
         )}
 
+        {showHighIntentSection ? (
+          <HighIntentDistrictSection
+            districtName={district.name}
+            websiteUrl={district.websiteUrl}
+            websiteDomain={district.websiteDomain}
+            thresholdLabel={cityClosureContext.closureThreshold.short}
+            thresholdContext={content.closureTriggers.paragraph}
+            cityForecastSlug={city.slug}
+            storms={recentStorms}
+            comparisons={districtComparisons}
+          />
+        ) : null}
+
         {/* ─── Editorial: Decision process ──────────────────────────────── */}
         <section className="relative z-10 py-16 px-4">
           <div className="max-w-3xl mx-auto space-y-10">
@@ -388,7 +416,7 @@ export default async function DistrictPage({ params }: Props) {
               <a
                 href={district.websiteUrl}
                 target="_blank"
-                rel="noopener noreferrer nofollow"
+                rel="nofollow noopener noreferrer"
                 className="mt-5 inline-flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors"
               >
                 Official district website

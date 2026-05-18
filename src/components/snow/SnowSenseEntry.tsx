@@ -4,7 +4,6 @@ import { parseCalibrationFromURL } from "@/lib/calibration";
 import {
   buildRadarUrl,
   buildRibbonData,
-  getCommunityFeed,
   getSnowSensePrediction,
   resolveRequestLocation,
 } from "@/lib/snowsense";
@@ -52,15 +51,12 @@ export async function SnowSenseEntry({
     return null;
   });
 
-  const communityFeed = await getCommunityFeed();
-
   return (
     <SnowDayShell
       initialPrediction={initialPrediction}
       location={location}
       daysUsed={daysUsed}
       schoolType={type}
-      communityFeed={communityFeed}
       initialRibbon={buildRibbonData(location)}
       radarSrc={buildRadarUrl(location)}
     />

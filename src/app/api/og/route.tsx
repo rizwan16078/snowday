@@ -34,6 +34,12 @@ function emojiFor(p: number): string {
   return "❄️";
 }
 
+function messageFor(status: string): string {
+  if (status === "Very Likely") return "Snow day conditions are lining up for tomorrow.";
+  if (status === "Possible") return "Tomorrow is in the watch zone for a closure call.";
+  return "A closure looks less likely, but conditions can still shift overnight.";
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
@@ -44,6 +50,7 @@ export async function GET(request: Request) {
   const status = statusFor(p >= 0 ? p : 0, sParam);
   const color = p >= 0 ? colorFor(p) : "#60a5fa";
   const emoji = p >= 0 ? emojiFor(p) : "❄️";
+  const message = messageFor(status);
 
   // Untyped to keep `next/og`'s style restrictions happy (it accepts only a subset of CSS).
   const showProbability = p >= 0;
@@ -75,6 +82,19 @@ export async function GET(request: Request) {
             height: 460,
             borderRadius: 9999,
             background: "radial-gradient(circle, rgba(59,130,246,0.35) 0%, rgba(59,130,246,0) 70%)",
+            display: "flex",
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            bottom: -180,
+            left: -140,
+            width: 520,
+            height: 520,
+            borderRadius: 9999,
+            background: `radial-gradient(circle, ${color}18 0%, rgba(0,0,0,0) 72%)`,
             display: "flex",
           }}
         />
@@ -120,13 +140,20 @@ export async function GET(request: Request) {
           <div
             style={{
               display: "flex",
-              fontSize: 22,
-              fontWeight: 600,
-              color: "rgba(255,255,255,0.45)",
-              fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+              alignItems: "center",
+              gap: 12,
+              padding: "14px 20px",
+              borderRadius: 999,
+              border: "1px solid rgba(255,255,255,0.12)",
+              background: "rgba(255,255,255,0.05)",
+              color: "rgba(255,255,255,0.7)",
+              fontSize: 18,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: 2,
             }}
           >
-            snowdaycalculate.com
+            Tomorrow&apos;s Forecast
           </div>
         </div>
 
@@ -135,11 +162,11 @@ export async function GET(request: Request) {
           style={{
             flex: 1,
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "space-between",
             zIndex: 2,
-            marginTop: 12,
+            marginTop: 28,
+            gap: 44,
           }}
         >
           {showProbability ? (
@@ -147,50 +174,140 @@ export async function GET(request: Request) {
               <div
                 style={{
                   display: "flex",
-                  fontSize: 30,
-                  color: "rgba(255,255,255,0.55)",
-                  fontWeight: 600,
-                  letterSpacing: 6,
-                  textTransform: "uppercase",
-                  marginBottom: 8,
+                  flexDirection: "column",
+                  width: 610,
+                  gap: 18,
                 }}
               >
-                Snow Day Probability
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                    color: "rgba(255,255,255,0.52)",
+                    fontSize: 18,
+                    fontWeight: 700,
+                    letterSpacing: 2,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Live Snow Day Outlook
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    color: "white",
+                    fontSize: 74,
+                    fontWeight: 900,
+                    lineHeight: 1.02,
+                    letterSpacing: -2,
+                  }}
+                >
+                  {loc}
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    color: "rgba(255,255,255,0.62)",
+                    fontSize: 26,
+                    lineHeight: 1.35,
+                    maxWidth: 560,
+                  }}
+                >
+                  {message}
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 12,
+                    marginTop: 6,
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      padding: "10px 18px",
+                      borderRadius: 999,
+                      background: "rgba(255,255,255,0.07)",
+                      border: "1px solid rgba(255,255,255,0.10)",
+                      color: "rgba(255,255,255,0.82)",
+                      fontSize: 18,
+                      fontWeight: 700,
+                    }}
+                  >
+                    Updated live
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      padding: "10px 18px",
+                      borderRadius: 999,
+                      background: `${color}20`,
+                      border: `1px solid ${color}44`,
+                      color,
+                      fontSize: 18,
+                      fontWeight: 800,
+                    }}
+                  >
+                    {emoji} {status}
+                  </div>
+                </div>
               </div>
               <div
                 style={{
                   display: "flex",
-                  alignItems: "baseline",
-                  color,
-                  fontWeight: 900,
-                  fontSize: 260,
-                  lineHeight: 1,
-                  letterSpacing: -10,
-                  textShadow: `0 0 100px ${color}55`,
-                }}
-              >
-                {p}
-                <span style={{ fontSize: 130, marginLeft: 8 }}>%</span>
-              </div>
-              <div
-                style={{
-                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
                   alignItems: "center",
-                  gap: 14,
-                  marginTop: 24,
-                  padding: "16px 32px",
-                  borderRadius: 999,
-                  background: `${color}1f`,
-                  border: `2px solid ${color}66`,
-                  color,
-                  fontSize: 32,
-                  fontWeight: 800,
-                  letterSpacing: 5,
-                  textTransform: "uppercase",
+                  width: 300,
+                  height: 300,
+                  borderRadius: 36,
+                  border: `1px solid ${color}44`,
+                  background: `linear-gradient(180deg, rgba(255,255,255,0.06) 0%, ${color}12 100%)`,
+                  boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), 0 24px 120px ${color}22`,
                 }}
               >
-                <span style={{ fontSize: 36 }}>{emoji}</span>
-                <span>{status}</span>
+                <div
+                  style={{
+                    display: "flex",
+                    color: "rgba(255,255,255,0.48)",
+                    fontSize: 16,
+                    fontWeight: 700,
+                    letterSpacing: 2,
+                    textTransform: "uppercase",
+                    marginBottom: 18,
+                  }}
+                >
+                  Probability
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    color,
+                    fontWeight: 900,
+                    fontSize: 150,
+                    lineHeight: 0.9,
+                    letterSpacing: -8,
+                    textShadow: `0 0 90px ${color}50`,
+                  }}
+                >
+                  {p}
+                  <span style={{ fontSize: 64, marginLeft: 6, marginTop: 10 }}>%</span>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    marginTop: 20,
+                    color,
+                    fontSize: 24,
+                    fontWeight: 800,
+                    letterSpacing: 3,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {status}
+                </div>
               </div>
             </>
           ) : (
@@ -241,7 +358,7 @@ export async function GET(request: Request) {
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "space-between",
             zIndex: 2,
           }}
         >
@@ -255,13 +372,25 @@ export async function GET(request: Request) {
               background: "rgba(255,255,255,0.08)",
               border: "1px solid rgba(255,255,255,0.14)",
               color: "white",
-              fontSize: 32,
+              fontSize: 26,
               fontWeight: 700,
               letterSpacing: -0.5,
             }}
           >
             <span style={{ fontSize: 32 }}>📍</span>
-            <span>{loc}</span>
+            <span>{showProbability ? "Real-time forecast card" : loc}</span>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              color: "rgba(255,255,255,0.55)",
+              fontSize: 20,
+              fontWeight: 700,
+            }}
+          >
+            <span>snowdaycalculate.com</span>
           </div>
         </div>
       </div>

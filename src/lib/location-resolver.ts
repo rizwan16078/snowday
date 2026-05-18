@@ -10,7 +10,7 @@ const UNKNOWN: ResolvedLocation = {
   timezone: "UTC",
 };
 
-export const DEFAULT_LOCATION_SLUG = "mansehra-pk";
+export const DEFAULT_LOCATION_SLUG = "new-york";
 
 const LOCATION_DB: Record<string, ResolvedLocation> = {
   "mansehra-pk": {

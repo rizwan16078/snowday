@@ -6,13 +6,15 @@
  */
 
 import Link from "next/link";
-import { Building2 } from "lucide-react";
+import { Building2, ExternalLink } from "lucide-react";
 
 export interface DistrictLink {
   slug: string;
   name: string;
   enrollment: number;
   type: string;
+  websiteUrl: string;
+  websiteDomain: string;
 }
 
 interface Props {
@@ -49,24 +51,40 @@ export function CityDistrictsBlock({ cityName, districts }: Props) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {districts.map((d) => (
-            <Link
+            <div
               key={d.slug}
-              href={`/school-district/${d.slug}`}
-              className="group flex items-center justify-between rounded-2xl border border-white/5 bg-white/[0.02] px-5 py-4 hover:bg-white/[0.06] hover:border-white/10 transition-all duration-300"
+              className="rounded-2xl border border-white/5 bg-white/[0.02] px-5 py-4 hover:bg-white/[0.06] hover:border-white/10 transition-all duration-300"
             >
               <div className="min-w-0">
-                <div className="text-sm font-bold text-white/90 group-hover:text-white transition-colors truncate">
+                <div className="text-sm font-bold text-white/90 truncate">
                   {d.name}
                 </div>
                 <div className="text-[11px] text-white/40 uppercase tracking-wider mt-0.5">
                   {d.enrollment.toLocaleString("en-US")} students · {d.type}
                 </div>
+                <div className="text-[11px] text-white/25 mt-1 truncate">
+                  {d.websiteDomain}
+                </div>
               </div>
-              <Building2
-                className="w-4 h-4 text-purple-400/40 group-hover:text-purple-400/70 shrink-0 ml-3"
-                aria-hidden="true"
-              />
-            </Link>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <Link
+                  href={`/school-district/${d.slug}`}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-white/8 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/12 hover:text-white transition-colors"
+                >
+                  <Building2 className="w-3 h-3" aria-hidden="true" />
+                  SnowSense forecast
+                </Link>
+                <a
+                  href={d.websiteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1.5 text-xs font-semibold text-purple-300/90 hover:border-white/20 hover:text-purple-200 transition-colors"
+                >
+                  Official site
+                  <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                </a>
+              </div>
+            </div>
           ))}
         </div>
       </div>
