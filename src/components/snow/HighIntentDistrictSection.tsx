@@ -54,9 +54,9 @@ export function HighIntentDistrictSection({
           <p className="text-[10px] text-blue-400/70 uppercase tracking-[0.3em] font-bold mb-2">
             District Authority Detail
           </p>
-          <h2 className="text-2xl sm:text-3xl font-display font-black text-white">
+          <h3 className="text-2xl sm:text-3xl font-display font-black text-white">
             What makes {districtName} different
-          </h2>
+          </h3>
           <p className="text-sm text-white/45 max-w-2xl mx-auto mt-3">
             The strongest district pages should show the official source, the
             local closure threshold, recent events, and the nearby systems most

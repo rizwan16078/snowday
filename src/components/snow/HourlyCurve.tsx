@@ -75,7 +75,7 @@ export function HourlyCurve({ prediction }: HourlyCurveProps) {
     <section className="w-full max-w-6xl mx-auto px-5" aria-label="Hourly snowfall curve">
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-8">
         <p className="text-[10px] text-cyan-400/60 uppercase tracking-[0.3em] font-bold mb-2">24-Hour Timeline</p>
-        <h2 className="text-2xl sm:text-3xl font-display font-black text-white/90">Hourly Snowfall Curve</h2>
+        <h3 className="text-2xl sm:text-3xl font-display font-black text-white/90">Hourly Snowfall Curve</h3>
       </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }} className="glass-card rounded-2xl p-6 overflow-hidden">

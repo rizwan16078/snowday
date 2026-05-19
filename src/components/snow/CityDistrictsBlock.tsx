@@ -40,9 +40,9 @@ export function CityDistrictsBlock({ cityName, districts }: Props) {
             />
           </div>
           <div>
-            <h2 className="text-xl sm:text-2xl font-display font-black text-white">
+            <h3 className="text-xl sm:text-2xl font-display font-black text-white">
               {cityName} {label}
-            </h2>
+            </h3>
             <p className="text-xs text-white/40 uppercase tracking-widest mt-1">
               Per-district snow day probability
             </p>

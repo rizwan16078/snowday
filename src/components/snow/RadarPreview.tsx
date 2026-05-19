@@ -49,9 +49,9 @@ export function RadarPreview({ radarSrc, locationLabel }: RadarPreviewProps) {
         <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-400/60">
           Edge Radar Cache
         </p>
-        <h2 className="text-2xl font-display font-black text-white/90 sm:text-3xl">
+        <h3 className="text-2xl font-display font-black text-white/90 sm:text-3xl">
           Live Doppler Scan
-        </h2>
+        </h3>
         <p className="mt-2 text-xs text-white/30 max-w-md mx-auto">
           Tile generated at the edge, refreshed every 5 minutes, with synthetic
           precipitation cells modeled from regional storm history.

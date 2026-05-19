@@ -97,7 +97,7 @@ export function generateStateContent(stateSlug: string): StateContent | null {
   );
   const totalPop = cities.reduce((s, c) => s + c.population, 0);
 
-  const h1 = `${stateName} Snow Day Calculator`;
+  const h1 = `Will Schools Close in ${stateName}?`;
   const lede =
     avg < 3
       ? `Snow days are rare in ${stateName}, but when they happen SnowSense™ is here. Live probability for ${cities.length} ${stateName} cities, updated every 30 minutes.`

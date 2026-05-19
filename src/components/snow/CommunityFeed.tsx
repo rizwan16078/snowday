@@ -35,9 +35,9 @@ export function CommunityFeed({ items }: CommunityFeedProps) {
         <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-amber-400/60">
           Nationwide Intelligence
         </p>
-        <h2 className="text-2xl font-display font-black text-white/90 sm:text-3xl">
+        <h3 className="text-2xl font-display font-black text-white/90 sm:text-3xl">
           Community Feed
-        </h2>
+        </h3>
         <p className="mt-2 text-sm text-white/30">
           Server-authoritative cached predictions refreshed every 60 seconds
         </p>

@@ -51,7 +51,7 @@ export default function SnowDayIndexPage() {
             Snow Day Index
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-white mb-4">
-            Snow Day Calculator by Location
+            Find Your Snow Day Probability
           </h1>
           <p className="text-white/55 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Search by ZIP code, city, or district to get the live snow day probability for{" "}

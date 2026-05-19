@@ -279,7 +279,7 @@ export default function SnowDayShell({
                 is shown separately by HeroPrediction via locationLabel. */}
             <header className="animate-slide-up text-center mb-4 sm:mb-6">
               <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">
-                Snow Day Calculator
+                Will You Have a Snow Day Tomorrow?
               </h1>
               <p className="mt-2 text-sm sm:text-base font-medium text-white/55 max-w-xl mx-auto">
                 Will school be cancelled tomorrow? Check your auto-detected forecast or

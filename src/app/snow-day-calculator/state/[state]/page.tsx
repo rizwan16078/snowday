@@ -37,9 +37,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const canonical = `https://www.snowdaycalculate.com/snow-day-calculator/state/${slug}`;
   const baseTitle = `${content.stateName} Snow Day Calculator — ${content.stats.cityCount} Cities`;
   const trimmedDescription = trimMetaDescription(content.metaDescription);
+  const stateKeywords = [
+    `${content.stateName.toLowerCase()} snow day`,
+    `${content.stateName.toLowerCase()} school closures`,
+    `${content.stateName.toLowerCase()} snow forecast`,
+    `${content.stateName.toLowerCase()} winter weather`,
+    "snow day probability",
+    "school cancellation",
+  ];
   return {
     title: trimMetaTitle(baseTitle, 48),
     description: trimmedDescription,
+    keywords: stateKeywords,
     alternates: { canonical: `/snow-day-calculator/state/${slug}` },
     openGraph: {
       type: "website",

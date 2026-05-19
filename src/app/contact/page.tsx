@@ -5,7 +5,7 @@ import { Mail, MessageSquare, Globe, Code } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Get in touch with the SnowSense™ team.",
+  description: "Get in touch with the SnowSense™ team for support, partnerships, or feedback. We respond within 24 hours.",
   alternates: {
     canonical: "/contact",
   },
@@ -57,7 +57,24 @@ export default function ContactPage() {
       title="Get in Touch" 
       subtitle="Connecting you with the team behind the intelligence."
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="mt-8 text-white/50 text-[15px] leading-relaxed space-y-4">
+        <p>
+          SnowSense™ is built by a small team of meteorologists, data scientists, and engineers
+          who care about getting school-closure predictions right. Whether you&apos;re a parent
+          checking tomorrow&apos;s forecast, a superintendent comparing our model to your local
+          decision, or a journalist covering winter-weather infrastructure, we want to hear
+          from you.
+        </p>
+        <p>
+          We read every message. Bug reports and district-accuracy tips are especially
+          valuable — they help us calibrate closure thresholds for your region and improve
+          the prediction engine for everyone. If you notice a district that closes at a
+          different snowfall threshold than our model suggests, let us know and we&apos;ll
+          investigate.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
         <ContactMethod 
           icon={Mail} 
           title="Direct Support" 
@@ -91,7 +108,7 @@ export default function ContactPage() {
       <div className="mt-12 p-8 rounded-3xl bg-gradient-to-br from-blue-600/10 to-indigo-600/5 border border-blue-500/20 text-center relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-blue-500/20 transition-colors duration-700" />
         
-        <h2 className="text-2xl font-bold text-white mb-4">Emergency Inquiries?</h2>
+        <h3 className="text-2xl font-bold text-white mb-4">Emergency Inquiries?</h3>
         <p className="text-white/60 mb-8 max-w-md mx-auto leading-relaxed">
           For urgent press or partnership inquiries, please include "URGENT" in your email subject line for prioritized routing.
         </p>

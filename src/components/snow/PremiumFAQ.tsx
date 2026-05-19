@@ -61,9 +61,9 @@ export function PremiumFAQ({ location = "your city" }: PremiumFAQProps) {
         <p className="text-[10px] text-zinc-400 uppercase tracking-[0.3em] font-bold mb-2">
           Common Questions
         </p>
-        <h2 className="text-2xl sm:text-3xl font-display font-black text-white/90">
+        <h3 className="text-2xl sm:text-3xl font-display font-black text-white/90">
           Frequently Asked Questions
-        </h2>
+        </h3>
       </div>
 
       <div className="space-y-3">

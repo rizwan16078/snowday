@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "The Complete Weather & Snow Guide — SnowSense™",
+  title: "The Complete Weather & Snow Guide",
   description:
     "Predict storms, dress for any temperature, prep for deep freezes, and prevent ice dams. Your complete weather and snow guide, all in one hub.",
   alternates: { canonical: "/weather-guide" },

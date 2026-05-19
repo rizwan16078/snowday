@@ -59,9 +59,9 @@ export function HighIntentCitySection({
           <p className="text-[10px] text-blue-400/70 uppercase tracking-[0.3em] font-bold mb-2">
             High-Intent Local Detail
           </p>
-          <h2 className="text-2xl sm:text-3xl font-display font-black text-white">
+          <h3 className="text-2xl sm:text-3xl font-display font-black text-white">
             Why schools in {cityName.split(",")[0]} close when they do
-          </h2>
+          </h3>
           <p className="text-sm text-white/45 max-w-2xl mx-auto mt-3">
             This page goes deeper on the local thresholds, official district sources,
             recent winter events, and the nearby cities that make a different call.

@@ -51,9 +51,9 @@ export function RecentStormsCard({ cityName, storms, generatedAt }: Props) {
             <CloudSnow className="w-5 h-5 text-sky-400" aria-hidden="true" />
           </div>
           <div>
-            <h2 className="text-xl sm:text-2xl font-display font-black text-white">
+            <h3 className="text-xl sm:text-2xl font-display font-black text-white">
               Recent {cityOnly} storms
-            </h2>
+            </h3>
             <p className="text-xs text-white/40 uppercase tracking-widest mt-1">
               National Weather Service · Storm Events Database
             </p>

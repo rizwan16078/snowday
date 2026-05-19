@@ -70,9 +70,9 @@ export function RegionalLinks() {
         <p className="text-[10px] text-rose-400/60 uppercase tracking-[0.3em] font-bold mb-2">
           Explore by Region
         </p>
-        <h2 className="text-2xl sm:text-3xl font-display font-black text-white/90">
+        <h3 className="text-2xl sm:text-3xl font-display font-black text-white/90">
           Snow Day Predictions by City
-        </h2>
+        </h3>
         <p className="text-sm text-white/30 mt-2">
           Check the snow day probability for any major city
         </p>

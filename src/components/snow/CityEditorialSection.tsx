@@ -25,9 +25,9 @@ export function CityEditorialSection({ content, cityName, stateName }: Props) {
             <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
               <Snowflake className="w-5 h-5 text-blue-400" aria-hidden="true" />
             </div>
-            <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-blue-400/80">
+            <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-blue-400/80">
               Typical closure threshold
-            </h2>
+            </h3>
           </div>
           <p className="text-white/90 text-2xl sm:text-3xl font-display font-black leading-tight mb-4">
             {content.closureThreshold.short}
@@ -43,9 +43,9 @@ export function CityEditorialSection({ content, cityName, stateName }: Props) {
             <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center">
               <MapPin className="w-5 h-5 text-indigo-400" aria-hidden="true" />
             </div>
-            <h2 className="text-xl sm:text-2xl font-display font-black text-white">
+            <h3 className="text-xl sm:text-2xl font-display font-black text-white">
               {content.localFactors.heading}
-            </h2>
+            </h3>
           </div>
           <div className="space-y-4">
             {content.localFactors.paragraphs.map((p, i) => (
@@ -62,9 +62,9 @@ export function CityEditorialSection({ content, cityName, stateName }: Props) {
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
               <CalendarDays className="w-5 h-5 text-emerald-400" aria-hidden="true" />
             </div>
-            <h2 className="text-xl sm:text-2xl font-display font-black text-white">
+            <h3 className="text-xl sm:text-2xl font-display font-black text-white">
               {content.typicalWinter.heading}
-            </h2>
+            </h3>
           </div>
           <p className="text-white/60 text-[15px] leading-relaxed mb-5">
             {content.typicalWinter.paragraph}

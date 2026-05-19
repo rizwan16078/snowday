@@ -37,9 +37,9 @@ export function NearbyCitiesBlock({ originName, nearby }: Props) {
             <MapPinned className="w-5 h-5 text-amber-400" aria-hidden="true" />
           </div>
           <div>
-            <h2 className="text-xl sm:text-2xl font-display font-black text-white">
+            <h3 className="text-xl sm:text-2xl font-display font-black text-white">
               Nearby cities
-            </h2>
+            </h3>
             <p className="text-xs text-white/40 uppercase tracking-widest mt-1">
               Live forecasts within driving distance of {originCity}
             </p>

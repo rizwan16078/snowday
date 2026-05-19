@@ -26,9 +26,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const canonicalUrl = `https://www.snowdaycalculate.com/blog/${slug}`;
   const trimmedTitle = trimMetaTitle(post.metaTitle, 48);
   const trimmedDescription = trimMetaDescription(post.metaDescription);
+  const blogKeywords = [
+    post.category.toLowerCase(),
+    post.metaTitle.toLowerCase().split(/[:|—–]/)[0].trim(),
+    "snow day",
+    "winter weather",
+    "weather guide",
+  ];
   return {
     title: trimmedTitle,
     description: trimmedDescription,
+    keywords: blogKeywords,
     alternates: {
       canonical: `/blog/${slug}`,
     },

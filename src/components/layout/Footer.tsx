@@ -86,14 +86,14 @@ export function Footer() {
             </span>
           </Link>
 
-          <p className="text-sm text-zinc-500 font-medium leading-relaxed max-w-[240px]">
+          <p className="text-sm text-zinc-400 font-medium leading-relaxed max-w-[240px]">
             The most accurate snow day prediction engine, powered by real-time weather data.
           </p>
 
           {/* Contact email */}
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            className="flex items-center gap-2 text-xs text-zinc-500 hover:text-blue-400 transition-colors"
+            className="flex items-center gap-2 text-xs text-zinc-400 hover:text-blue-400 transition-colors"
           >
             <IconMail />
             <span>{CONTACT_EMAIL}</span>
@@ -108,7 +108,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="text-zinc-500 hover:text-white transition-colors duration-200"
+                className="text-zinc-400 hover:text-white transition-colors duration-200"
               >
                 <Icon />
               </a>
@@ -160,7 +160,7 @@ export function Footer() {
           <h4 className="font-display font-bold uppercase tracking-widest text-zinc-300 text-sm">
             Find Your Forecast
           </h4>
-          <p className="text-xs text-zinc-500 font-medium leading-relaxed">
+          <p className="text-xs text-zinc-400 font-medium leading-relaxed">
             Start with your auto-detected location or search by ZIP code, city, or district.
           </p>
           <div className="flex flex-col gap-2">
@@ -192,16 +192,16 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-6">
 
           <div className="flex flex-col items-center sm:items-start gap-1">
-            <p className="text-xs text-zinc-600">
+            <p className="text-xs text-zinc-400">
               © {new Date().getFullYear()} SnowSense™. All rights reserved.
             </p>
-            <p className="text-[10px] text-zinc-700 uppercase tracking-widest font-medium">
+            <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-medium">
               Powered by Advanced Meteorology
             </p>
           </div>
 
           <div className="flex items-center gap-6 flex-wrap justify-center">
-            <div className="flex items-center gap-x-6 text-xs text-zinc-500">
+            <div className="flex items-center gap-x-6 text-xs text-zinc-400">
               <Link href="/legal/privacy" className="hover:text-white transition-colors">Privacy</Link>
               <Link href="/legal/terms"   className="hover:text-white transition-colors">Terms</Link>
             </div>

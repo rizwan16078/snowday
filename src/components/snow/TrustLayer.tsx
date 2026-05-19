@@ -80,9 +80,9 @@ export function TrustLayer() {
         <p className="text-[10px] text-violet-400/60 uppercase tracking-[0.3em] font-bold mb-2">
           Transparent Technology
         </p>
-        <h2 className="text-2xl sm:text-3xl font-display font-black text-white/90">
+        <h3 className="text-2xl sm:text-3xl font-display font-black text-white/90">
           How SnowSense™ Works
-        </h2>
+        </h3>
         <p className="text-sm text-white/30 mt-2 max-w-lg mx-auto">
           A multi-source, edge-computed prediction engine calibrated to your region
         </p>

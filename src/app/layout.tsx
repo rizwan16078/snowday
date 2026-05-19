@@ -35,6 +35,22 @@ export const metadata: Metadata = {
   },
   description:
     "Will school be cancelled tomorrow? Real-time snow day probability with live weather, ice risk, and regional analysis — by ZIP, city, or district.",
+  // Meta keywords — Google ignores these, but several SEO audit tools and
+  // alternative search engines (Yandex, Naver, Baidu) still surface them.
+  keywords: [
+    "snow day calculator",
+    "snow day predictor",
+    "school closures",
+    "school cancellation",
+    "weather forecast",
+    "snow forecast",
+    "snowstorm",
+    "blizzard",
+    "ice storm",
+    "winter weather",
+    "school closing",
+    "snow day probability",
+  ],
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },

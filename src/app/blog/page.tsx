@@ -64,7 +64,7 @@ export default function BlogIndexPage() {
           SnowSense™ Knowledge Base
         </p>
         <h1 className="text-4xl md:text-5xl font-black font-display text-white mb-4">
-          Snow Day Guides & Science
+          Explore Snow Day Guides & Science
         </h1>
         <p className="text-white/50 max-w-xl mx-auto text-lg">
           Expert articles on school closures, weather prediction, and regional

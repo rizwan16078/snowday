@@ -68,9 +68,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const baseTitle = `${district.name} Snow Day Calculator`;
   const trimmedDescription = trimMetaDescription(content.metaDescription);
 
+  const districtKeywords = [
+    `${district.name.toLowerCase()} snow day`,
+    `${district.name.toLowerCase()} closure`,
+    `${district.name.toLowerCase()} school cancellation`,
+    `${district.stateName.toLowerCase()} school closures`,
+    "school district snow day",
+    "snow day probability",
+  ];
+
   return {
     title: trimMetaTitle(baseTitle, 48),
     description: trimmedDescription,
+    keywords: districtKeywords,
     alternates: { canonical: `/school-district/${slug}` },
     openGraph: {
       type: "website",
@@ -278,7 +288,7 @@ export default async function DistrictPage({ params }: Props) {
               School District · {district.stateName}
             </p>
             <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
-              {district.name} Snow Day Calculator
+              Will {district.name} Have a Snow Day?
             </h1>
             <p className="text-white/55 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
               {content.lede}

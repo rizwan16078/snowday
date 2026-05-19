@@ -121,9 +121,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const rawTitle = `${name} Snow Day Calculator`;
   const title = trimMetaTitle(rawTitle, 48);
 
+  // Per-city keywords — distinct token mix per page (city, state, slug).
+  const cityKeywords = [
+    `${name.toLowerCase()} snow day`,
+    `${name.toLowerCase()} snow day calculator`,
+    `${loc.city.toLowerCase()} school closures`,
+    `${loc.city.toLowerCase()} weather`,
+    "snow day probability",
+    "school cancellation",
+    "winter weather forecast",
+  ];
+
   return {
     title,
     description,
+    keywords: cityKeywords,
     alternates: {
       canonical: `/snow-day-calculator/${slug}`,
     },
@@ -343,11 +355,12 @@ export default async function LocationPage({ params }: Props) {
             </ol>
           </nav>
 
-          {/* Visible H1 (B3 fix). City + state in the heading is the strongest
-              on-page signal for local queries like "boston snow day calculator". */}
+          {/* Visible H1 — differentiated from meta title for SEO.
+              Title = "{name} Snow Day Calculator" (keyword-focused).
+              H1 = conversational variant to avoid H1/title duplicate flag. */}
           <header className="text-center mb-4 sm:mb-6 px-4">
             <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">
-              {locationName} Snow Day Calculator
+              Will School Be Closed in {locationName}?
             </h1>
             <p className="mt-2 text-sm sm:text-base font-medium text-white/55 max-w-xl mx-auto">
               Real-time probability that schools in {locationName} will be cancelled

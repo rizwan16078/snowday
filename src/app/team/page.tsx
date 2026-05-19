@@ -6,7 +6,7 @@ import { MapPin } from "lucide-react";
 import { breadcrumbListSchema, webPageSchema } from "@/lib/breadcrumb-schema";
 
 export const metadata: Metadata = {
-  title: "Our Team & Authors | SnowSense™",
+  title: "Our Team & Authors",
   description: "Meet the meteorologists, data scientists, and developers behind SnowSense™.",
   alternates: {
     canonical: "/team",
