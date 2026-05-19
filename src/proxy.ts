@@ -5,8 +5,16 @@ import {
 } from "@/lib/location-resolver";
 
 export const config = {
-  matcher: ["/", "/prediction", "/weather"],
+  // Match all pages (excluding API routes, static files, and Next.js internals)
+  // so we can inject x-pathname for the root layout's hreflang generation.
+  // IP-based location detection is still scoped to `/`, `/prediction`, and
+  // `/weather` inside the proxy function itself.
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|icon|apple-icon|manifest|robots.txt|sitemap.xml|feed.xml|llms.txt|sw.js|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|css|js)$).*)",
+  ],
 };
+
+const IP_DETECTION_PATHS = new Set(["/", "/prediction", "/weather"]);
 
 interface ProxyGeoLookup {
   city: string;
@@ -83,6 +91,17 @@ async function lookupGeoFromIp(ip: string): Promise<ProxyGeoLookup | null> {
 
 export async function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
+
+  // Always expose pathname so server components (e.g. the root layout's
+  // hreflang generator) can build absolute alternate URLs.
+  requestHeaders.set("x-pathname", request.nextUrl.pathname);
+
+  // IP-based location detection only runs on the homepage, /prediction, and
+  // /weather — those are the only pages that consume the resolved headers.
+  if (!IP_DETECTION_PATHS.has(request.nextUrl.pathname)) {
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
+
   let city = request.headers.get("x-vercel-ip-city");
   let country = request.headers.get("x-vercel-ip-country");
   let region = request.headers.get("x-vercel-ip-country-region");

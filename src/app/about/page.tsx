@@ -22,7 +22,7 @@ import {
 export const metadata: Metadata = {
   title: "About SnowSense — How We Predict Snow Days",
   description:
-    "How SnowSense™ predicts snow day probability: live NWS and Open-Meteo data, HRRR storm modeling, regional school-closure thresholds, and edge-rendered forecasts updated every 30 minutes.",
+    "How SnowSense™ predicts snow days: live NWS + Open-Meteo data, HRRR storm modeling, regional closure thresholds, and forecasts refreshed every 30 minutes.",
   alternates: {
     canonical: "/about",
   },

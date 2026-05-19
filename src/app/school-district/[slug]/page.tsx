@@ -30,6 +30,7 @@ import {
 } from "@/lib/districts/helpers";
 import { generateDistrictContent } from "@/lib/districts/content";
 import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
+import { trimMetaTitle, trimMetaDescription } from "@/lib/seo-meta";
 import { generateCityContent } from "@/lib/cities/content";
 import {
   buildDistrictComparisonNotes,
@@ -64,15 +65,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const canonical = `https://www.snowdaycalculate.com/school-district/${slug}`;
   const ogUrl = `/api/og?loc=${encodeURIComponent(district.name)}`;
 
+  const baseTitle = `${district.name} Snow Day Calculator`;
+  const trimmedDescription = trimMetaDescription(content.metaDescription);
+
   return {
-    title: `${district.name} Snow Day Calculator`,
-    description: content.metaDescription,
+    title: trimMetaTitle(baseTitle, 48),
+    description: trimmedDescription,
     alternates: { canonical: `/school-district/${slug}` },
     openGraph: {
       type: "website",
       url: canonical,
-      title: `${district.name} Snow Day Calculator`,
-      description: content.metaDescription,
+      title: trimMetaTitle(baseTitle, 60),
+      description: trimmedDescription,
       images: [
         {
           url: ogUrl,
@@ -84,8 +88,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${district.name} Snow Day Calculator`,
-      description: content.metaDescription,
+      title: trimMetaTitle(baseTitle, 60),
+      description: trimmedDescription,
       images: [ogUrl],
     },
   };

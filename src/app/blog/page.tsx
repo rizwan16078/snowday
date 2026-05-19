@@ -82,8 +82,9 @@ export default function BlogIndexPage() {
             <Image
               src={featured.image}
               alt={featured.imageAlt}
-              fill
-              className="object-cover"
+              width={1200}
+              height={630}
+              className="absolute inset-0 h-full w-full object-cover"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#050a14]/60 hidden md:block" />
@@ -134,8 +135,9 @@ export default function BlogIndexPage() {
               <Image
                 src={post.image}
                 alt={post.imageAlt}
-                fill
-                className="object-cover"
+                width={1200}
+                height={630}
+                className="absolute inset-0 h-full w-full object-cover"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#050a14]/80 to-transparent" />

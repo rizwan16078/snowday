@@ -7,6 +7,7 @@ import { BackToTop } from "@/components/layout/BackToTop";
 import { SystemUIProvider } from "@/components/providers/SystemUIProvider";
 import { PWAInstallPrompt } from "@/components/pwa/PWAInstallPrompt";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { HreflangLinks } from "@/components/seo/HreflangLinks";
 
 // Self-hosted variable fonts via next/font. Automatically:
 //  - Applies font-display: swap (prevents FOIT, fixes audit warning)
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
     template: "%s | SnowSense™",
   },
   description:
-    "Will school be cancelled tomorrow? Check your real-time snow day probability with live weather data, ice risk, and regional analysis. Search by ZIP code, city, or district.",
+    "Will school be cancelled tomorrow? Real-time snow day probability with live weather, ice risk, and regional analysis — by ZIP, city, or district.",
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },
@@ -132,6 +133,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
+      <head>
+        <HreflangLinks />
+      </head>
       <body
         className="antialiased bg-[#050a14] text-white flex flex-col min-h-screen overflow-x-hidden font-sans"
         data-offline="false"

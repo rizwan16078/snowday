@@ -13,6 +13,7 @@ import { MapPin, Snowflake, ArrowLeft } from "lucide-react";
 import { getAllStateSlugs } from "@/lib/cities/helpers";
 import { generateStateContent } from "@/lib/cities/state-content";
 import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
+import { trimMetaTitle, trimMetaDescription } from "@/lib/seo-meta";
 
 interface Props {
   params: Promise<{ state: string }>;
@@ -34,15 +35,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "State Not Found" };
   }
   const canonical = `https://www.snowdaycalculate.com/snow-day-calculator/state/${slug}`;
+  const baseTitle = `${content.stateName} Snow Day Calculator — ${content.stats.cityCount} Cities`;
+  const trimmedDescription = trimMetaDescription(content.metaDescription);
   return {
-    title: `${content.stateName} Snow Day Calculator — ${content.stats.cityCount} Cities`,
-    description: content.metaDescription,
+    title: trimMetaTitle(baseTitle, 48),
+    description: trimmedDescription,
     alternates: { canonical: `/snow-day-calculator/state/${slug}` },
     openGraph: {
       type: "website",
       url: canonical,
-      title: `${content.stateName} Snow Day Calculator`,
-      description: content.metaDescription,
+      title: trimMetaTitle(`${content.stateName} Snow Day Calculator`, 60),
+      description: trimmedDescription,
       images: [
         {
           url: `/api/og?loc=${encodeURIComponent(content.stateName)}`,
@@ -54,8 +57,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${content.stateName} Snow Day Calculator`,
-      description: content.metaDescription,
+      title: trimMetaTitle(`${content.stateName} Snow Day Calculator`, 60),
+      description: trimmedDescription,
     },
   };
 }

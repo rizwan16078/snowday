@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getBlogPost, getAllSlugs, blogPosts } from "@/lib/blog-data";
 import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
+import { trimMetaTitle, trimMetaDescription } from "@/lib/seo-meta";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { BlogRenderer, extractHeadings, extractFAQs } from "@/components/blog/BlogRenderer";
 import { TableOfContents } from "@/components/blog/TableOfContents";
@@ -23,23 +24,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return { title: "Article Not Found" };
 
   const canonicalUrl = `https://www.snowdaycalculate.com/blog/${slug}`;
+  const trimmedTitle = trimMetaTitle(post.metaTitle, 48);
+  const trimmedDescription = trimMetaDescription(post.metaDescription);
   return {
-    title: post.metaTitle,
-    description: post.metaDescription,
+    title: trimmedTitle,
+    description: trimmedDescription,
     alternates: {
       canonical: `/blog/${slug}`,
     },
     openGraph: {
       type: "article",
       url: canonicalUrl,
-      title: post.metaTitle,
-      description: post.metaDescription,
+      title: trimMetaTitle(post.metaTitle, 60),
+      description: trimmedDescription,
       images: [{ url: post.image, width: 1200, height: 630, alt: post.imageAlt }],
     },
     twitter: {
       card: "summary_large_image",
-      title: post.metaTitle,
-      description: post.metaDescription,
+      title: trimMetaTitle(post.metaTitle, 60),
+      description: trimmedDescription,
       images: [post.image],
     },
   };
@@ -115,8 +118,9 @@ export default async function BlogPostPage({ params }: Props) {
           <Image
             src={post.image}
             alt={post.imageAlt}
-            fill
-            className="object-cover"
+            width={1200}
+            height={630}
+            className="absolute inset-0 h-full w-full object-cover"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050a14]/40 to-[#050a14]" />

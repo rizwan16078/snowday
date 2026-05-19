@@ -6,9 +6,9 @@ import { GlossaryClient } from "./GlossaryClient";
 import { BookOpen, Sparkles, Snowflake } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Weather & Snow Glossary — A-Z Definitions | SnowSense™",
+  title: "Weather & Snow Glossary — A-Z Definitions",
   description:
-    "The complete A-Z glossary of weather and snow terminology. Quick definitions for petrichor, wind chill, ice dams, polar vortex, lake-effect snow, barometric pressure, and 50+ more meteorology terms.",
+    "A-Z glossary of weather and snow terms: petrichor, wind chill, ice dams, polar vortex, lake-effect snow, and 50+ more, all in plain English.",
   alternates: { canonical: "/weather-terms" },
   openGraph: {
     type: "website",

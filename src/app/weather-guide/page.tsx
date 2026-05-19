@@ -22,7 +22,7 @@ import {
 export const metadata: Metadata = {
   title: "The Complete Weather & Snow Guide — SnowSense™",
   description:
-    "The complete guide to weather and snow. Learn how to predict storms, dress for any temperature, prep for deep freezes, prevent ice dams, and understand the meteorology behind every season — all in one hub.",
+    "Predict storms, dress for any temperature, prep for deep freezes, and prevent ice dams. Your complete weather and snow guide, all in one hub.",
   alternates: { canonical: "/weather-guide" },
   openGraph: {
     type: "website",

@@ -14,6 +14,7 @@ import { CustomDistrictCTA } from "@/components/snow/CustomDistrictCTA";
 import { HighIntentCitySection } from "@/components/snow/HighIntentCitySection";
 import { getCityContent } from "@/lib/city-content";
 import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
+import { trimMetaTitle, trimMetaDescription } from "@/lib/seo-meta";
 import {
   getCityRecord,
   getNearbyCities,
@@ -109,12 +110,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // generic template fallback.
   const record = getCityRecord(slug);
   const generated = record ? generateCityContent(record) : null;
-  const description =
+  const description = trimMetaDescription(
     generated?.metaDescription ??
-    `Will school be cancelled in ${name} tomorrow? Get real-time snow day predictions powered by live weather, ice risk, and regional data.`;
+      `Will school be cancelled in ${name} tomorrow? Get real-time snow day predictions powered by live weather, ice risk, and regional data.`
+  );
+
+  // Title budget — Next.js template appends ' | SnowSense™' (~12 chars),
+  // so the base title is capped at ~48 chars to keep the full SERP title
+  // under Google's 60-char display limit.
+  const rawTitle = `${name} Snow Day Calculator`;
+  const title = trimMetaTitle(rawTitle, 48);
 
   return {
-    title: `${name} Snow Day Calculator`,
+    title,
     description,
     alternates: {
       canonical: `/snow-day-calculator/${slug}`,
@@ -122,8 +130,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: "website",
       url: canonicalUrl,
-      title: `${name} Snow Day Calculator`,
-      description: `Live snow day probability for ${name}. Check if school will be cancelled tomorrow.`,
+      title: trimMetaTitle(`${name} Snow Day Calculator`, 60),
+      description: trimMetaDescription(
+        `Live snow day probability for ${name}. Check if school will be cancelled tomorrow.`
+      ),
       images: [
         {
           url: ogUrl,
@@ -135,8 +145,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${name} Snow Day Calculator`,
-      description: `Will school be cancelled in ${name} tomorrow?`,
+      title: trimMetaTitle(`${name} Snow Day Calculator`, 60),
+      description: trimMetaDescription(
+        `Will school be cancelled in ${name} tomorrow?`
+      ),
       images: [ogUrl],
     },
   };
