@@ -119,7 +119,20 @@ export default async function DistrictPage({ params }: Props) {
   const allRelatedInState = getDistrictsInState(district.state).filter(
     (relatedDistrict) => relatedDistrict.slug !== district.slug
   );
-  const relatedInState = allRelatedInState.slice(0, 5);
+  // Districts in states with few catalog districts (e.g. CT, ME, UT, AK, ID)
+  // would otherwise have 0 related links, leaving them with only 1 inbound
+  // link. Backfill from the top national districts to guarantee at least 5
+  // outbound links per district page.
+  const relatedInState = allRelatedInState.length >= 5
+    ? allRelatedInState.slice(0, 5)
+    : [
+        ...allRelatedInState,
+        ...getTopDistrictsByEnrollment(12).filter(
+          (d) =>
+            d.slug !== district.slug &&
+            !allRelatedInState.some((r) => r.slug === d.slug)
+        ),
+      ].slice(0, 5);
   const cityClosureContext = generateCityContent(city);
   const recentStorms = getRecentStorms(city.slug, 3);
   const districtComparisons = buildDistrictComparisonNotes(
@@ -437,18 +450,24 @@ export default async function DistrictPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ─── Related districts in same state ────────────────────────── */}
+        {/* ─── Related districts (in-state first, top-national fallback) ─── */}
         {relatedInState.length > 0 && (
           <section
             className="relative z-10 py-12 px-4"
-            aria-label={`Other ${district.stateName} school districts`}
+            aria-label={
+              allRelatedInState.length >= 1
+                ? `Other ${district.stateName} school districts`
+                : "Other large school districts"
+            }
           >
             <div className="max-w-3xl mx-auto">
               <h2 className="text-xl sm:text-2xl font-display font-black text-white mb-2">
-                Other {district.stateName} districts
+                {allRelatedInState.length >= 1
+                  ? `Other ${district.stateName} districts`
+                  : "Other large U.S. school districts"}
               </h2>
               <p className="text-xs text-white/40 uppercase tracking-widest mb-5">
-                Snow day forecasts for nearby districts
+                Snow day forecasts for related districts
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {relatedInState.map((d) => (
