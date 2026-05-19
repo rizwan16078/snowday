@@ -102,7 +102,7 @@ export default function BlogIndexPage() {
             <p className="text-white/50 text-sm leading-relaxed mb-6">
               {featured.excerpt}
             </p>
-            <div className="flex items-center gap-4 text-xs text-white/30">
+            <div className="flex items-center gap-4 text-xs text-white/50">
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-3 h-3" />
                 {new Date(featured.date).toLocaleDateString("en-US", {

@@ -4,14 +4,14 @@ export default function NotFound() {
   return (
     <main className="min-h-screen flex items-center justify-center text-center px-4">
       <div className="max-w-md">
-        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 mb-4">
+        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/50 mb-4">
           SnowSense™
         </p>
         <h1 className="text-7xl font-display font-black text-white/90 mb-2">404</h1>
         <p className="text-lg font-semibold text-white/60 mb-2">
           This page melted away
         </p>
-        <p className="text-sm text-white/40 mb-8">
+        <p className="text-sm text-white/50 mb-8">
           The page you&apos;re looking for doesn&apos;t exist. It may have been moved or the URL might be mistyped.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">

@@ -100,7 +100,7 @@ export default function SnowDayIndexPage() {
                   <div className="text-sm font-medium text-white/80 group-hover:text-white truncate">
                     {d.name}
                   </div>
-                  <div className="text-[10px] text-white/30 uppercase tracking-widest mt-0.5">
+                  <div className="text-[10px] text-white/50 uppercase tracking-widest mt-0.5">
                     {d.city.name}, {d.state} · {d.enrollment.toLocaleString("en-US")} students
                   </div>
                 </div>
