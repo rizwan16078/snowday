@@ -77,7 +77,7 @@ export function CityDistrictsBlock({ cityName, districts }: Props) {
                 <a
                   href={d.websiteUrl}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="nofollow noopener noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1.5 text-xs font-semibold text-purple-300/90 hover:border-white/20 hover:text-purple-200 transition-colors"
                 >
                   Official site

@@ -245,15 +245,28 @@ export default async function LocationPage({ params }: Props) {
     ],
   };
 
-  // BreadcrumbList (H4 fix). Improves SERP rendering: trail shown directly
-  // in mobile results instead of a long URL path.
-  const breadcrumbSchema = breadcrumbListSchema([
-    { name: "Home", path: "/" },
-    { name: "Snow Day Calculator", path: "/snow-day-calculator" },
-    { name: locationName, path: `/snow-day-calculator/${slug}` },
-  ]);
-
   const cityRecord = getCityRecord(slug);
+
+  // BreadcrumbList (H4 fix). Improves SERP rendering: trail shown directly
+  // in mobile results instead of a long URL path. Includes the state hub
+  // when known — this adds an internal inbound link to each state page.
+  const breadcrumbSchema = breadcrumbListSchema(
+    cityRecord
+      ? [
+          { name: "Home", path: "/" },
+          { name: "Snow Day Calculator", path: "/snow-day-calculator" },
+          {
+            name: cityRecord.stateName,
+            path: `/snow-day-calculator/state/${cityRecord.stateSlug}`,
+          },
+          { name: locationName, path: `/snow-day-calculator/${slug}` },
+        ]
+      : [
+          { name: "Home", path: "/" },
+          { name: "Snow Day Calculator", path: "/snow-day-calculator" },
+          { name: locationName, path: `/snow-day-calculator/${slug}` },
+        ]
+  );
   const premiumContent = cityRecord ? getCityContent(slug) : undefined;
   const generatedContent = cityRecord ? generateCityContent(cityRecord) : null;
   const storms = cityRecord ? getRecentStorms(cityRecord.slug, 4) : [];
@@ -300,6 +313,19 @@ export default async function LocationPage({ params }: Props) {
               <li><Link href="/" className="hover:text-white/60 transition-colors">Home</Link></li>
               <li aria-hidden="true">›</li>
               <li><Link href="/snow-day-calculator" className="hover:text-white/60 transition-colors">Calculator</Link></li>
+              {cityRecord ? (
+                <>
+                  <li aria-hidden="true">›</li>
+                  <li>
+                    <Link
+                      href={`/snow-day-calculator/state/${cityRecord.stateSlug}`}
+                      className="hover:text-white/60 transition-colors"
+                    >
+                      {cityRecord.stateName}
+                    </Link>
+                  </li>
+                </>
+              ) : null}
               <li aria-hidden="true">›</li>
               <li className="text-white/60 font-medium" aria-current="page">{locationName}</li>
             </ol>

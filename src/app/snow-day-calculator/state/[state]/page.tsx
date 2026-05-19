@@ -72,6 +72,23 @@ export default async function StateHubPage({ params }: Props) {
     { name: content.stateName, path: `/snow-day-calculator/state/${slug}` },
   ]);
 
+  // Build "related states" list — 6 alphabetical neighbors. Adds 6 inbound
+  // links to each state hub, reducing the "only 1 incoming link" SEO flag.
+  const allStateSlugs = getAllStateSlugs();
+  const currentIndex = allStateSlugs.indexOf(slug);
+  const relatedStateSlugs = currentIndex >= 0
+    ? [
+        ...allStateSlugs.slice(Math.max(0, currentIndex - 3), currentIndex),
+        ...allStateSlugs.slice(currentIndex + 1, currentIndex + 4),
+      ].slice(0, 6)
+    : allStateSlugs.slice(0, 6);
+  const relatedStates = relatedStateSlugs
+    .map((s) => {
+      const c = generateStateContent(s);
+      return c ? { slug: s, name: c.stateName, cityCount: c.stats.cityCount } : null;
+    })
+    .filter((x): x is { slug: string; name: string; cityCount: number } => x !== null);
+
   // ItemList schema — tells Google the list of cities on this page is
   // an ordered collection of related pages. Boosts sitelinks likelihood.
   const itemListSchema = {
@@ -207,6 +224,39 @@ export default async function StateHubPage({ params }: Props) {
             ))}
           </div>
         </section>
+
+        {/* Related states — internal linking + topical clustering */}
+        {relatedStates.length > 0 ? (
+          <section aria-labelledby="related-states-heading" className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center">
+                <MapPin className="w-5 h-5 text-purple-400" aria-hidden="true" />
+              </div>
+              <h2
+                id="related-states-heading"
+                className="text-xl sm:text-2xl font-display font-black text-white"
+              >
+                Other state snow day forecasts
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              {relatedStates.map((rs) => (
+                <Link
+                  key={rs.slug}
+                  href={`/snow-day-calculator/state/${rs.slug}`}
+                  className="group flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2.5 hover:bg-white/[0.06] hover:border-white/10 transition-all"
+                >
+                  <span className="text-sm font-semibold text-white/80 group-hover:text-white truncate">
+                    {rs.name}
+                  </span>
+                  <span className="text-[11px] text-white/30 group-hover:text-white/50 shrink-0 ml-2">
+                    {rs.cityCount}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         {/* Back link */}
         <div className="text-center">

@@ -128,7 +128,7 @@ export function HighIntentCitySection({
                     <a
                       href={district.websiteUrl}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener noreferrer"
                       className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1.5 text-xs font-semibold text-blue-300/90 hover:border-white/20 hover:text-blue-200 transition-colors"
                     >
                       Official site

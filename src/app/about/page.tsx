@@ -32,6 +32,23 @@ export const metadata: Metadata = {
     description:
       "The team, data sources, and methodology behind SnowSense™ snow day predictions.",
     url: "https://www.snowdaycalculate.com/about",
+    siteName: "SnowSense™",
+    locale: "en_US",
+    images: [
+      {
+        url: "/api/og?loc=About%20SnowSense",
+        width: 1200,
+        height: 630,
+        alt: "About SnowSense — How We Predict Snow Days",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About SnowSense — How We Predict Snow Days",
+    description:
+      "The team, data sources, and methodology behind SnowSense™ snow day predictions.",
+    images: ["/api/og?loc=About%20SnowSense"],
   },
 };
 

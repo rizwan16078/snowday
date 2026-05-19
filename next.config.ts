@@ -68,6 +68,15 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // Next.js build artifacts have content-hashed filenames — safe to cache
+        // for 1 year and mark immutable. Reduces 404s for crawler-cached HTML
+        // that references old chunk hashes across deployments.
+        source: "/_next/static/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
         // Service worker must never be cached aggressively
         source: "/sw.js",
         headers: [
