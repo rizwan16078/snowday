@@ -70,14 +70,14 @@ export function CalibrationLayer({
                     <p className="text-sm font-bold text-white/90">
                       SnowSense™ Calibration
                     </p>
-                    <p className="text-[10px] text-white/30 uppercase tracking-wider">
+                    <p className="text-[10px] text-white/50 uppercase tracking-wider">
                       Intelligence Tuning Layer
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={onClose}
-                  className="p-1.5 rounded-lg hover:bg-white/5 text-white/30 hover:text-white/60 transition-colors"
+                  className="p-1.5 rounded-lg hover:bg-white/5 text-white/50 hover:text-white/60 transition-colors"
                   aria-label="Close calibration"
                 >
                   <X className="w-4 h-4" />
@@ -238,7 +238,7 @@ export function CalibrationLayer({
                   <p className="text-sm font-bold text-white/90">
                     SnowSense™ Calibration
                   </p>
-                  <p className="text-[10px] text-white/30 uppercase tracking-wider">
+                  <p className="text-[10px] text-white/50 uppercase tracking-wider">
                     Intelligence Tuning
                   </p>
                 </div>

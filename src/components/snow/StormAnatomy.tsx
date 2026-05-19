@@ -156,7 +156,7 @@ export function StormAnatomy({ prediction }: StormAnatomyProps) {
         <h3 className="text-2xl sm:text-3xl font-display font-black text-white/90">
           Storm Anatomy
         </h3>
-        <p className="text-sm text-white/30 mt-2 max-w-md mx-auto">
+        <p className="text-sm text-white/50 mt-2 max-w-md mx-auto">
           Every factor analyzed in real-time to calculate your snow day probability
         </p>
       </div>
@@ -195,7 +195,7 @@ export function StormAnatomy({ prediction }: StormAnatomyProps) {
                       <h3 className="text-sm font-bold text-white/90">
                         {card.label}
                       </h3>
-                      <p className="text-[10px] text-white/30 uppercase tracking-wider">
+                      <p className="text-[10px] text-white/50 uppercase tracking-wider">
                         {card.unit}
                       </p>
                     </div>

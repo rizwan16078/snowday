@@ -73,7 +73,7 @@ export function RegionalLinks() {
         <h3 className="text-2xl sm:text-3xl font-display font-black text-white/90">
           Snow Day Predictions by City
         </h3>
-        <p className="text-sm text-white/30 mt-2">
+        <p className="text-sm text-white/50 mt-2">
           Check the snow day probability for any major city
         </p>
       </motion.div>

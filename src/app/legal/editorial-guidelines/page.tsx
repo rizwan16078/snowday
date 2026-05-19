@@ -99,7 +99,7 @@ export default function EditorialGuidelinesPage() {
 
         <hr className="my-12 border-zinc-800" />
         
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm text-zinc-400">
           Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
         </p>
       </div>

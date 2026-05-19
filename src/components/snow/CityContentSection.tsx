@@ -27,7 +27,7 @@ export function CityContentSection({ content }: Props) {
         <h3 className="text-2xl sm:text-3xl font-display font-black text-white/90">
           {content.city}, {content.state} — Snow Day Facts
         </h3>
-        <p className="text-sm text-white/30 mt-2 max-w-lg mx-auto">
+        <p className="text-sm text-white/50 mt-2 max-w-lg mx-auto">
           Historical patterns, infrastructure data, and what actually triggers school closures in {content.city}.
         </p>
       </div>
@@ -37,24 +37,24 @@ export function CityContentSection({ content }: Props) {
         <div className="glass-card rounded-2xl p-4 text-center">
           <Snowflake className="w-4 h-4 text-blue-400 mx-auto mb-2" />
           <p className="text-2xl font-black font-display text-white">{content.avgSnowDaysPerYear}</p>
-          <p className="text-[10px] text-white/30 uppercase tracking-wider mt-0.5">Snow Days / Year</p>
+          <p className="text-[10px] text-white/50 uppercase tracking-wider mt-0.5">Snow Days / Year</p>
         </div>
         <div className="glass-card rounded-2xl p-4 text-center">
           <BarChart3 className="w-4 h-4 text-blue-400 mx-auto mb-2" />
           <p className="text-2xl font-black font-display text-white">{content.avgAnnualSnowfallInches}"</p>
-          <p className="text-[10px] text-white/30 uppercase tracking-wider mt-0.5">Avg Annual Snow</p>
+          <p className="text-[10px] text-white/50 uppercase tracking-wider mt-0.5">Avg Annual Snow</p>
         </div>
         <div className="glass-card rounded-2xl p-4 text-center">
           <Clock className="w-4 h-4 text-blue-400 mx-auto mb-2" />
           <p className="text-sm font-black font-display text-white leading-tight">{content.typicalDecisionTime}</p>
-          <p className="text-[10px] text-white/30 uppercase tracking-wider mt-0.5">Decision Time</p>
+          <p className="text-[10px] text-white/50 uppercase tracking-wider mt-0.5">Decision Time</p>
         </div>
         <div className="glass-card rounded-2xl p-4 text-center">
           <Building2 className="w-4 h-4 text-blue-400 mx-auto mb-2" />
           <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${ratingColor[content.infrastructureRating]}`}>
             {content.infrastructureRating}
           </span>
-          <p className="text-[10px] text-white/30 uppercase tracking-wider mt-1.5">Infrastructure</p>
+          <p className="text-[10px] text-white/50 uppercase tracking-wider mt-1.5">Infrastructure</p>
         </div>
       </div>
 

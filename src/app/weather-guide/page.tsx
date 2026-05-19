@@ -210,7 +210,7 @@ export default function WeatherGuidePage() {
           <div className="absolute top-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-blue-500/[0.05] blur-[140px] pointer-events-none" />
 
           <div className="relative max-w-5xl mx-auto text-center">
-            <nav className="flex items-center justify-center gap-2 text-xs text-white/30 mb-8">
+            <nav className="flex items-center justify-center gap-2 text-xs text-white/50 mb-8">
               <Link href="/" className="hover:text-white/60 transition-colors">
                 Home
               </Link>
@@ -289,7 +289,7 @@ export default function WeatherGuidePage() {
                     <span className="text-sm font-bold text-white/80 group-hover:text-white transition-colors flex-1">
                       {section.title}
                     </span>
-                    <ArrowRight className="w-3.5 h-3.5 text-white/30 transition-transform group-hover:translate-x-0.5 group-hover:text-blue-400" />
+                    <ArrowRight className="w-3.5 h-3.5 text-white/50 transition-transform group-hover:translate-x-0.5 group-hover:text-blue-400" />
                   </a>
                 );
               })}

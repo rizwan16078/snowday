@@ -81,13 +81,13 @@ export function HourlyCurve({ prediction }: HourlyCurveProps) {
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }} className="glass-card rounded-2xl p-6 overflow-hidden">
         <div className="flex items-center justify-between mb-6 px-2">
           <div className="flex items-center gap-6">
-            <div><p className="text-[10px] text-white/30 uppercase tracking-wider">Peak</p><p className="text-sm font-bold text-cyan-400">{maxSnow.toFixed(1)}mm</p></div>
-            <div><p className="text-[10px] text-white/30 uppercase tracking-wider">Total 24h</p><p className="text-sm font-bold text-white/80">{totalSnow.toFixed(1)}mm</p></div>
-            <div><p className="text-[10px] text-white/30 uppercase tracking-wider">Peak Time</p><p className="text-sm font-bold text-white/80">{peakLabel}</p></div>
+            <div><p className="text-[10px] text-white/50 uppercase tracking-wider">Peak</p><p className="text-sm font-bold text-cyan-400">{maxSnow.toFixed(1)}mm</p></div>
+            <div><p className="text-[10px] text-white/50 uppercase tracking-wider">Total 24h</p><p className="text-sm font-bold text-white/80">{totalSnow.toFixed(1)}mm</p></div>
+            <div><p className="text-[10px] text-white/50 uppercase tracking-wider">Peak Time</p><p className="text-sm font-bold text-white/80">{peakLabel}</p></div>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-cyan-400" />
-            <span className="text-[10px] text-white/30">Snowfall (mm)</span>
+            <span className="text-[10px] text-white/50">Snowfall (mm)</span>
           </div>
         </div>
 

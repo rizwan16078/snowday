@@ -73,7 +73,7 @@ export default function WeatherTermsPage() {
 
           <div className="relative max-w-4xl mx-auto text-center">
             {/* Breadcrumb */}
-            <nav className="flex items-center justify-center gap-2 text-xs text-white/30 mb-8">
+            <nav className="flex items-center justify-center gap-2 text-xs text-white/50 mb-8">
               <Link href="/" className="hover:text-white/60 transition-colors">
                 Home
               </Link>

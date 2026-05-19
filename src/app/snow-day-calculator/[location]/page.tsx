@@ -333,7 +333,7 @@ export default async function LocationPage({ params }: Props) {
         <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4" role="main">
           {/* Breadcrumb - Absolute positioned at top for immersive feel */}
           <nav aria-label="Breadcrumb" className="absolute top-8 left-1/2 -translate-x-1/2 w-full max-w-lg text-center">
-            <ol className="inline-flex items-center gap-2 text-xs text-white/30 bg-white/5 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+            <ol className="inline-flex items-center gap-2 text-xs text-white/50 bg-white/5 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
               <li><Link href="/" className="hover:text-white/60 transition-colors">Home</Link></li>
               <li aria-hidden="true">›</li>
               <li><Link href="/snow-day-calculator" className="hover:text-white/60 transition-colors">Calculator</Link></li>

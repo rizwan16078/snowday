@@ -88,7 +88,7 @@ export function RecentStormsCard({ cityName, storms, generatedAt }: Props) {
         </ol>
 
         {generatedAt && (
-          <p className="mt-5 flex items-center gap-2 text-[10px] text-white/30 uppercase tracking-[0.25em]">
+          <p className="mt-5 flex items-center gap-2 text-[10px] text-white/50 uppercase tracking-[0.25em]">
             <span>Last refreshed {formatLastUpdated(generatedAt)}</span>
             <span aria-hidden="true">·</span>
             <a

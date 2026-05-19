@@ -83,7 +83,7 @@ export function TrustLayer() {
         <h3 className="text-2xl sm:text-3xl font-display font-black text-white/90">
           How SnowSense™ Works
         </h3>
-        <p className="text-sm text-white/30 mt-2 max-w-lg mx-auto">
+        <p className="text-sm text-white/50 mt-2 max-w-lg mx-auto">
           A multi-source, edge-computed prediction engine calibrated to your region
         </p>
       </motion.div>

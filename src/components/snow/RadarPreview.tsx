@@ -52,7 +52,7 @@ export function RadarPreview({ radarSrc, locationLabel }: RadarPreviewProps) {
         <h3 className="text-2xl font-display font-black text-white/90 sm:text-3xl">
           Live Doppler Scan
         </h3>
-        <p className="mt-2 text-xs text-white/30 max-w-md mx-auto">
+        <p className="mt-2 text-xs text-white/50 max-w-md mx-auto">
           Tile generated at the edge, refreshed every 5 minutes, with synthetic
           precipitation cells modeled from regional storm history.
         </p>
@@ -113,16 +113,16 @@ export function RadarPreview({ radarSrc, locationLabel }: RadarPreviewProps) {
 
         {/* ── Top-right: telemetry stack ─────────────────────────── */}
         <div className="absolute right-4 top-4 flex flex-col items-end gap-0.5 font-mono text-[10px] leading-snug">
-          <div className="text-white/30">
+          <div className="text-white/50">
             FRQ <span className="text-cyan-400">5.6&thinsp;GHz</span>
           </div>
-          <div className="text-white/30">
+          <div className="text-white/50">
             RNG <span className="text-cyan-400">200&thinsp;KM</span>
           </div>
-          <div className="text-white/30">
+          <div className="text-white/50">
             MODE <span className="text-cyan-400">BASE-REFL</span>
           </div>
-          <div className="text-white/30">
+          <div className="text-white/50">
             ELEV <span className="text-cyan-400">0.5°</span>
           </div>
         </div>
@@ -139,7 +139,7 @@ export function RadarPreview({ radarSrc, locationLabel }: RadarPreviewProps) {
 
         {/* ── Bottom-right: live bearing ─────────────────────────── */}
         <div className="absolute bottom-4 right-4 flex flex-col items-end gap-0.5 font-mono text-[10px]">
-          <div className="text-white/30">
+          <div className="text-white/50">
             BRG{" "}
             <span className="font-bold text-emerald-400 tabular-nums">
               {String(bearing).padStart(3, "0")}°
