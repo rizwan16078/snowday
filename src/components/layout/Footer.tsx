@@ -195,7 +195,7 @@ export function Footer() {
             <p className="text-xs text-zinc-400">
               © {new Date().getFullYear()} SnowSense™. All rights reserved.
             </p>
-            <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-medium">
+            <p className="text-[10px] text-zinc-400 uppercase tracking-widest font-medium">
               Powered by Advanced Meteorology
             </p>
           </div>

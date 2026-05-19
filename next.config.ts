@@ -61,10 +61,11 @@ const nextConfig: NextConfig = {
       },
       {
         // Long-cache for static branded assets in /public (svg/png/jpg/ico/webp/avif).
-        // Filenames are content-stable here; replace via deploy to invalidate.
+        // 1 year immutable — filenames are stable; rename or rev-version on visual changes
+        // to invalidate. This satisfies Lighthouse "Use efficient cache lifetimes".
         source: "/:path*.(svg|png|jpg|jpeg|gif|webp|avif|ico)",
         headers: [
-          { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" },
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
       {
