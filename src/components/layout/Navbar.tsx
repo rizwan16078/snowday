@@ -40,29 +40,6 @@ function Sparkles(props: ComponentPropsWithoutRef<"svg">) {
   );
 }
 
-/**
- * Inline globe icon with meridians/parallels — used by the /about button.
- */
-function Globe(props: ComponentPropsWithoutRef<"svg">) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      role="img"
-      aria-label="Globe"
-      {...props}
-    >
-      <circle cx="12" cy="12" r="10" />
-      <line x1="2" y1="12" x2="22" y2="12" />
-      <path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z" />
-    </svg>
-  );
-}
-
 function formatMetric(value: number | null, suffix: string): string {
   return value === null ? `--${suffix}` : `${Math.round(value)}${suffix}`;
 }
@@ -171,16 +148,6 @@ export function Navbar() {
 
         <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-4">
           <NavbarSearch />
-
-          <Link
-            href="/about"
-            aria-label="About SnowSense"
-            title="About SnowSense"
-            className="hidden p-2 text-zinc-400 transition-colors hover:text-white min-[390px]:block"
-          >
-            <Globe className="h-5 w-5" aria-hidden="true" />
-            <span className="sr-only">About SnowSense</span>
-          </Link>
 
           <Link href={ctaHref}>
             <motion.button

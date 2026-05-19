@@ -100,7 +100,16 @@ export function NavbarSearch() {
     setOpen(false);
     setQuery("");
     setResults([]);
-    router.push(`/snow-day-calculator/${result.slug}`);
+    const params = new URLSearchParams({
+      loc: result.slug,
+      lat: String(result.lat),
+      lon: String(result.lon),
+      city: result.city,
+    });
+    if (result.state) params.set("state", result.state);
+    if (result.country) params.set("country", result.country);
+    if (result.timezone) params.set("tz", result.timezone);
+    router.push(`/weather?${params.toString()}`);
   };
 
   return (

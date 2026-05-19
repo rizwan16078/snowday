@@ -94,6 +94,25 @@ export async function resolveRequestLocation(
     }
   }
 
+  // No slug, but lat/lon provided directly (e.g. from navbar search)
+  if (requestedLat !== null && requestedLon !== null) {
+    const decodedCity = params.city ? decodeURIComponent(params.city) : "";
+    const decodedState = params.state ? decodeURIComponent(params.state) : "";
+    const decodedCountry = params.country ? decodeURIComponent(params.country) : "";
+    const slugSeed = [decodedCity, decodedState || decodedCountry]
+      .filter(Boolean)
+      .join("-");
+    return buildResolvedLocation({
+      slug: slugSeed ? slugifyLocation(slugSeed) : `loc-${requestedLat.toFixed(2)}-${requestedLon.toFixed(2)}`,
+      city: decodedCity || "Selected location",
+      state: decodedState,
+      country: decodedCountry || "US",
+      lat: requestedLat,
+      lon: requestedLon,
+      timezone: params.tz,
+    });
+  }
+
   const headerSlug = requestHeaders.get("x-resolved-loc");
   const headerCity = requestHeaders.get("x-resolved-city");
   const headerState = requestHeaders.get("x-resolved-state");

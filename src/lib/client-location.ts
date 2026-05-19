@@ -38,7 +38,7 @@ function parseIpapiLocation(data: Record<string, unknown>): GeocodingResult | nu
   };
 }
 
-async function detectLocationFromBrowser(): Promise<GeocodingResult | null> {
+export async function detectLocationFromBrowser(): Promise<GeocodingResult | null> {
   if (typeof window === "undefined" || !navigator.geolocation) {
     return null;
   }

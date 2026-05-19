@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { ChevronDown, RefreshCw, AlertTriangle } from "lucide-react";
+import { ChevronDown, RefreshCw, AlertTriangle, MapPin } from "lucide-react";
 import { useSystemUI } from "@/components/providers/SystemUIContext";
 import { WeatherCanvas } from "@/components/snow/WeatherCanvas";
 import { HeroPrediction } from "@/components/snow/HeroPrediction";
@@ -16,7 +16,7 @@ import { RadarPreview } from "@/components/snow/RadarPreview";
 import { TrustLayer } from "@/components/snow/TrustLayer";
 import { RegionalLinks } from "@/components/snow/RegionalLinks";
 import { PremiumFAQ } from "@/components/snow/PremiumFAQ";
-import { detectLocationClientSide } from "@/lib/client-location";
+import { detectLocationClientSide, detectLocationFromBrowser } from "@/lib/client-location";
 import { buildRibbonData } from "@/lib/snowsense";
 import { DEFAULT_LOCATION_SLUG } from "@/lib/location-resolver";
 import type {
@@ -55,8 +55,41 @@ export default function SnowDayShell({
   const [isPending, startTransition] = useTransition();
   const [hasScrolled, setHasScrolled] = useState(false);
   const [calibrationOpen, setCalibrationOpen] = useState(false);
+  const [isLocating, setIsLocating] = useState(false);
   const attemptedClientIPResolution = useRef(false);
   const locationLabel = useMemo(() => buildLocationLabel(location), [location]);
+
+  const handleGPSLocate = useCallback(async () => {
+    if (!navigator.geolocation) {
+      alert("Your browser doesn't support geolocation.");
+      return;
+    }
+    
+    setIsLocating(true);
+    try {
+      const detected = await detectLocationFromBrowser();
+      if (detected && detected.slug) {
+        const params = new URLSearchParams();
+        params.set("loc", detected.slug);
+        params.set("lat", detected.lat.toFixed(4));
+        params.set("lon", detected.lon.toFixed(4));
+        params.set("city", detected.city);
+        params.set("country", detected.country);
+        if (detected.state) params.set("state", detected.state);
+        if (detected.timezone) params.set("tz", detected.timezone);
+        params.set("manual", "1");
+        
+        router.push(`/?${params.toString()}`);
+      } else {
+        alert("Could not determine your location. Please try searching for your city.");
+      }
+    } catch (e) {
+      console.error("GPS location failed:", e);
+      alert("Location access denied or unavailable. Please enable location permissions or search manually.");
+    } finally {
+      setIsLocating(false);
+    }
+  }, [router]);
 
   useEffect(() => {
     setRibbon(initialRibbon);
@@ -265,7 +298,7 @@ export default function SnowDayShell({
             />
 
             <div
-              className="animate-slide-up relative z-50 mt-8 flex w-full justify-center"
+              className="animate-slide-up relative z-50 mt-8 flex w-full flex-col items-center gap-3"
               style={{ animationDelay: "0.9s", animationFillMode: "backwards" }}
             >
               <CommandBar
@@ -278,6 +311,15 @@ export default function SnowDayShell({
                 onCalibrationToggle={() => setCalibrationOpen((open) => !open)}
                 onRefresh={handleRefresh}
               />
+              <button
+                onClick={handleGPSLocate}
+                disabled={isLocating}
+                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/50 transition-colors hover:bg-white/8 hover:text-white/70 disabled:opacity-50"
+                aria-label="Use my exact location"
+              >
+                <MapPin className={`h-3 w-3 ${isLocating ? "animate-pulse" : ""}`} />
+                {isLocating ? "Locating..." : "Use my exact location"}
+              </button>
             </div>
 
             {activePrediction ? (
