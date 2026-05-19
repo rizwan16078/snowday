@@ -8,26 +8,98 @@ import { slugifyLocation } from "@/lib/location-resolver";
 
 // ─── IP-based Location Detection ────────────────────────────────────────────
 
-export async function detectLocationFromIP(): Promise<GeocodingResult | null> {
+function parseIpapiLocation(data: Record<string, unknown>): GeocodingResult | null {
+  const city = typeof data.city === "string" ? data.city : "";
+  const latitude = Number(data.latitude);
+  const longitude = Number(data.longitude);
+
+  if (!city || !Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+    return null;
+  }
+
+  const country =
+    (typeof data.country_code === "string" && data.country_code) ||
+    (typeof data.country === "string" && data.country) ||
+    "US";
+  const state =
+    (typeof data.region_code === "string" && data.region_code) ||
+    (typeof data.region === "string" && data.region) ||
+    "";
+  const timezone =
+    typeof data.timezone === "string" && data.timezone ? data.timezone : undefined;
+  const zip = typeof data.postal === "string" && data.postal ? data.postal : undefined;
+
+  return {
+    lat: latitude,
+    lon: longitude,
+    city,
+    state,
+    country,
+    zip,
+    slug: slugifyLocation(`${city}-${country}`),
+    timezone,
+  };
+}
+
+function firstForwardedIp(value: string | null): string | null {
+  if (!value) return null;
+  const candidate = value.split(",")[0]?.trim();
+  return candidate || null;
+}
+
+function isPublicIp(ip: string | null): ip is string {
+  if (!ip) return false;
+  if (ip === "::1" || ip === "127.0.0.1") return false;
+  if (ip.startsWith("10.") || ip.startsWith("192.168.") || ip.startsWith("169.254.")) {
+    return false;
+  }
+  if (/^172\.(1[6-9]|2\d|3[0-1])\./.test(ip)) return false;
+  if (ip.startsWith("fc") || ip.startsWith("fd")) return false;
+  return true;
+}
+
+export function detectLocationFromHeaders(headers: Headers): GeocodingResult | null {
+  const city = headers.get("x-vercel-ip-city");
+  const latitude = Number(headers.get("x-vercel-ip-latitude"));
+  const longitude = Number(headers.get("x-vercel-ip-longitude"));
+
+  if (!city || !Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+    return null;
+  }
+
+  const country = headers.get("x-vercel-ip-country") || "US";
+  const state = headers.get("x-vercel-ip-country-region") || "";
+  const timezone = headers.get("x-vercel-ip-timezone") || undefined;
+
+  return {
+    lat: latitude,
+    lon: longitude,
+    city,
+    state,
+    country,
+    slug: slugifyLocation(`${city}-${country}`),
+    timezone,
+  };
+}
+
+export function getForwardedPublicIp(headers: Headers): string | null {
+  const candidate = firstForwardedIp(
+    headers.get("x-forwarded-for") || headers.get("x-real-ip")
+  );
+  return isPublicIp(candidate) ? candidate : null;
+}
+
+export async function detectLocationFromIP(ipAddress?: string): Promise<GeocodingResult | null> {
   try {
-    // freeipapi.com free tier — no key needed, supports HTTPS
-    const res = await fetch("https://freeipapi.com/api/json", {
-      next: { revalidate: 3600 }, // Cache for 1 hour
+    const endpoint = ipAddress
+      ? `https://ipapi.co/${encodeURIComponent(ipAddress)}/json/`
+      : "https://ipapi.co/json/";
+    const res = await fetch(endpoint, {
+      cache: "no-store",
     });
     if (!res.ok) return null;
-    const data = await res.json();
-    if (!data || !data.cityName) return null;
-
-    return {
-      lat: data.latitude,
-      lon: data.longitude,
-      city: data.cityName,
-      state: data.regionName ?? "",
-      country: data.countryCode ?? "US",
-      zip: data.zipCode ?? undefined,
-      slug: slugifyLocation(`${data.cityName}-${data.countryCode ?? "US"}`),
-      timezone: data.timeZone ?? undefined,
-    };
+    const data = (await res.json()) as Record<string, unknown>;
+    return parseIpapiLocation(data);
   } catch {
     return null;
   }

@@ -24,6 +24,7 @@ import {
   Wind,
 } from "lucide-react";
 import { blogPosts } from "@/lib/blog-data";
+import { ClientLocationResolver } from "@/components/snow/ClientLocationResolver";
 import { resolveRequestLocation } from "@/lib/snowsense";
 import { fetchWeatherOutlook } from "@/lib/weather";
 import type {
@@ -410,6 +411,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#050913] px-4 pb-20 pt-28 text-white">
+      <ClientLocationResolver initialLocationSlug={location.slug} />
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-0 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[120px]" />
         <div className="absolute right-0 top-48 h-72 w-72 rounded-full bg-cyan-400/10 blur-[100px]" />

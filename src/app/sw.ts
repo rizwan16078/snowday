@@ -16,6 +16,18 @@ declare global {
 
 declare const self: ServiceWorkerGlobalScope;
 
+function isLocalHostname(hostname: string): boolean {
+  if (hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1") {
+    return true;
+  }
+
+  if (hostname.startsWith("192.168.") || hostname.startsWith("10.")) {
+    return true;
+  }
+
+  return /^172\.(1[6-9]|2\d|3[0-1])\./.test(hostname);
+}
+
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
@@ -24,6 +36,7 @@ const serwist = new Serwist({
   runtimeCaching: [
     {
       matcher: ({ request, url }) =>
+        !isLocalHostname(url.hostname) &&
         request.mode === "navigate" &&
         (url.pathname === "/prediction" || url.pathname === "/"),
       handler: new NetworkFirst({
@@ -50,9 +63,12 @@ const serwist = new Serwist({
       }),
     },
     {
-      matcher: ({ url }) => url.pathname.startsWith("/api/snow/geocode"),
+      matcher: ({ request, url }) =>
+        request.method === "GET" &&
+        url.pathname.startsWith("/api/snow/geocode") &&
+        url.searchParams.has("q"),
       handler: new StaleWhileRevalidate({
-        cacheName: "snowsense-geocode",
+        cacheName: "snowsense-geocode-search",
         plugins: [
           new ExpirationPlugin({
             maxEntries: 20,
@@ -62,16 +78,8 @@ const serwist = new Serwist({
       }),
     },
     {
-      matcher: ({ request }) =>
-        request.destination === "script" ||
-        request.destination === "style" ||
-        request.destination === "worker",
-      handler: new StaleWhileRevalidate({
-        cacheName: "snowsense-assets",
-      }),
-    },
-    {
-      matcher: ({ request }) => request.destination === "image",
+      matcher: ({ request, url }) =>
+        !isLocalHostname(url.hostname) && request.destination === "image",
       handler: new CacheFirst({
         cacheName: "snowsense-images",
         plugins: [
@@ -86,3 +94,13 @@ const serwist = new Serwist({
 });
 
 serwist.addEventListeners();
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    Promise.all([
+      caches.delete("snowsense-geocode"),
+      caches.delete("snowsense-assets"),
+      caches.delete("snowsense-pages"),
+    ])
+  );
+});

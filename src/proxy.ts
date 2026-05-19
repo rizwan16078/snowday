@@ -5,17 +5,86 @@ import {
 } from "@/lib/location-resolver";
 
 export const config = {
-  matcher: ["/", "/prediction"],
+  matcher: ["/", "/prediction", "/weather"],
 };
 
-export function proxy(request: NextRequest) {
+interface ProxyGeoLookup {
+  city: string;
+  country: string;
+  region: string;
+  latitude: string;
+  longitude: string;
+  timezone: string;
+}
+
+function firstForwardedIp(value: string | null): string | null {
+  if (!value) return null;
+  const candidate = value.split(",")[0]?.trim();
+  return candidate || null;
+}
+
+function isPublicIp(ip: string | null): ip is string {
+  if (!ip) return false;
+  if (ip === "::1" || ip === "127.0.0.1") return false;
+  if (ip.startsWith("10.") || ip.startsWith("192.168.") || ip.startsWith("169.254.")) {
+    return false;
+  }
+  if (/^172\.(1[6-9]|2\d|3[0-1])\./.test(ip)) return false;
+  if (ip.startsWith("fc") || ip.startsWith("fd")) return false;
+  return true;
+}
+
+async function lookupGeoFromIp(ip: string): Promise<ProxyGeoLookup | null> {
+  try {
+    const response = await fetch(`https://ipapi.co/${encodeURIComponent(ip)}/json/`, {
+      cache: "no-store",
+    });
+    if (!response.ok) return null;
+
+    const data = await response.json();
+    if (!data || !data.city || !data.latitude || !data.longitude) {
+      return null;
+    }
+
+    return {
+      city: String(data.city),
+      country: String(data.country_code || data.country || "US"),
+      region: String(data.region_code || data.region || ""),
+      latitude: String(data.latitude),
+      longitude: String(data.longitude),
+      timezone: String(data.timezone || "UTC"),
+    };
+  } catch {
+    return null;
+  }
+}
+
+export async function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
-  const city = request.headers.get("x-vercel-ip-city");
-  const country = request.headers.get("x-vercel-ip-country");
-  const region = request.headers.get("x-vercel-ip-country-region");
-  const latitude = request.headers.get("x-vercel-ip-latitude");
-  const longitude = request.headers.get("x-vercel-ip-longitude");
-  const timezone = request.headers.get("x-vercel-ip-timezone");
+  let city = request.headers.get("x-vercel-ip-city");
+  let country = request.headers.get("x-vercel-ip-country");
+  let region = request.headers.get("x-vercel-ip-country-region");
+  let latitude = request.headers.get("x-vercel-ip-latitude");
+  let longitude = request.headers.get("x-vercel-ip-longitude");
+  let timezone = request.headers.get("x-vercel-ip-timezone");
+
+  if (!city || !latitude || !longitude) {
+    const forwardedIp = firstForwardedIp(
+      request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip")
+    );
+
+    if (isPublicIp(forwardedIp)) {
+      const geo = await lookupGeoFromIp(forwardedIp);
+      if (geo) {
+        city = geo.city;
+        country = geo.country;
+        region = geo.region;
+        latitude = geo.latitude;
+        longitude = geo.longitude;
+        timezone = geo.timezone;
+      }
+    }
+  }
 
   const resolvedSlug = city
     ? slugifyLocation(`${decodeURIComponent(city)}-${country || "US"}`)

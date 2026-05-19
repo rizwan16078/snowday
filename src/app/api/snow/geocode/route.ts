@@ -4,13 +4,55 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { geocodeSearch, reverseGeocode } from "@/lib/geocoding";
+import {
+  detectLocationFromHeaders,
+  detectLocationFromIP,
+  geocodeSearch,
+  getForwardedPublicIp,
+  reverseGeocode,
+} from "@/lib/geocoding";
 
 export const runtime = "edge";
 
+function isLocalRequest(req: NextRequest): boolean {
+  const hostname = req.nextUrl.hostname;
+
+  if (hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1") {
+    return true;
+  }
+
+  if (hostname.startsWith("192.168.") || hostname.startsWith("10.")) {
+    return true;
+  }
+
+  return /^172\.(1[6-9]|2\d|3[0-1])\./.test(hostname);
+}
+
 export async function GET(req: NextRequest) {
   const query = req.nextUrl.searchParams.get("q");
-  if (!query || query.trim().length < 2) {
+  const detectMode = req.nextUrl.searchParams.get("detect");
+
+  if (!query || detectMode === "ip") {
+    const headerLocation = detectLocationFromHeaders(req.headers);
+    if (headerLocation) {
+      return NextResponse.json(headerLocation, {
+        headers: { "Cache-Control": "private, no-store" },
+      });
+    }
+
+    const forwardedIp = getForwardedPublicIp(req.headers);
+    const fallbackLocation = forwardedIp
+      ? await detectLocationFromIP(forwardedIp)
+      : isLocalRequest(req)
+        ? await detectLocationFromIP()
+        : null;
+
+    return NextResponse.json(fallbackLocation, {
+      headers: { "Cache-Control": "private, no-store" },
+    });
+  }
+
+  if (query.trim().length < 2) {
     return NextResponse.json({ error: "Query too short" }, { status: 400 });
   }
 

@@ -95,20 +95,55 @@ export async function resolveRequestLocation(
   }
 
   const headerSlug = requestHeaders.get("x-resolved-loc");
+  const headerCity = requestHeaders.get("x-resolved-city");
+  const headerState = requestHeaders.get("x-resolved-state");
+  const headerCountry = requestHeaders.get("x-resolved-country");
+  const headerTimezone = requestHeaders.get("x-resolved-tz") || undefined;
   const headerLat = parseCoordinate(requestHeaders.get("x-resolved-lat") || undefined);
   const headerLon = parseCoordinate(requestHeaders.get("x-resolved-lon") || undefined);
 
-  if (headerSlug && headerLat !== null && headerLon !== null) {
-    return buildResolvedLocation({
-      slug: headerSlug,
-      city:
-        requestHeaders.get("x-resolved-city") || titleFromSlug(headerSlug),
-      state: requestHeaders.get("x-resolved-state") || "",
-      country: requestHeaders.get("x-resolved-country") || "US",
-      lat: headerLat,
-      lon: headerLon,
-      timezone: requestHeaders.get("x-resolved-tz") || undefined,
-    });
+  if (headerSlug) {
+    if (headerLat !== null && headerLon !== null) {
+      return buildResolvedLocation({
+        slug: headerSlug,
+        city: headerCity || titleFromSlug(headerSlug),
+        state: headerState || "",
+        country: headerCountry || "US",
+        lat: headerLat,
+        lon: headerLon,
+        timezone: headerTimezone,
+      });
+    }
+
+    const knownHeaderLocation = resolveLocation(headerSlug);
+    if (knownHeaderLocation.slug !== "unknown") {
+      return buildResolvedLocation({
+        ...knownHeaderLocation,
+        city: headerCity || knownHeaderLocation.city,
+        state: headerState || knownHeaderLocation.state,
+        country: headerCountry || knownHeaderLocation.country,
+        timezone: headerTimezone || knownHeaderLocation.timezone,
+      });
+    }
+
+    const headerQuery = [headerCity, headerState, headerCountry]
+      .filter((value): value is string => Boolean(value && value.trim()))
+      .join(", ");
+
+    if (headerQuery) {
+      const geocodedHeaderLocation = await geocodeSearch(headerQuery);
+      if (geocodedHeaderLocation[0]) {
+        return buildResolvedLocation({
+          slug: geocodedHeaderLocation[0].slug || headerSlug,
+          city: geocodedHeaderLocation[0].city,
+          state: geocodedHeaderLocation[0].state,
+          country: geocodedHeaderLocation[0].country,
+          lat: geocodedHeaderLocation[0].lat,
+          lon: geocodedHeaderLocation[0].lon,
+          timezone: geocodedHeaderLocation[0].timezone || headerTimezone,
+        });
+      }
+    }
   }
 
   return resolveLocation(DEFAULT_LOCATION_SLUG);

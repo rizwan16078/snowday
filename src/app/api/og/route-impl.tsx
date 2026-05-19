@@ -1,18 +1,5 @@
 import { ImageResponse } from "next/og";
 
-/**
- * Dynamic Open Graph card generator.
- *
- * Accepts query params:
- *   loc — display string for the location (e.g., "Boston, MA")
- *   p   — probability (0–100)
- *   s   — status label ("Unlikely" | "Possible" | "Very Likely")
- *   d   — optional details string (e.g., "Snow Day Coming")
- *
- * Returns a 1200×630 PNG (the OG / Twitter card standard size).
- * Edge-runtime, cached for 5 minutes at the CDN.
- */
-
 export const runtime = "edge";
 
 function statusFor(p: number, override?: string | null) {
@@ -23,9 +10,9 @@ function statusFor(p: number, override?: string | null) {
 }
 
 function colorFor(p: number): string {
-  if (p >= 66) return "#22c55e"; // green
-  if (p >= 36) return "#f59e0b"; // amber
-  return "#ef4444"; // red
+  if (p >= 66) return "#22c55e";
+  if (p >= 36) return "#f59e0b";
+  return "#ef4444";
 }
 
 function emojiFor(p: number): string {
@@ -51,8 +38,6 @@ export async function GET(request: Request) {
   const color = p >= 0 ? colorFor(p) : "#60a5fa";
   const emoji = p >= 0 ? emojiFor(p) : "❄️";
   const message = messageFor(status);
-
-  // Untyped to keep `next/og`'s style restrictions happy (it accepts only a subset of CSS).
   const showProbability = p >= 0;
 
   return new ImageResponse(
@@ -72,7 +57,6 @@ export async function GET(request: Request) {
           position: "relative",
         }}
       >
-        {/* Soft brand glow in top-right corner */}
         <div
           style={{
             position: "absolute",
@@ -81,7 +65,8 @@ export async function GET(request: Request) {
             width: 460,
             height: 460,
             borderRadius: 9999,
-            background: "radial-gradient(circle, rgba(59,130,246,0.35) 0%, rgba(59,130,246,0) 70%)",
+            background:
+              "radial-gradient(circle, rgba(59,130,246,0.35) 0%, rgba(59,130,246,0) 70%)",
             display: "flex",
           }}
         />
@@ -99,7 +84,6 @@ export async function GET(request: Request) {
           }}
         />
 
-        {/* Soft status glow behind the percentage */}
         {showProbability && (
           <div
             style={{
@@ -114,7 +98,6 @@ export async function GET(request: Request) {
           />
         )}
 
-        {/* Top row: brand left, domain right */}
         <div
           style={{
             display: "flex",
@@ -157,7 +140,6 @@ export async function GET(request: Request) {
           </div>
         </div>
 
-        {/* Center stack: probability + status + location */}
         <div
           style={{
             flex: 1,
@@ -263,7 +245,8 @@ export async function GET(request: Request) {
                   height: 300,
                   borderRadius: 36,
                   border: `1px solid ${color}44`,
-                  background: `linear-gradient(180deg, rgba(255,255,255,0.06) 0%, ${color}12 100%)`,
+                  background:
+                    "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 35%, transparent 100%)",
                   boxShadow: `inset 0 1px 0 rgba(255,255,255,0.08), 0 24px 120px ${color}22`,
                 }}
               >
@@ -353,7 +336,6 @@ export async function GET(request: Request) {
           )}
         </div>
 
-        {/* Bottom row: location pill */}
         <div
           style={{
             display: "flex",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { ChevronDown, RefreshCw, AlertTriangle } from "lucide-react";
 import { useSystemUI } from "@/components/providers/SystemUIContext";
@@ -16,7 +16,9 @@ import { RadarPreview } from "@/components/snow/RadarPreview";
 import { TrustLayer } from "@/components/snow/TrustLayer";
 import { RegionalLinks } from "@/components/snow/RegionalLinks";
 import { PremiumFAQ } from "@/components/snow/PremiumFAQ";
+import { detectLocationClientSide } from "@/lib/client-location";
 import { buildRibbonData } from "@/lib/snowsense";
+import { DEFAULT_LOCATION_SLUG } from "@/lib/location-resolver";
 import type {
   LocationSelection,
   ResolvedLocation,
@@ -53,6 +55,7 @@ export default function SnowDayShell({
   const [isPending, startTransition] = useTransition();
   const [hasScrolled, setHasScrolled] = useState(false);
   const [calibrationOpen, setCalibrationOpen] = useState(false);
+  const attemptedClientIPResolution = useRef(false);
   const locationLabel = useMemo(() => buildLocationLabel(location), [location]);
 
   useEffect(() => {
@@ -99,6 +102,61 @@ export default function SnowDayShell({
     [pathname, router, searchParams]
   );
 
+  useEffect(() => {
+    const explicitLocation = searchParams.get("loc");
+    const manualLocation = searchParams.get("manual") === "1";
+    const hasExplicitNonDefaultLocation =
+      !!explicitLocation && explicitLocation !== DEFAULT_LOCATION_SLUG;
+
+    if (
+      manualLocation ||
+      hasExplicitNonDefaultLocation ||
+      location.slug !== DEFAULT_LOCATION_SLUG ||
+      attemptedClientIPResolution.current
+    ) {
+      return;
+    }
+
+    attemptedClientIPResolution.current = true;
+
+    let cancelled = false;
+
+    void (async () => {
+      const detected = await detectLocationClientSide();
+      if (!detected || cancelled) return;
+
+      const detectedSlug = detected.slug ?? "";
+      if (!detectedSlug || detectedSlug === location.slug) return;
+
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("loc", detectedSlug);
+      params.set("lat", detected.lat.toFixed(4));
+      params.set("lon", detected.lon.toFixed(4));
+      params.set("city", detected.city);
+      params.set("country", detected.country);
+      params.delete("manual");
+
+      if (detected.state) {
+        params.set("state", detected.state);
+      } else {
+        params.delete("state");
+      }
+
+      if (detected.timezone) {
+        params.set("tz", detected.timezone);
+      } else {
+        params.delete("tz");
+      }
+
+      const queryString = params.toString();
+      window.location.replace(queryString ? `${pathname}?${queryString}` : pathname);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [location.slug, searchParams, updateURL]);
+
   const handleLocationChange = useCallback(
     (nextLocation: LocationSelection) => {
       updateURL({
@@ -109,6 +167,7 @@ export default function SnowDayShell({
         state: nextLocation.state || null,
         country: nextLocation.country,
         tz: nextLocation.timezone || null,
+        manual: "1",
       });
     },
     [updateURL]
@@ -221,7 +280,7 @@ export default function SnowDayShell({
               />
             </div>
 
-            {activePrediction && !activePrediction.isFallback ? (
+            {activePrediction ? (
               <div className="mt-6">
                 <ShareSystem
                   prediction={activePrediction}

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useCallback, useState } from "react";
+import { useRef, useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { SnowDayPrediction, SchoolType } from "@/types/snow";
 import { Share2, Link, Download, Check, X, Send, Image as ImageIcon } from "lucide-react";
@@ -52,42 +52,6 @@ function buildShareUrl(
     s: prediction.status,
   });
   return `${typeof window !== "undefined" ? window.location.origin : ""}/?${params}`;
-}
-
-function buildShareCardSrc(
-  locationStr: string,
-  prediction: SnowDayPrediction
-): string {
-  const params = new URLSearchParams({
-    loc: locationStr,
-    p: String(prediction.probability),
-    s: prediction.status,
-  });
-
-  return `/api/og?${params.toString()}`;
-}
-
-/**
- * Fetch the dynamic OG card PNG so we can attach it to the native share
- * sheet via Web Share Level 2 (Messages / Mail / AirDrop will then carry
- * the image, not just the link).
- */
-async function fetchOgCardFile(
-  locationStr: string,
-  prediction: SnowDayPrediction
-): Promise<File | null> {
-  if (typeof window === "undefined") return null;
-  try {
-    const res = await fetch(buildShareCardSrc(locationStr, prediction), {
-      cache: "force-cache",
-    });
-    if (!res.ok) return null;
-    const blob = await res.blob();
-    const filename = `snowsense-${locationStr.replace(/[\s,]+/g, "-").toLowerCase()}.png`;
-    return new File([blob], filename, { type: blob.type || "image/png" });
-  } catch {
-    return null;
-  }
 }
 
 function drawShareImage(
@@ -271,6 +235,26 @@ function wrapCanvasText(
   }
 }
 
+async function buildShareCardFile(
+  canvas: HTMLCanvasElement,
+  locationStr: string,
+  prediction: SnowDayPrediction
+): Promise<File | null> {
+  drawShareImage(canvas, locationStr, prediction);
+
+  const blob = await new Promise<Blob | null>((resolve) => {
+    canvas.toBlob((nextBlob) => resolve(nextBlob), "image/png");
+  });
+
+  if (!blob) return null;
+
+  return new File(
+    [blob],
+    `snowsense-${locationStr.replace(/[\s,]+/g, "-").toLowerCase()}.png`,
+    { type: "image/png" }
+  );
+}
+
 export function ShareSystem({
   prediction,
   locationStr,
@@ -281,18 +265,27 @@ export function ShareSystem({
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [sharingCard, setSharingCard] = useState(false);
+  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const shareUrl = buildShareUrl(locationSlug, daysUsed, schoolType, prediction);
   const shareText = `${statusEmoji[prediction.status] ?? "❄️"} ${prediction.probability}% chance of a snow day in ${locationStr}! Check your area:`;
-  const shareCardSrc = buildShareCardSrc(locationStr, prediction);
+
+  useEffect(() => {
+    if (!isOpen || !canvasRef.current) return;
+    drawShareImage(canvasRef.current, locationStr, prediction);
+    setPreviewSrc(canvasRef.current.toDataURL("image/png"));
+  }, [isOpen, locationStr, prediction]);
 
   const handleNativeShare = useCallback(async () => {
     if (!navigator.share) return;
 
     setSharingCard(true);
 
-    const file = await fetchOgCardFile(locationStr, prediction);
+    const canvas = canvasRef.current;
+    const file = canvas
+      ? await buildShareCardFile(canvas, locationStr, prediction)
+      : null;
 
     try {
       if (
@@ -302,7 +295,6 @@ export function ShareSystem({
       ) {
         await navigator.share({
           title: `SnowSense™ — ${locationStr}`,
-          text: `${shareText} ${shareUrl}`,
           files: [file],
         });
       } else {
@@ -315,7 +307,16 @@ export function ShareSystem({
 
       setIsOpen(false);
     } catch {
-      // User cancelled or share failed — silently no-op (user can use the modal copy/save).
+      try {
+        await navigator.share({
+          title: `SnowSense™ — ${locationStr}`,
+          text: shareText,
+          url: shareUrl,
+        });
+        setIsOpen(false);
+      } catch {
+        // User cancelled or share failed — user can still copy or save from the modal.
+      }
     } finally {
       setSharingCard(false);
     }
@@ -332,29 +333,17 @@ export function ShareSystem({
   }, [shareUrl]);
 
   const handleDownload = useCallback(async () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
     const filename = `snowday-${locationStr
       .replace(/[\s,]+/g, "-")
       .toLowerCase()}.png`;
 
-    // Primary: fetch the OG card PNG — same image receivers will see.
-    const file = await fetchOgCardFile(locationStr, prediction);
-    if (file) {
-      const url = URL.createObjectURL(file);
-      const link = document.createElement("a");
-      link.download = filename;
-      link.href = url;
-      link.click();
-      // Release the blob URL on the next tick (after the click is dispatched).
-      setTimeout(() => URL.revokeObjectURL(url), 0);
-      return;
-    }
-
-    // Fallback: synchronous canvas-drawn card.
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    drawShareImage(canvas, locationStr, prediction);
     const link = document.createElement("a");
     link.download = filename;
+
+    drawShareImage(canvas, locationStr, prediction);
     link.href = canvas.toDataURL("image/png");
     link.click();
   }, [locationStr, prediction]);
@@ -414,13 +403,18 @@ export function ShareSystem({
               {/* Customized share card */}
               <div className="space-y-3">
                 <div className="overflow-hidden rounded-[28px] border border-white/10 bg-[#07101f] shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
-                  <Image
-                    src={shareCardSrc}
-                    alt={`Share card for ${locationStr}`}
-                    width={1200}
-                    height={630}
-                    className="block h-auto w-full"
-                  />
+                  {previewSrc ? (
+                    <Image
+                      src={previewSrc}
+                      alt={`Share card for ${locationStr}`}
+                      width={1200}
+                      height={630}
+                      unoptimized
+                      className="block h-auto w-full"
+                    />
+                  ) : (
+                    <div className="aspect-[1200/630] w-full bg-[#07101f]" />
+                  )}
                 </div>
                 <div className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-3">
                   <div className="flex items-center justify-between gap-3">

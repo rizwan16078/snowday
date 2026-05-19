@@ -30,7 +30,7 @@ const securityHeaders = [
       // Images: allow self, data URIs, and external weather tile providers
       "img-src 'self' data: blob: https://*.openstreetmap.org https://*.tile.openweathermap.org https://openweathermap.org",
       // API connections: Open-Meteo, NWS, geocoding
-      "connect-src 'self' https://api.open-meteo.com https://api.openweathermap.org https://nominatim.openstreetmap.org https://api.weather.gov",
+      "connect-src 'self' https://api.open-meteo.com https://api.openweathermap.org https://nominatim.openstreetmap.org https://api.weather.gov https://ipapi.co",
       // Frames: disallow all
       "frame-src 'none'",
       // Media
