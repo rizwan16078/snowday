@@ -335,6 +335,28 @@ export function extractHeadings(content: string): { id: string; text: string }[]
   return headings;
 }
 
+export function extractFAQs(content: string): { question: string; answer: string }[] {
+  const blocks = parseContent(content);
+  const faqs: { question: string; answer: string }[] = [];
+  for (let j = 0; j < blocks.length; j++) {
+    const b = blocks[j];
+    if (b.type === "h2" && /frequently asked questions|faq/i.test(b.raw)) {
+      let k = j + 1;
+      while (k < blocks.length && blocks[k].type !== "h2") {
+        const pb = blocks[k];
+        if (pb.type === "paragraph") {
+          const m = pb.raw.match(/^\*\*(.+?)\*\*\s*\n?([\s\S]*)$/);
+          if (m) {
+            faqs.push({ question: m[1].trim(), answer: m[2].trim() });
+          }
+        }
+        k++;
+      }
+    }
+  }
+  return faqs;
+}
+
 export function BlogRenderer({ content }: BlogRendererProps) {
   const blocks = parseContent(content);
   return <>{blocks.map((b, i) => renderBlock(b, i))}</>;

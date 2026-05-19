@@ -1,1 +1,2 @@
-export { GET, runtime } from "./route-impl";
+export { GET } from "./route-impl";
+export const runtime = "edge";

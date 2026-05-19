@@ -89,12 +89,31 @@ async function detectLocationFromDirectIP(): Promise<GeocodingResult | null> {
       cache: "no-store",
     });
 
-    if (!res.ok) return null;
-    const data = (await res.json()) as Record<string, unknown>;
-    return parseIpapiLocation(data);
+    if (res.ok) {
+      const data = (await res.json()) as Record<string, unknown>;
+      const result = parseIpapiLocation(data);
+      if (result) return result;
+    }
   } catch {
-    return null;
+    // ipapi.co failed
   }
+
+  // Fallback: route through our server API to avoid mixed-content blocking
+  // (ip-api.com only serves HTTP on free tier, which browsers block on HTTPS pages)
+  try {
+    const res = await fetch("/api/snow/geocode?detect=ip&fallback=1", {
+      cache: "no-store",
+    });
+
+    if (res.ok) {
+      const data = (await res.json()) as GeocodingResult | null;
+      if (data && data.city) return data;
+    }
+  } catch {
+    // Server fallback also failed
+  }
+
+  return null;
 }
 
 export async function detectLocationClientSide(): Promise<GeocodingResult | null> {

@@ -39,24 +39,46 @@ async function lookupGeoFromIp(ip: string): Promise<ProxyGeoLookup | null> {
     const response = await fetch(`https://ipapi.co/${encodeURIComponent(ip)}/json/`, {
       cache: "no-store",
     });
-    if (!response.ok) return null;
-
-    const data = await response.json();
-    if (!data || !data.city || !data.latitude || !data.longitude) {
-      return null;
+    if (response.ok) {
+      const data = await response.json();
+      if (data && data.city && data.latitude && data.longitude) {
+        return {
+          city: String(data.city),
+          country: String(data.country_code || data.country || "US"),
+          region: String(data.region_code || data.region || ""),
+          latitude: String(data.latitude),
+          longitude: String(data.longitude),
+          timezone: String(data.timezone || "UTC"),
+        };
+      }
     }
-
-    return {
-      city: String(data.city),
-      country: String(data.country_code || data.country || "US"),
-      region: String(data.region_code || data.region || ""),
-      latitude: String(data.latitude),
-      longitude: String(data.longitude),
-      timezone: String(data.timezone || "UTC"),
-    };
   } catch {
-    return null;
+    // ipapi.co failed — try fallback
   }
+
+  // Fallback: ip-api.com (free, no key, 45 req/min)
+  try {
+    const response = await fetch(`http://ip-api.com/json/${encodeURIComponent(ip)}?fields=status,country,countryCode,region,regionName,city,lat,lon,timezone,zip`, {
+      cache: "no-store",
+    });
+    if (response.ok) {
+      const data = await response.json();
+      if (data && data.status === "success" && data.city && data.lat && data.lon) {
+        return {
+          city: String(data.city),
+          country: String(data.countryCode || "US"),
+          region: String(data.regionName || ""),
+          latitude: String(data.lat),
+          longitude: String(data.lon),
+          timezone: String(data.timezone || "UTC"),
+        };
+      }
+    }
+  } catch {
+    // Both providers failed
+  }
+
+  return null;
 }
 
 export async function proxy(request: NextRequest) {

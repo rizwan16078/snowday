@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { blogPosts } from "@/lib/blog-data";
+import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -16,14 +17,47 @@ export const metadata: Metadata = {
     url: "https://www.snowdaycalculate.com/blog",
     title: "Snow Day Blog — SnowSense™",
     description: "Expert snow day guides, weather science, and regional analysis.",
-    images: [{ url: "/og-default.svg", width: 1200, height: 630 }],
+    images: [{ url: "/api/og", width: 1200, height: 630 }],
   },
 };
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "SnowSense™ Blog",
+  url: "https://www.snowdaycalculate.com/blog",
+  description: "Expert guides on snow day predictions, school closure thresholds, regional weather science, and how superintendents make the call to cancel school.",
+  publisher: {
+    "@type": "Organization",
+    name: "SnowSense™",
+    url: "https://www.snowdaycalculate.com",
+  },
+  blogPost: blogPosts.slice(0, 10).map((post) => ({
+    "@type": "BlogPosting",
+    headline: post.metaTitle,
+    url: `https://www.snowdaycalculate.com/blog/${post.slug}`,
+    datePublished: post.date,
+  })),
+};
+
+const breadcrumbSchema = breadcrumbListSchema([
+  { name: "Home", path: "/" },
+  { name: "Blog", path: "/blog" },
+]);
 
 export default function BlogIndexPage() {
   const [featured, ...rest] = blogPosts;
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     <main className="min-h-screen px-4 py-24 max-w-6xl mx-auto">
       <header className="text-center mb-16">
         <p className="text-[10px] text-blue-400/60 uppercase tracking-[0.3em] font-bold mb-3">
@@ -162,5 +196,6 @@ export default function BlogIndexPage() {
         </Link>
       </div>
     </main>
+    </>
   );
 }

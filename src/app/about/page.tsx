@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatedPageWrapper, AnimatedSection } from "@/components/layout/AnimatedPageWrapper";
+import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
 import {
   Shield,
   Zap,
@@ -162,8 +164,34 @@ function PartnerLink({
   );
 }
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "SnowSense™",
+  url: "https://www.snowdaycalculate.com",
+  description: "Real-time snow day probability calculator for schools across the US, powered by live weather data and regional tolerance modeling.",
+  parentOrganization: {
+    "@type": "Organization",
+    name: "SnowDayCalculate LLC",
+  },
+};
+
+const breadcrumbSchema = breadcrumbListSchema([
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+]);
+
 export default function AboutPage() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     <AnimatedPageWrapper 
       title="Intelligence Behind the Storm" 
       subtitle="Fusing high-fidelity meteorological data with regional decision logic."
@@ -365,6 +393,40 @@ export default function AboutPage() {
           </p>
         </div>
       </AnimatedSection>
+
+      <AnimatedSection title="Explore SnowSense™" delay={0.65}>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Link
+            href="/"
+            className="group p-5 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
+          >
+            <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">Snow Day Calculator</p>
+            <p className="text-xs text-white/40">Check your real-time snow day probability by ZIP code or city.</p>
+          </Link>
+          <Link
+            href="/weather"
+            className="group p-5 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
+          >
+            <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">Weather Outlook</p>
+            <p className="text-xs text-white/40">Full weather dashboard with hourly, 10-day, and air quality data.</p>
+          </Link>
+          <Link
+            href="/blog"
+            className="group p-5 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
+          >
+            <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">Blog &amp; Guides</p>
+            <p className="text-xs text-white/40">Expert articles on snow day science, closure thresholds, and regional analysis.</p>
+          </Link>
+          <Link
+            href="/team"
+            className="group p-5 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
+          >
+            <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">Our Team</p>
+            <p className="text-xs text-white/40">Meet the people behind SnowSense™ predictions.</p>
+          </Link>
+        </div>
+      </AnimatedSection>
     </AnimatedPageWrapper>
+    </>
   );
 }

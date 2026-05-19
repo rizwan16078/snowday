@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 
 // Permanently redirect discover/trending-now to blog
 export default function DiscoverTrendingPage() {
-  redirect("/blog");
+  permanentRedirect("/blog");
 }

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { AnimatedPageWrapper } from "@/components/layout/AnimatedPageWrapper";
+import { breadcrumbListSchema, webPageSchema } from "@/lib/breadcrumb-schema";
 import { Mail, MessageSquare, Globe, Code } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -30,8 +31,28 @@ function ContactMethod({ icon: Icon, title, description, href, label }: { icon: 
   );
 }
 
+const breadcrumbSchema = breadcrumbListSchema([
+  { name: "Home", path: "/" },
+  { name: "Contact", path: "/contact" },
+]);
+
+const pageSchema = webPageSchema({
+  path: "/contact",
+  name: "Contact SnowSense™",
+  description: "Get in touch with the SnowSense™ team for support, partnerships, or feedback.",
+});
+
 export default function ContactPage() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     <AnimatedPageWrapper 
       title="Get in Touch" 
       subtitle="Connecting you with the team behind the intelligence."
@@ -79,5 +100,6 @@ export default function ContactPage() {
         </div>
       </div>
     </AnimatedPageWrapper>
+    </>
   );
 }

@@ -153,7 +153,7 @@ export default async function LocationPage({ params }: Props) {
         <WeatherCanvas probability={null} />
         <div className="glass-card rounded-3xl p-10 relative z-10">
           <p className="text-4xl mb-4">🔍</p>
-          <h1 className="text-2xl font-bold text-white mb-2">Location Not Found</h1>
+          <h2 className="text-2xl font-bold text-white mb-2">Location Not Found</h2>
           <p className="text-white/50 text-sm">
             We couldn&apos;t find <strong>{slug.replace(/-/g, " ")}</strong>.
           </p>
@@ -190,7 +190,7 @@ export default async function LocationPage({ params }: Props) {
           <p className="text-[10px] text-red-400/60 uppercase tracking-[0.3em] font-bold mb-4">
             Radar Offline Mode
           </p>
-          <h1 className="text-2xl font-bold text-white mb-2">System Unavailable</h1>
+          <h2 className="text-2xl font-bold text-white mb-2">System Unavailable</h2>
           <p className="text-white/50 text-sm mb-6">
             We couldn&apos;t connect to our primary meteorological data sources. Our automated systems are attempting to restore the connection.
           </p>

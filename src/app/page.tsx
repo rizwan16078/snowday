@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SnowSenseEntry } from "@/components/snow/SnowSenseEntry";
+import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
 
 export const runtime = "edge";
 
@@ -91,5 +92,15 @@ export async function generateMetadata({
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {
-  return <SnowSenseEntry searchParams={searchParams} />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbListSchema([
+          { name: "Home", path: "/" },
+        ])) }}
+      />
+      <SnowSenseEntry searchParams={searchParams} />
+    </>
+  );
 }

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { breadcrumbListSchema, webPageSchema } from "@/lib/breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "Editorial Guidelines | SnowSense™",
@@ -8,8 +9,28 @@ export const metadata: Metadata = {
   },
 };
 
+const breadcrumbSchema = breadcrumbListSchema([
+  { name: "Home", path: "/" },
+  { name: "Editorial Guidelines", path: "/legal/editorial-guidelines" },
+]);
+
+const pageSchema = webPageSchema({
+  path: "/legal/editorial-guidelines",
+  name: "Editorial Guidelines",
+  description: "Strict editorial guidelines for ensuring meteorological accuracy and trustworthy reporting on SnowSense™.",
+});
+
 export default function EditorialGuidelinesPage() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     <div className="max-w-3xl mx-auto px-6 py-16 md:py-24">
       <h1 className="text-3xl md:text-5xl font-display font-black text-white mb-6">
         Editorial Guidelines
@@ -60,5 +81,6 @@ export default function EditorialGuidelinesPage() {
         </p>
       </div>
     </div>
+    </>
   );
 }

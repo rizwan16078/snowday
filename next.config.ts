@@ -21,16 +21,16 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Scripts: allow self, inline (Next.js requires unsafe-inline), and trusted CDNs
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      // Scripts: allow self, inline (Next.js requires unsafe-inline), GA, and trusted CDNs
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com",
       // Styles: allow self and inline (Tailwind/CSS-in-JS)
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       // Fonts
       "font-src 'self' https://fonts.gstatic.com",
-      // Images: allow self, data URIs, and external weather tile providers
-      "img-src 'self' data: blob: https://*.openstreetmap.org https://*.tile.openweathermap.org https://openweathermap.org",
-      // API connections: Open-Meteo, NWS, geocoding
-      "connect-src 'self' https://api.open-meteo.com https://api.openweathermap.org https://nominatim.openstreetmap.org https://api.weather.gov https://ipapi.co",
+      // Images: allow self, data URIs, GA tracking pixel, and external weather tile providers
+      "img-src 'self' data: blob: https://*.openstreetmap.org https://*.tile.openweathermap.org https://openweathermap.org https://www.google-analytics.com https://www.googletagmanager.com",
+      // API connections: Open-Meteo, NWS, geocoding, GA
+      "connect-src 'self' https://api.open-meteo.com https://api.openweathermap.org https://nominatim.openstreetmap.org https://api.weather.gov https://ipapi.co http://ip-api.com https://www.google-analytics.com",
       // Frames: disallow all
       "frame-src 'none'",
       // Media

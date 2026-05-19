@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { SystemUIProvider } from "@/components/providers/SystemUIProvider";
 import { PWAInstallPrompt } from "@/components/pwa/PWAInstallPrompt";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 
 // Self-hosted variable fonts via next/font. Automatically:
 //  - Applies font-display: swap (prevents FOIT, fixes audit warning)
@@ -33,6 +34,14 @@ export const metadata: Metadata = {
   },
   description:
     "Will school be cancelled tomorrow? Check your real-time snow day probability with live weather data, ice risk, and regional analysis. Search by ZIP code, city, or district.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     type: "website",
     title: "SnowSense™ — Snow Day Calculator",
@@ -40,7 +49,7 @@ export const metadata: Metadata = {
     siteName: "SnowSense™",
     images: [
       {
-        url: "/og-default.svg",
+        url: "/api/og",
         width: 1200,
         height: 630,
         alt: "SnowSense™ — Real-Time Snow Day Calculator",
@@ -51,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SnowSense™ — Snow Day Calculator",
     description: "Check the snow day forecast for your ZIP code, city, or district.",
-    images: ["/og-default.svg"],
+    images: ["/api/og"],
   },
   alternates: {
     types: {
@@ -135,13 +144,20 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
         />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-lg focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-sm focus:text-white focus:outline-none"
+        >
+          Skip to content
+        </a>
         <SystemUIProvider>
           <Navbar />
-          <div className="flex-grow">{children}</div>
+          <div id="main-content" className="flex-grow">{children}</div>
           <Footer />
           <BackToTop />
           <PWAInstallPrompt />
         </SystemUIProvider>
+        <GoogleAnalytics />
       </body>
     </html>
   );

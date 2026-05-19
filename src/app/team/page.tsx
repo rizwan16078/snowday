@@ -1,7 +1,9 @@
 import { Metadata } from "next";
-import { AnimatedPageWrapper, AnimatedSection } from "@/components/layout/AnimatedPageWrapper";
+import Link from "next/link";
 import Image from "next/image";
+import { AnimatedPageWrapper, AnimatedSection } from "@/components/layout/AnimatedPageWrapper";
 import { MapPin } from "lucide-react";
+import { breadcrumbListSchema, webPageSchema } from "@/lib/breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "Our Team & Authors | SnowSense™",
@@ -40,8 +42,28 @@ function TeamMember({
   );
 }
 
+const breadcrumbSchema = breadcrumbListSchema([
+  { name: "Home", path: "/" },
+  { name: "Team", path: "/team" },
+]);
+
+const pageSchema = webPageSchema({
+  path: "/team",
+  name: "SnowSense™ Team",
+  description: "Meet the meteorologists, data scientists, and developers behind SnowSense™.",
+});
+
 export default function TeamPage() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     <AnimatedPageWrapper 
       title="Authors & Team" 
       subtitle="The data scientists, meteorologists, and engineers behind the predictions."
@@ -82,6 +104,33 @@ export default function TeamPage() {
           </p>
         </div>
       </AnimatedSection>
+
+      <AnimatedSection title="What We Build" delay={0.4}>
+        <div className="grid sm:grid-cols-3 gap-4">
+          <Link
+            href="/"
+            className="group p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
+          >
+            <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">Snow Day Calculator</p>
+            <p className="text-xs text-white/40">Real-time prediction engine.</p>
+          </Link>
+          <Link
+            href="/weather"
+            className="group p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
+          >
+            <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">Weather Dashboard</p>
+            <p className="text-xs text-white/40">Hourly &amp; 10-day forecasts.</p>
+          </Link>
+          <Link
+            href="/about"
+            className="group p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
+          >
+            <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">About SnowSense™</p>
+            <p className="text-xs text-white/40">Our mission &amp; data strategy.</p>
+          </Link>
+        </div>
+      </AnimatedSection>
     </AnimatedPageWrapper>
+    </>
   );
 }

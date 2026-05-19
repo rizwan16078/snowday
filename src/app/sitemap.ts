@@ -15,7 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: BASE, lastModified: now, changeFrequency: "hourly", priority: 1 },
     { url: `${BASE}/snow-day-calculator`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
     { url: `${BASE}/weather`, lastModified: now, changeFrequency: "hourly", priority: 0.9 },
-    { url: `${BASE}/prediction`, lastModified: now, changeFrequency: "hourly", priority: 0.8 },
     { url: `${BASE}/weather-guide`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/weather-terms`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
@@ -24,6 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/sitemap`, lastModified: now, changeFrequency: "monthly", priority: 0.3 },
     { url: `${BASE}/legal/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE}/legal/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE}/legal/editorial-guidelines`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE}/team`, lastModified: now, changeFrequency: "monthly", priority: 0.4 },
   ];
 
   // Blog posts — use publish date as lastmod so Google prioritizes fresh content

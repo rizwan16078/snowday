@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { getBlogPost, getAllSlugs, blogPosts } from "@/lib/blog-data";
 import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
-import { BlogRenderer, extractHeadings } from "@/components/blog/BlogRenderer";
+import { BlogRenderer, extractHeadings, extractFAQs } from "@/components/blog/BlogRenderer";
 import { TableOfContents } from "@/components/blog/TableOfContents";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
 
@@ -54,6 +54,8 @@ export default async function BlogPostPage({ params }: Props) {
   const prevPost = currentIdx > 0 ? blogPosts[currentIdx - 1] : null;
   const nextPost = currentIdx < blogPosts.length - 1 ? blogPosts[currentIdx + 1] : null;
 
+  const faqItems = extractFAQs(post.content);
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -61,7 +63,7 @@ export default async function BlogPostPage({ params }: Props) {
     description: post.metaDescription,
     image: `https://www.snowdaycalculate.com${post.image}`,
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.dateModified || post.date,
     author: { "@type": "Organization", name: "SnowSense™" },
     publisher: {
       "@type": "Organization",
@@ -70,6 +72,19 @@ export default async function BlogPostPage({ params }: Props) {
     },
     mainEntityOfPage: `https://www.snowdaycalculate.com/blog/${slug}`,
   };
+
+  const faqSchema = faqItems.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  } : null;
 
   // BreadcrumbList: Home → Blog → Post (H4 fix).
   const breadcrumbSchema = breadcrumbListSchema([
@@ -88,6 +103,12 @@ export default async function BlogPostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <main className="min-h-screen">
         {/* Hero Image */}
         <div className="relative h-64 sm:h-80 md:h-96 w-full">

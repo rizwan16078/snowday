@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { AnimatedPageWrapper, AnimatedSection } from "@/components/layout/AnimatedPageWrapper";
+import { breadcrumbListSchema, webPageSchema } from "@/lib/breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -9,8 +10,28 @@ export const metadata: Metadata = {
   },
 };
 
+const breadcrumbSchema = breadcrumbListSchema([
+  { name: "Home", path: "/" },
+  { name: "Terms of Service", path: "/legal/terms" },
+]);
+
+const pageSchema = webPageSchema({
+  path: "/legal/terms",
+  name: "Terms of Service",
+  description: "Terms of Service for SnowSense™ — operational guidelines and usage policies.",
+});
+
 export default function TermsOfServicePage() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     <AnimatedPageWrapper 
       title="Terms of Service" 
       subtitle={`Operational Guidelines — Last updated: ${new Date().toLocaleDateString()}`}
@@ -50,5 +71,6 @@ export default function TermsOfServicePage() {
         </AnimatedSection>
       </div>
     </AnimatedPageWrapper>
+    </>
   );
 }

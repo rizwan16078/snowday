@@ -31,13 +31,18 @@ function isLocalRequest(req: NextRequest): boolean {
 export async function GET(req: NextRequest) {
   const query = req.nextUrl.searchParams.get("q");
   const detectMode = req.nextUrl.searchParams.get("detect");
+  const isFallback = req.nextUrl.searchParams.get("fallback") === "1";
 
   if (!query || detectMode === "ip") {
-    const headerLocation = detectLocationFromHeaders(req.headers);
-    if (headerLocation) {
-      return NextResponse.json(headerLocation, {
-        headers: { "Cache-Control": "private, no-store" },
-      });
+    // When fallback=1, skip Vercel headers (client already tried that path)
+    // and go straight to IP-based detection which includes ip-api.com fallback
+    if (!isFallback) {
+      const headerLocation = detectLocationFromHeaders(req.headers);
+      if (headerLocation) {
+        return NextResponse.json(headerLocation, {
+          headers: { "Cache-Control": "private, no-store" },
+        });
+      }
     }
 
     const forwardedIp = getForwardedPublicIp(req.headers);

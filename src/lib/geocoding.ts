@@ -97,12 +97,48 @@ export async function detectLocationFromIP(ipAddress?: string): Promise<Geocodin
     const res = await fetch(endpoint, {
       cache: "no-store",
     });
-    if (!res.ok) return null;
-    const data = (await res.json()) as Record<string, unknown>;
-    return parseIpapiLocation(data);
+    if (res.ok) {
+      const data = (await res.json()) as Record<string, unknown>;
+      const result = parseIpapiLocation(data);
+      if (result) return result;
+    }
   } catch {
-    return null;
+    // ipapi.co failed — try fallback
   }
+
+  // Fallback: ip-api.com (free, no key, 45 req/min)
+  try {
+    const endpoint = ipAddress
+      ? `http://ip-api.com/json/${encodeURIComponent(ipAddress)}?fields=status,country,countryCode,region,regionName,city,lat,lon,timezone,zip`
+      : "http://ip-api.com/json/?fields=status,country,countryCode,region,regionName,city,lat,lon,timezone,zip";
+    const res = await fetch(endpoint, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      const data = (await res.json()) as Record<string, unknown>;
+      if (data.status === "success") {
+        const city = typeof data.city === "string" ? data.city : "";
+        const lat = Number(data.lat);
+        const lon = Number(data.lon);
+        if (city && Number.isFinite(lat) && Number.isFinite(lon)) {
+          return {
+            lat,
+            lon,
+            city,
+            state: (typeof data.regionName === "string" && data.regionName) || "",
+            country: (typeof data.countryCode === "string" && data.countryCode) || "US",
+            zip: typeof data.zip === "string" && data.zip ? data.zip : undefined,
+            slug: slugifyLocation(`${city}-${(typeof data.countryCode === "string" && data.countryCode) || "US"}`),
+            timezone: typeof data.timezone === "string" && data.timezone ? data.timezone : undefined,
+          };
+        }
+      }
+    }
+  } catch {
+    // Both providers failed
+  }
+
+  return null;
 }
 
 // ─── Forward Geocoding (search query → lat/lon) ──────────────────────────────

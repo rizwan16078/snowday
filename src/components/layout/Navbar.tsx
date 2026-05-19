@@ -7,6 +7,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useSystemUI } from "@/components/providers/SystemUIContext";
+import { NavbarSearch } from "@/components/layout/NavbarSearch";
 
 /**
  * Inline brand snowflake — the SnowSense logo. Rendered as a visible SVG
@@ -169,6 +170,8 @@ export function Navbar() {
         </div>
 
         <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-4">
+          <NavbarSearch />
+
           <Link
             href="/about"
             aria-label="About SnowSense"

@@ -12,6 +12,7 @@ export interface BlogPost {
   metaTitle: string;
   metaDescription: string;
   content: string;
+  dateModified?: string;
 }
 
 const manualBlogPosts: BlogPost[] = [

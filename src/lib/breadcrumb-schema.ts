@@ -33,3 +33,26 @@ export function breadcrumbListSchema(crumbs: Crumb[]): Record<string, unknown> {
     })),
   };
 }
+
+/**
+ * Build a WebPage schema for static content pages.
+ * Helps search engines understand the page type and its relationship to the site.
+ */
+export function webPageSchema(options: {
+  path: string;
+  name: string;
+  description?: string;
+}): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE}${options.path}`,
+    url: `${SITE}${options.path}`,
+    name: options.name,
+    ...(options.description && { description: options.description }),
+    isPartOf: {
+      "@type": "WebSite",
+      url: SITE,
+    },
+  };
+}

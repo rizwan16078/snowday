@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { AnimatedPageWrapper, AnimatedSection } from "@/components/layout/AnimatedPageWrapper";
+import { breadcrumbListSchema, webPageSchema } from "@/lib/breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -9,8 +10,28 @@ export const metadata: Metadata = {
   },
 };
 
+const breadcrumbSchema = breadcrumbListSchema([
+  { name: "Home", path: "/" },
+  { name: "Privacy Policy", path: "/legal/privacy" },
+]);
+
+const pageSchema = webPageSchema({
+  path: "/legal/privacy",
+  name: "Privacy Policy",
+  description: "Privacy Policy for SnowSense™ — how we collect, use, and protect your data.",
+});
+
 export default function PrivacyPolicyPage() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     <AnimatedPageWrapper 
       title="Privacy Policy" 
       subtitle={`Protocol v2.1 — Last updated: ${new Date().toLocaleDateString()}`}
@@ -55,5 +76,6 @@ export default function PrivacyPolicyPage() {
         </AnimatedSection>
       </div>
     </AnimatedPageWrapper>
+    </>
   );
 }

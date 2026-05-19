@@ -3,20 +3,17 @@
 /**
  * PWAInstallPrompt — discreet "install app" toast.
  *
- * Goals (informed by SEO/UX best practice):
- *   1. Don't annoy first-time visitors. Only show on the 2nd+ session.
- *   2. Don't show again for 30 days after a dismiss.
- *   3. Don't show if the app is already installed (`display-mode: standalone`).
- *   4. Fire `beforeinstallprompt` is captured and re-played on user gesture
- *      (required by Chrome's install-prompt UX policy).
- *   5. iOS Safari doesn't fire `beforeinstallprompt`; we show "Add to Home
- *      Screen" instructions instead when we detect iOS Safari outside
- *      standalone mode.
+ * Rules:
+ *   1. Show only ONCE ever (unless user clears site data).
+ *   2. Don't show if the app is already installed.
+ *   3. Chrome/Edge/Android: use native `beforeinstallprompt`.
+ *   4. iOS Safari: show "Add to Home Screen" instructions once.
+ *   5. After dismiss or install, never show again.
  *
  * Storage keys (localStorage):
- *   - `pwa:visits`            — integer, incremented each fresh load
- *   - `pwa:dismissed-at`      — ISO timestamp of last user dismissal
- *   - `pwa:installed`         — "1" once we know the app is installed
+ *   - `pwa:shown`       — "1" once the prompt has been displayed
+ *   - `pwa:dismissed`   — "1" once user dismissed the prompt
+ *   - `pwa:installed`   — "1" once we know the app is installed
  */
 
 import { useEffect, useState, useCallback } from "react";
@@ -34,36 +31,38 @@ interface BeforeInstallPromptEvent extends Event {
 
 // ─── Local storage helpers ───────────────────────────────────────────────────
 
-const VISITS_KEY = "pwa:visits";
-const DISMISSED_KEY = "pwa:dismissed-at";
+const SHOWN_KEY = "pwa:shown";
+const DISMISSED_KEY = "pwa:dismissed";
 const INSTALLED_KEY = "pwa:installed";
-const DISMISS_DAYS = 30;
 
-function incrementVisitCount(): number {
-  if (typeof window === "undefined") return 0;
-  const prev = parseInt(localStorage.getItem(VISITS_KEY) ?? "0", 10) || 0;
-  const next = prev + 1;
-  localStorage.setItem(VISITS_KEY, String(next));
-  return next;
+function wasAlreadyShown(): boolean {
+  if (typeof window === "undefined") return false;
+  return localStorage.getItem(SHOWN_KEY) === "1";
 }
 
-function wasRecentlyDismissed(): boolean {
+function markShown() {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(SHOWN_KEY, "1");
+}
+
+function wasDismissed(): boolean {
   if (typeof window === "undefined") return false;
-  const ts = localStorage.getItem(DISMISSED_KEY);
-  if (!ts) return false;
-  const dismissedAt = new Date(ts).getTime();
-  const cutoff = Date.now() - DISMISS_DAYS * 24 * 60 * 60 * 1000;
-  return dismissedAt > cutoff;
+  return localStorage.getItem(DISMISSED_KEY) === "1";
 }
 
 function markDismissed() {
   if (typeof window === "undefined") return;
-  localStorage.setItem(DISMISSED_KEY, new Date().toISOString());
+  localStorage.setItem(DISMISSED_KEY, "1");
 }
 
 function markInstalled() {
   if (typeof window === "undefined") return;
   localStorage.setItem(INSTALLED_KEY, "1");
+}
+
+function isInstalled(): boolean {
+  if (typeof window === "undefined") return false;
+  return localStorage.getItem(INSTALLED_KEY) === "1";
 }
 
 function isStandaloneDisplay(): boolean {
@@ -87,36 +86,29 @@ function isIOSSafari(): boolean {
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export function PWAInstallPrompt() {
-  // We treat "mode" as a state machine: hidden | chrome | ios
   const [mode, setMode] = useState<"hidden" | "chrome" | "ios">("hidden");
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
-  // Wait until after first paint so we don't push CLS.
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
 
-    // Bail out if already installed
-    if (isStandaloneDisplay()) {
+    // Bail out if already installed (standalone mode or previously recorded)
+    if (isStandaloneDisplay() || isInstalled()) {
       markInstalled();
       return;
     }
 
-    // Bail out if user dismissed recently
-    if (wasRecentlyDismissed()) return;
-
-    // Count this visit
-    const visits = incrementVisitCount();
-
-    // Only show on 2nd or later visit — don't pester first-timers
-    if (visits < 2) return;
+    // Bail out if already shown and dismissed — never show again
+    if (wasAlreadyShown() || wasDismissed()) return;
 
     // ── Chrome / Edge / Android path ──
     const onBeforeInstall = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       setMode("chrome");
+      markShown();
     };
 
     const onAppInstalled = () => {
@@ -133,8 +125,14 @@ export function PWAInstallPrompt() {
     if (isIOSSafari()) {
       iosTimer = setTimeout(() => {
         // If by now `beforeinstallprompt` hasn't fired (it never will on iOS),
-        // show our iOS-specific instructions.
-        setMode((current) => (current === "hidden" ? "ios" : current));
+        // show our iOS-specific instructions — but only once.
+        setMode((current) => {
+          if (current === "hidden") {
+            markShown();
+            return "ios";
+          }
+          return current;
+        });
       }, 1500);
     }
 
@@ -156,7 +154,6 @@ export function PWAInstallPrompt() {
         markDismissed();
       }
     } catch (e) {
-      // Some browsers throw if prompt() is invoked outside a user gesture.
       console.warn("PWA install prompt failed:", e);
       markDismissed();
     } finally {
@@ -213,8 +210,8 @@ export function PWAInstallPrompt() {
                 "Get one-tap snow day checks. Works offline — no app store required."
               )}
             </p>
-            {mode === "chrome" && (
-              <div className="flex gap-2 mt-3">
+            <div className="flex gap-2 mt-3">
+              {mode === "chrome" && (
                 <button
                   type="button"
                   onClick={handleInstallClick}
@@ -222,15 +219,15 @@ export function PWAInstallPrompt() {
                 >
                   Install
                 </button>
-                <button
-                  type="button"
-                  onClick={handleDismiss}
-                  className="text-xs font-semibold px-3 py-1.5 rounded-lg text-white/55 hover:text-white/80 transition-colors"
-                >
-                  Not now
-                </button>
-              </div>
-            )}
+              )}
+              <button
+                type="button"
+                onClick={handleDismiss}
+                className="text-xs font-semibold px-3 py-1.5 rounded-lg text-white/55 hover:text-white/80 transition-colors"
+              >
+                Not now
+              </button>
+            </div>
           </div>
           <button
             type="button"

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
+import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
 import {
   Activity,
   ArrowRight,
@@ -410,6 +411,14 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
   const topPosts = blogPosts.slice(0, 3);
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbListSchema([
+          { name: "Home", path: "/" },
+          { name: "Weather Outlook", path: "/weather" },
+        ])) }}
+      />
     <main className="relative min-h-screen overflow-hidden bg-[#050913] px-4 pb-20 pt-28 text-white">
       <ClientLocationResolver initialLocationSlug={location.slug} />
       <div className="pointer-events-none absolute inset-0">
@@ -954,5 +963,6 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
         </section>
       </div>
     </main>
+    </>
   );
 }
