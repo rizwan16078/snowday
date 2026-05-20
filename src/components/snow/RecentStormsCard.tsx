@@ -54,7 +54,7 @@ export function RecentStormsCard({ cityName, storms, generatedAt }: Props) {
             <h3 className="text-xl sm:text-2xl font-display font-black text-white">
               Recent {cityOnly} storms
             </h3>
-            <p className="text-xs text-white/40 uppercase tracking-widest mt-1">
+            <p className="text-xs text-white/50 uppercase tracking-widest mt-1">
               National Weather Service · Storm Events Database
             </p>
           </div>
@@ -70,7 +70,7 @@ export function RecentStormsCard({ cityName, storms, generatedAt }: Props) {
                 <p className="text-sm font-bold text-white/90">{s.type}</p>
                 <time
                   dateTime={s.date}
-                  className="text-[11px] text-white/40 uppercase tracking-wider whitespace-nowrap"
+                  className="text-[11px] text-white/50 uppercase tracking-wider whitespace-nowrap"
                 >
                   {formatDate(s.date)}
                 </time>

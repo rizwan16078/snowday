@@ -103,7 +103,7 @@ export default function WeatherTermsPage() {
             </p>
 
             {/* Quick stats row */}
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-6 text-xs text-white/40">
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-6 text-xs text-white/50">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-3.5 h-3.5 text-blue-400" />
                 <span>{GLOSSARY_TERMS.length} Terms</span>

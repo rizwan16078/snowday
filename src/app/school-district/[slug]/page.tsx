@@ -248,7 +248,7 @@ export default async function DistrictPage({ params }: Props) {
             aria-label="Breadcrumb"
             className="mb-8 max-w-2xl text-center"
           >
-            <ol className="inline-flex flex-wrap justify-center items-center gap-2 text-xs text-white/40 bg-white/5 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+            <ol className="inline-flex flex-wrap justify-center items-center gap-2 text-xs text-white/50 bg-white/5 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
               <li>
                 <Link href="/" className="hover:text-white/70">
                   Home
@@ -432,7 +432,7 @@ export default async function DistrictPage({ params }: Props) {
                     key={s.label}
                     className="rounded-xl bg-white/[0.02] border border-white/5 px-4 py-3"
                   >
-                    <div className="text-[10px] text-white/40 uppercase tracking-widest font-semibold mb-1">
+                    <div className="text-[10px] text-white/50 uppercase tracking-widest font-semibold mb-1">
                       {s.label}
                     </div>
                     <div className="text-sm font-display font-black text-white truncate">
@@ -480,7 +480,7 @@ export default async function DistrictPage({ params }: Props) {
                   ? `Other ${district.stateName} districts`
                   : "Other large U.S. school districts"}
               </h2>
-              <p className="text-xs text-white/40 uppercase tracking-widest mb-5">
+              <p className="text-xs text-white/50 uppercase tracking-widest mb-5">
                 Snow day forecasts for related districts
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -494,7 +494,7 @@ export default async function DistrictPage({ params }: Props) {
                       <div className="text-sm font-bold text-white/90 group-hover:text-white truncate">
                         {d.name}
                       </div>
-                      <div className="text-[11px] text-white/40 uppercase tracking-wider mt-0.5">
+                      <div className="text-[11px] text-white/50 uppercase tracking-wider mt-0.5">
                         {d.city.name} · {d.enrollment.toLocaleString("en-US")} students
                       </div>
                     </div>
@@ -545,7 +545,7 @@ function StatCard({
 }) {
   return (
     <div className="glass-card rounded-xl px-4 py-3">
-      <div className="flex items-center gap-1.5 text-[10px] text-white/40 uppercase tracking-widest font-semibold mb-1">
+      <div className="flex items-center gap-1.5 text-[10px] text-white/50 uppercase tracking-widest font-semibold mb-1">
         {icon}
         {label}
       </div>

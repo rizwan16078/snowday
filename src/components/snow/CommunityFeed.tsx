@@ -38,7 +38,7 @@ export function CommunityFeed({ items }: CommunityFeedProps) {
         <h3 className="text-2xl font-display font-black text-white/90 sm:text-3xl">
           Community Feed
         </h3>
-        <p className="mt-2 text-sm text-white/30">
+        <p className="mt-2 text-sm text-white/50">
           Server-authoritative cached predictions refreshed every 60 seconds
         </p>
       </motion.div>
@@ -98,13 +98,13 @@ export function CommunityFeed({ items }: CommunityFeedProps) {
                 >
                   {item.probability}%
                 </span>
-                <span className="text-[10px] text-white/15">{item.timeAgo}</span>
+                <span className="text-[10px] text-white/50">{item.timeAgo}</span>
               </div>
             </motion.article>
           ))}
         </div>
 
-        <div className="mt-5 flex items-center justify-between gap-3 text-[10px] text-white/20">
+        <div className="mt-5 flex items-center justify-between gap-3 text-[10px] text-white/50">
           <span>Pull to refresh latest predictions</span>
           <button
             onClick={() => startTransition(() => router.refresh())}

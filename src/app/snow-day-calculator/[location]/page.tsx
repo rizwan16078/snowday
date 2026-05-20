@@ -397,14 +397,14 @@ export default async function LocationPage({ params }: Props) {
             {/* FAQ integrated into scroll section */}
             <div className="w-full max-w-2xl mx-auto px-5 pb-32">
               <div className="glass-card rounded-2xl p-6 space-y-4">
-                <h2 className="text-sm font-bold uppercase tracking-widest text-white/40">
+                <h2 className="text-sm font-bold uppercase tracking-widest text-white/50">
                   FAQ — {locationName}
                 </h2>
                 {faqSchema.mainEntity.map((q, i) => (
                   <details key={i} className="group border-b border-white/5 pb-4 last:border-0 last:pb-0">
                     <summary className="text-sm font-semibold text-white/80 cursor-pointer hover:text-white transition-colors list-none flex items-center justify-between">
                       {q.name}
-                      <span className="text-white/30 group-open:rotate-180 transition-transform" aria-hidden="true">▾</span>
+                      <span className="text-white/50 group-open:rotate-180 transition-transform" aria-hidden="true">▾</span>
                     </summary>
                     <p className="mt-2 text-sm text-white/50 leading-relaxed pl-2 border-l-2 border-blue-500/30">
                       {q.acceptedAnswer.text}

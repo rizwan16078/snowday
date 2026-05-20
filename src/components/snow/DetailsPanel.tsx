@@ -63,7 +63,7 @@ export function DetailsPanel({ prediction }: DetailsPanelProps) {
     >
       {/* Natural language explanation */}
       <motion.div variants={itemVariants} className="glass-card rounded-2xl p-6">
-        <p className="text-xs text-white/30 uppercase tracking-widest font-semibold mb-3">
+        <p className="text-xs text-white/50 uppercase tracking-widest font-semibold mb-3">
           Analysis Summary
         </p>
         <p className="text-base text-white/80 leading-relaxed">
@@ -73,7 +73,7 @@ export function DetailsPanel({ prediction }: DetailsPanelProps) {
 
       {/* Factor breakdown bars */}
       <motion.div variants={itemVariants} className="glass-card rounded-2xl p-6 space-y-5">
-        <p className="text-xs text-white/30 uppercase tracking-widest font-semibold">
+        <p className="text-xs text-white/50 uppercase tracking-widest font-semibold">
           Risk Factor Breakdown
         </p>
         {FACTORS.map((f, i) => {
@@ -86,7 +86,7 @@ export function DetailsPanel({ prediction }: DetailsPanelProps) {
                   <span className="text-lg" aria-hidden="true">{f.icon}</span>
                   <div>
                     <span className="text-sm font-semibold text-white/90">{f.label}</span>
-                    <span className="text-xs text-white/30 ml-2 hidden sm:inline">{f.description}</span>
+                    <span className="text-xs text-white/50 ml-2 hidden sm:inline">{f.description}</span>
                   </div>
                 </div>
                 <span
@@ -122,7 +122,7 @@ export function DetailsPanel({ prediction }: DetailsPanelProps) {
       {/* Weather data & metadata */}
       {weather && (
         <motion.div variants={itemVariants} className="glass-card rounded-2xl p-6">
-          <p className="text-xs text-white/30 uppercase tracking-widest font-semibold mb-4">
+          <p className="text-xs text-white/50 uppercase tracking-widest font-semibold mb-4">
             Weather Data
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -177,9 +177,9 @@ function WeatherStat({
 }) {
   return (
     <div className="text-center">
-      <p className="text-[10px] text-white/30 uppercase tracking-wider mb-1">{label}</p>
+      <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">{label}</p>
       <p className="text-lg font-bold font-display text-white/90">{value}</p>
-      <p className="text-[10px] text-white/25">{sub}</p>
+      <p className="text-[10px] text-white/50">{sub}</p>
     </div>
   );
 }

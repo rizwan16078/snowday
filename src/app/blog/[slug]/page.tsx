@@ -143,12 +143,12 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="max-w-7xl mx-auto px-4 pb-24 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_260px] gap-10">
           <div className="max-w-3xl mx-auto lg:mx-0 w-full">
             {/* Breadcrumb */}
-            <nav className="flex items-center gap-2 text-xs text-white/25 mt-6 mb-8">
+            <nav className="flex items-center gap-2 text-xs text-white/50 mt-6 mb-8">
               <Link href="/" className="hover:text-white/50 transition-colors">Home</Link>
               <span>›</span>
               <Link href="/blog" className="hover:text-white/50 transition-colors">Blog</Link>
               <span>›</span>
-              <span className="text-white/40 truncate">{post.title}</span>
+              <span className="text-white/50 truncate">{post.title}</span>
             </nav>
 
             <h1 className="text-3xl md:text-5xl font-display font-black text-white leading-[1.1] mb-5 tracking-tight">
@@ -159,7 +159,7 @@ export default async function BlogPostPage({ params }: Props) {
               {post.excerpt}
             </p>
 
-            <div className="flex items-center gap-4 text-xs text-white/40 mb-10 pb-8 border-b border-white/5">
+            <div className="flex items-center gap-4 text-xs text-white/50 mb-10 pb-8 border-b border-white/5">
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-3 h-3" />
                 {new Date(post.date).toLocaleDateString("en-US", {

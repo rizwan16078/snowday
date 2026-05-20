@@ -65,7 +65,7 @@ export default function SnowDayIndexPage() {
 
         {/* Featured populous cities */}
         <section aria-label="Featured city predictions" className="mb-14">
-          <h2 className="text-xs text-white/40 uppercase tracking-widest font-bold mb-4">
+          <h2 className="text-xs text-white/50 uppercase tracking-widest font-bold mb-4">
             Popular cities
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -86,7 +86,7 @@ export default function SnowDayIndexPage() {
 
         {/* Top school districts — discoverability for /school-district/[slug] */}
         <section aria-label="Top school districts" className="mb-14">
-          <h2 className="text-xs text-white/40 uppercase tracking-widest font-bold mb-4">
+          <h2 className="text-xs text-white/50 uppercase tracking-widest font-bold mb-4">
             Top school districts ({ALL_DISTRICTS.length})
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
@@ -111,7 +111,7 @@ export default function SnowDayIndexPage() {
 
         {/* Browse by state */}
         <section aria-label="Browse by state" className="mb-14">
-          <h2 className="text-xs text-white/40 uppercase tracking-widest font-bold mb-4">
+          <h2 className="text-xs text-white/50 uppercase tracking-widest font-bold mb-4">
             Browse by state ({stateSlugs.length})
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
@@ -131,7 +131,7 @@ export default function SnowDayIndexPage() {
                   <span className="text-sm font-medium text-white/75 group-hover:text-white truncate">
                     {stateName}
                   </span>
-                  <span className="text-[10px] text-white/30 uppercase tracking-widest ml-2 shrink-0">
+                  <span className="text-[10px] text-white/50 uppercase tracking-widest ml-2 shrink-0">
                     {cityCount}
                   </span>
                 </Link>

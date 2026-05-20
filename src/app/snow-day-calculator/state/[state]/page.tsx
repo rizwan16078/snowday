@@ -131,7 +131,7 @@ export default async function StateHubPage({ params }: Props) {
       <main className="min-h-screen px-4 py-16 max-w-5xl mx-auto" role="main">
         {/* Breadcrumb pill */}
         <nav aria-label="Breadcrumb" className="mb-8">
-          <ol className="inline-flex items-center gap-2 text-xs text-white/40 bg-white/5 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+          <ol className="inline-flex items-center gap-2 text-xs text-white/50 bg-white/5 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
             <li>
               <Link href="/" className="hover:text-white/70 transition-colors">
                 Home
@@ -224,7 +224,7 @@ export default async function StateHubPage({ params }: Props) {
                   <div className="text-sm font-bold text-white/90 group-hover:text-white transition-colors truncate">
                     {c.name}
                   </div>
-                  <div className="text-[11px] text-white/40 uppercase tracking-wider mt-0.5">
+                  <div className="text-[11px] text-white/50 uppercase tracking-wider mt-0.5">
                     Pop {formatPop(c.population)} · {c.snowInches}" snow/yr
                   </div>
                 </div>
@@ -261,7 +261,7 @@ export default async function StateHubPage({ params }: Props) {
                   <span className="text-sm font-semibold text-white/80 group-hover:text-white truncate">
                     {rs.name}
                   </span>
-                  <span className="text-[11px] text-white/30 group-hover:text-white/50 shrink-0 ml-2">
+                  <span className="text-[11px] text-white/50 group-hover:text-white/50 shrink-0 ml-2">
                     {rs.cityCount}
                   </span>
                 </Link>
@@ -290,7 +290,7 @@ export default async function StateHubPage({ params }: Props) {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="glass-card rounded-xl px-4 py-3">
-      <div className="text-[10px] text-white/40 uppercase tracking-widest font-semibold mb-1">
+      <div className="text-[10px] text-white/50 uppercase tracking-widest font-semibold mb-1">
         {label}
       </div>
       <div className="text-base font-display font-black text-white">

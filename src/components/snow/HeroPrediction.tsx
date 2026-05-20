@@ -195,7 +195,7 @@ export function HeroPrediction({
         className="animate-slide-up mt-3"
         style={{ animationDelay: "0.5s", animationFillMode: "backwards" }}
       >
-        <p className="max-w-xs text-sm font-medium text-white/40 sm:text-base">
+        <p className="max-w-xs text-sm font-medium text-white/50 sm:text-base">
           {cfg.subtext}
         </p>
       </div>

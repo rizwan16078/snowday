@@ -430,7 +430,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
       <div className="relative mx-auto max-w-7xl">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-white/40">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-white/50">
               Weather outlook
             </p>
             <h1 className="mt-3 font-display text-4xl font-black tracking-tight text-white sm:text-5xl">
@@ -651,7 +651,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
         <section id="hourly" className="mt-8 glass-card rounded-[2rem] p-6 sm:p-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/40">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/50">
                 Hourly weather
               </p>
               <h2 className="mt-2 font-display text-2xl font-bold text-white">The next 24 hours</h2>
@@ -702,7 +702,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
           <div className="glass-card rounded-[2rem] p-6 sm:p-8">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/40">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/50">
                   10-day forecast
                 </p>
                 <h2 className="mt-2 font-display text-2xl font-bold text-white">
@@ -893,7 +893,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
         <section id="top-reads" className="mt-8 glass-card rounded-[2rem] p-6 sm:p-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/40">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/50">
                 Top reads
               </p>
               <h2 className="mt-2 font-display text-2xl font-bold text-white">

@@ -112,7 +112,7 @@ export default function ContactPage() {
         <p className="text-white/60 mb-8 max-w-md mx-auto leading-relaxed">
           For urgent press or partnership inquiries, please include "URGENT" in your email subject line for prioritized routing.
         </p>
-        <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-white/40 uppercase tracking-widest">
+        <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-white/50 uppercase tracking-widest">
           Response time: <span className="text-blue-400">~24 Hours</span>
         </div>
       </div>

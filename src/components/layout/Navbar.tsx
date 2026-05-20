@@ -124,17 +124,17 @@ export function Navbar() {
           <div className="glass-command mx-auto max-w-2xl rounded-2xl px-4 py-3">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-[9px] font-bold uppercase tracking-[0.32em] text-white/35">
+                <p className="text-[9px] font-bold uppercase tracking-[0.32em] text-white/50">
                   Location
                 </p>
                 <p className="truncate text-sm font-semibold tracking-[0.18em] text-white/88">
                   {ribbon.locationLabel}
-                  <span className="text-white/30">{" // "}</span>
+                  <span className="text-white/50">{" // "}</span>
                   {ribbon.latitudeLabel}
                 </p>
               </div>
               <div>
-                <p className="text-[9px] font-bold uppercase tracking-[0.32em] text-white/35">
+                <p className="text-[9px] font-bold uppercase tracking-[0.32em] text-white/50">
                   Atmospheric Status
                 </p>
                 <p className="truncate text-sm font-semibold tracking-[0.16em] text-white/78">

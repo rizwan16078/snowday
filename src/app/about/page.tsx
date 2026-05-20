@@ -126,7 +126,7 @@ function TeamMember({
       <p className="text-xs font-bold text-white/90 group-hover:text-white transition-colors">
         {name}
       </p>
-      <p className="text-[10px] text-white/40 mt-0.5 leading-tight">{role}</p>
+      <p className="text-[10px] text-white/50 mt-0.5 leading-tight">{role}</p>
     </div>
   );
 }
@@ -168,7 +168,7 @@ function PartnerLink({
         >
           {title}
         </h4>
-        <p className="text-xs text-white/40 truncate">{role}</p>
+        <p className="text-xs text-white/50 truncate">{role}</p>
       </div>
       <div
         className="relative text-white/25 group-hover:translate-x-1 transition-all duration-500"
@@ -418,28 +418,28 @@ export default function AboutPage() {
             className="group p-5 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
           >
             <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">Snow Day Calculator</p>
-            <p className="text-xs text-white/40">Check your real-time snow day probability by ZIP code or city.</p>
+            <p className="text-xs text-white/50">Check your real-time snow day probability by ZIP code or city.</p>
           </Link>
           <Link
             href="/weather"
             className="group p-5 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
           >
             <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">Weather Outlook</p>
-            <p className="text-xs text-white/40">Full weather dashboard with hourly, 10-day, and air quality data.</p>
+            <p className="text-xs text-white/50">Full weather dashboard with hourly, 10-day, and air quality data.</p>
           </Link>
           <Link
             href="/blog"
             className="group p-5 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
           >
             <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">Blog &amp; Guides</p>
-            <p className="text-xs text-white/40">Expert articles on snow day science, closure thresholds, and regional analysis.</p>
+            <p className="text-xs text-white/50">Expert articles on snow day science, closure thresholds, and regional analysis.</p>
           </Link>
           <Link
             href="/team"
             className="group p-5 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
           >
             <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">Our Team</p>
-            <p className="text-xs text-white/40">Meet the people behind SnowSense™ predictions.</p>
+            <p className="text-xs text-white/50">Meet the people behind SnowSense™ predictions.</p>
           </Link>
         </div>
       </AnimatedSection>

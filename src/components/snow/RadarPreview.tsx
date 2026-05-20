@@ -103,11 +103,11 @@ export function RadarPreview({ radarSrc, locationLabel }: RadarPreviewProps) {
               Doppler · Live
             </span>
           </div>
-          <div className="font-mono text-[10px] leading-tight text-white/35">
+          <div className="font-mono text-[10px] leading-tight text-white/50">
             <div>
               SCAN <span className="text-emerald-400/80">{scanTime}</span>
             </div>
-            <div className="text-white/25">UTC · 6s SWP</div>
+            <div className="text-white/50">UTC · 6s SWP</div>
           </div>
         </div>
 
@@ -132,7 +132,7 @@ export function RadarPreview({ radarSrc, locationLabel }: RadarPreviewProps) {
           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-white/55">
             {locationLabel || "Unresolved Sector"}
           </span>
-          <span className="font-mono text-[9px] uppercase tracking-wider text-white/25">
+          <span className="font-mono text-[9px] uppercase tracking-wider text-white/50">
             Edge Tile · SWR 300s · Cached
           </span>
         </div>
@@ -145,7 +145,7 @@ export function RadarPreview({ radarSrc, locationLabel }: RadarPreviewProps) {
               {String(bearing).padStart(3, "0")}°
             </span>
           </div>
-          <div className="text-white/25 uppercase tracking-wider text-[9px]">
+          <div className="text-white/50 uppercase tracking-wider text-[9px]">
             HEAD-UP · NORTH-LK
           </div>
         </div>

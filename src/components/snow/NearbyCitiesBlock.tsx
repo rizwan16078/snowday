@@ -40,7 +40,7 @@ export function NearbyCitiesBlock({ originName, nearby }: Props) {
             <h3 className="text-xl sm:text-2xl font-display font-black text-white">
               Nearby cities
             </h3>
-            <p className="text-xs text-white/40 uppercase tracking-widest mt-1">
+            <p className="text-xs text-white/50 uppercase tracking-widest mt-1">
               Live forecasts within driving distance of {originCity}
             </p>
           </div>
@@ -57,7 +57,7 @@ export function NearbyCitiesBlock({ originName, nearby }: Props) {
                 <div className="text-sm font-bold text-white/90 group-hover:text-white transition-colors truncate">
                   {c.name}
                 </div>
-                <div className="text-[11px] text-white/40 uppercase tracking-wider mt-0.5">
+                <div className="text-[11px] text-white/50 uppercase tracking-wider mt-0.5">
                   {c.stateName} · {c.snowInches}" snow/year
                 </div>
               </div>
@@ -65,7 +65,7 @@ export function NearbyCitiesBlock({ originName, nearby }: Props) {
                 <div className="text-sm font-display font-black text-amber-400/80">
                   {kmToMi(c.distanceKm)} mi
                 </div>
-                <div className="text-[10px] text-white/25 uppercase tracking-widest">
+                <div className="text-[10px] text-white/50 uppercase tracking-widest">
                   away
                 </div>
               </div>

@@ -105,11 +105,11 @@ export function CalibrationLayer({
                     <p className="text-xs text-white/50 font-medium">
                       Snow History Signal
                     </p>
-                    <span className="text-[10px] text-white/20 font-mono">
+                    <span className="text-[10px] text-white/50 font-mono">
                       daysUsed={daysUsed}
                     </span>
                   </div>
-                  <p className="text-[10px] text-white/25 mb-3 leading-relaxed">
+                  <p className="text-[10px] text-white/50 mb-3 leading-relaxed">
                     SnowSense™ is adjusting for historical winter patterns…
                   </p>
 
@@ -129,7 +129,7 @@ export function CalibrationLayer({
                       <span className="text-3xl font-display font-black text-white tabular-nums">
                         {daysUsed}
                       </span>
-                      <p className="text-[10px] text-white/20 mt-1">
+                      <p className="text-[10px] text-white/50 mt-1">
                         snow days used this year
                       </p>
                     </div>
@@ -172,11 +172,11 @@ export function CalibrationLayer({
                     <p className="text-xs text-white/50 font-medium">
                       School Type Signal
                     </p>
-                    <span className="text-[10px] text-white/20 font-mono">
+                    <span className="text-[10px] text-white/50 font-mono">
                       type={schoolType}
                     </span>
                   </div>
-                  <p className="text-[10px] text-white/25 mb-3 leading-relaxed">
+                  <p className="text-[10px] text-white/50 mb-3 leading-relaxed">
                     SnowSense™ is calibrating for institutional response patterns…
                   </p>
 
@@ -197,7 +197,7 @@ export function CalibrationLayer({
                       className={`relative z-10 flex-1 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
                         schoolType === "public"
                           ? "text-white"
-                          : "text-white/35 hover:text-white/55"
+                          : "text-white/50 hover:text-white/55"
                       }`}
                     >
                       🏫 Public
@@ -207,7 +207,7 @@ export function CalibrationLayer({
                       className={`relative z-10 flex-1 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
                         schoolType === "private"
                           ? "text-white"
-                          : "text-white/35 hover:text-white/55"
+                          : "text-white/50 hover:text-white/55"
                       }`}
                     >
                       🎓 Private
@@ -261,7 +261,7 @@ export function CalibrationLayer({
               <div className="px-6 pb-8 space-y-5">
                 {/* Snow History */}
                 <div>
-                  <p className="text-[10px] text-white/25 mb-3 leading-relaxed">
+                  <p className="text-[10px] text-white/50 mb-3 leading-relaxed">
                     SnowSense™ is adjusting for historical winter patterns…
                   </p>
                   <div className="flex items-center justify-between gap-4">
@@ -278,7 +278,7 @@ export function CalibrationLayer({
                       <span className="text-4xl font-display font-black text-white tabular-nums">
                         {daysUsed}
                       </span>
-                      <p className="text-[10px] text-white/20 mt-1">
+                      <p className="text-[10px] text-white/50 mt-1">
                         snow days used
                       </p>
                     </div>
@@ -296,7 +296,7 @@ export function CalibrationLayer({
 
                 {/* School Type */}
                 <div>
-                  <p className="text-[10px] text-white/25 mb-3 leading-relaxed">
+                  <p className="text-[10px] text-white/50 mb-3 leading-relaxed">
                     Calibrating for institutional response patterns…
                   </p>
                   <div className="relative flex bg-white/[0.03] rounded-xl border border-white/[0.06] p-1">
@@ -311,7 +311,7 @@ export function CalibrationLayer({
                     <button
                       onClick={() => onSchoolTypeChange("public")}
                       className={`relative z-10 flex-1 py-3 text-sm font-semibold rounded-lg transition-colors ${
-                        schoolType === "public" ? "text-white" : "text-white/35"
+                        schoolType === "public" ? "text-white" : "text-white/50"
                       }`}
                     >
                       🏫 Public
@@ -319,7 +319,7 @@ export function CalibrationLayer({
                     <button
                       onClick={() => onSchoolTypeChange("private")}
                       className={`relative z-10 flex-1 py-3 text-sm font-semibold rounded-lg transition-colors ${
-                        schoolType === "private" ? "text-white" : "text-white/35"
+                        schoolType === "private" ? "text-white" : "text-white/50"
                       }`}
                     >
                       🎓 Private

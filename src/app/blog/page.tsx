@@ -163,7 +163,7 @@ export default function BlogIndexPage() {
               <h2 className="text-base font-black text-white mb-2 group-hover:text-blue-300 transition-colors leading-snug">
                 {post.title}
               </h2>
-              <p className="text-xs text-white/40 leading-relaxed flex-1">
+              <p className="text-xs text-white/50 leading-relaxed flex-1">
                 {post.excerpt}
               </p>
               <div className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 group-hover:gap-2.5 transition-all">

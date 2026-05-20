@@ -77,18 +77,19 @@ export function GlossaryClient({ terms, letters }: GlossaryClientProps) {
       <div className="sticky top-20 z-30 -mx-4 px-4 py-4 mb-8 bg-[#050a14]/85 backdrop-blur-xl border-b border-white/[0.05]">
         <div className="max-w-4xl mx-auto">
           <div className="relative mb-4">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" />
             <input
               type="text"
               placeholder="Search terms... (e.g. petrichor, wind chill, ice dam)"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              aria-label="Search weather terms"
               className="w-full bg-white/[0.04] border border-white/10 rounded-2xl py-3 pl-11 pr-11 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-blue-400/50 focus:ring-1 focus:ring-blue-400/30 transition-all"
             />
             {query && (
               <button
                 onClick={() => setQuery("")}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors"
                 aria-label="Clear search"
               >
                 <X className="w-4 h-4" />
@@ -103,7 +104,7 @@ export function GlossaryClient({ terms, letters }: GlossaryClientProps) {
               className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider font-bold border transition-all ${
                 !activeCategory
                   ? "bg-white/15 border-white/20 text-white"
-                  : "bg-transparent border-white/10 text-white/40 hover:text-white/70"
+                  : "bg-transparent border-white/10 text-white/50 hover:text-white/70"
               }`}
             >
               All
@@ -117,7 +118,7 @@ export function GlossaryClient({ terms, letters }: GlossaryClientProps) {
                 className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider font-bold border transition-all ${
                   activeCategory === cat
                     ? CATEGORY_COLORS[cat]
-                    : "bg-transparent border-white/10 text-white/40 hover:text-white/70"
+                    : "bg-transparent border-white/10 text-white/50 hover:text-white/70"
                 }`}
               >
                 {CATEGORY_LABELS[cat]}
@@ -146,7 +147,7 @@ export function GlossaryClient({ terms, letters }: GlossaryClientProps) {
         {/* Empty state */}
         {filtered.length === 0 && (
           <div className="py-20 text-center">
-            <p className="text-white/40 text-sm">
+            <p className="text-white/50 text-sm">
               No terms match{" "}
               <span className="text-white/70 font-bold">
                 &ldquo;{query}&rdquo;

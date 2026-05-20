@@ -36,7 +36,7 @@ export function BlogFAQ({ items }: BlogFAQProps) {
                 </h3>
               </div>
               <ChevronDown
-                className={`w-5 h-5 text-white/40 shrink-0 transition-transform duration-300 ${
+                className={`w-5 h-5 text-white/50 shrink-0 transition-transform duration-300 ${
                   isOpen ? "rotate-180 text-blue-400" : ""
                 }`}
               />

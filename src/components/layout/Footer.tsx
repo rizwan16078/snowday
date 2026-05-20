@@ -77,7 +77,7 @@ export function Footer() {
         <div className="col-span-1 flex flex-col items-start space-y-6">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="rounded-xl bg-gradient-to-br from-blue-600 to-blue-400 p-2 shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-transform group-hover:scale-105">
-              <svg className="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 2L9.09 8.26L2 9.27L7 14.14L5.82 21.02L12 17.77L18.18 21.02L17 14.14L22 9.27L14.91 8.26L12 2Z" />
               </svg>
             </div>
@@ -147,7 +147,7 @@ export function Footer() {
             <Link href="/legal/privacy"  className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Privacy Policy</Link>
             <Link href="/legal/editorial-guidelines" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200">Editorial Guidelines</Link>
             <a    href="/feed.xml" type="application/rss+xml" rel="alternate" className="text-sm text-zinc-400 hover:text-white transition-colors duration-200 flex items-center gap-1">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5 text-orange-400">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5 text-orange-400" aria-hidden="true">
                 <path d="M6.18 15.64a2.18 2.18 0 012.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 012.18-2.18M4 4.44A15.56 15.56 0 0119.56 20h-2.83A12.73 12.73 0 004 7.27V4.44m0 5.66a9.9 9.9 0 019.9 9.9h-2.83A7.07 7.07 0 004 12.93V10.1z" />
               </svg>
               RSS Feed

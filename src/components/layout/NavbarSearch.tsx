@@ -136,7 +136,7 @@ export function NavbarSearch() {
           >
             {/* Input */}
             <div className="relative border-b border-white/5 px-3 py-2.5">
-              <Search className="absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-white/30" />
+              <Search className="absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-white/50" />
               <input
                 ref={inputRef}
                 type="text"
@@ -155,7 +155,7 @@ export function NavbarSearch() {
               ) : (
                 <button
                   onClick={() => { setOpen(false); setQuery(""); setResults([]); }}
-                  className="absolute right-5 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors"
+                  className="absolute right-5 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/60 transition-colors"
                   aria-label="Close search"
                 >
                   <X className="h-3.5 w-3.5" />
@@ -176,16 +176,16 @@ export function NavbarSearch() {
                         <MapPin className="h-3.5 w-3.5 shrink-0 text-blue-400/60" />
                         <span className="font-medium">{result.city}</span>
                         {result.state ? (
-                          <span className="text-white/35">{result.state}</span>
+                          <span className="text-white/50">{result.state}</span>
                         ) : (
-                          <span className="text-white/35">{result.country}</span>
+                          <span className="text-white/50">{result.country}</span>
                         )}
                       </button>
                     </li>
                   ))}
                 </ul>
               ) : query.trim().length >= 2 && !searching ? (
-                <p className="px-3 py-4 text-center text-xs text-white/30">
+                <p className="px-3 py-4 text-center text-xs text-white/50">
                   No locations found for &ldquo;{query}&rdquo;
                 </p>
               ) : null}
@@ -193,7 +193,7 @@ export function NavbarSearch() {
 
             {/* Footer hint */}
             <div className="border-t border-white/5 px-4 py-2">
-              <p className="text-[10px] text-white/20">
+              <p className="text-[10px] text-white/50">
                 Search any US city, ZIP code, or school district
               </p>
             </div>

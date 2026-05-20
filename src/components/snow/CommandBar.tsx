@@ -141,7 +141,7 @@ export function CommandBar({
               <span className="max-w-[220px] truncate text-sm font-semibold text-white/90">
                 {locationStr}
               </span>
-              <ChevronDown className="h-3.5 w-3.5 text-white/30" />
+              <ChevronDown className="h-3.5 w-3.5 text-white/50" />
             </motion.button>
           ) : (
             <motion.div
@@ -151,7 +151,7 @@ export function CommandBar({
               exit={{ opacity: 0, width: 220 }}
               className="relative"
             >
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/30" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/50" />
               <input
                 ref={inputRef}
                 type="text"
@@ -174,7 +174,7 @@ export function CommandBar({
                   setQuery("");
                   setResults([]);
                 }}
-                className="absolute right-2 top-1/2 p-0.5 text-white/30 transition-colors hover:text-white/60 -translate-y-1/2"
+                className="absolute right-2 top-1/2 p-0.5 text-white/50 transition-colors hover:text-white/60 -translate-y-1/2"
                 aria-label="Close search"
               >
                 <X className="h-3.5 w-3.5" />
@@ -199,9 +199,9 @@ export function CommandBar({
                           <MapPin className="h-3.5 w-3.5 shrink-0 text-blue-400/60" />
                           <span className="font-medium">{result.city}</span>
                           {result.state ? (
-                            <span className="text-white/40">{result.state}</span>
+                            <span className="text-white/50">{result.state}</span>
                           ) : (
-                            <span className="text-white/40">{result.country}</span>
+                            <span className="text-white/50">{result.country}</span>
                           )}
                         </button>
                       </li>
@@ -221,7 +221,7 @@ export function CommandBar({
           aria-label="Open SnowSense calibration"
         >
           <Settings className="h-4 w-4 text-cyan-300/70 transition-colors group-hover:text-cyan-200" />
-          <span className="text-xs font-medium text-white/40 transition-colors group-hover:text-white/60">
+          <span className="text-xs font-medium text-white/50 transition-colors group-hover:text-white/60">
             {daysUsed}d · {schoolType === "public" ? "Pub" : "Priv"}
           </span>
         </button>
@@ -312,11 +312,11 @@ export function CommandBar({
                 className="max-h-[70vh] overflow-auto rounded-t-3xl border-t border-white/10 bg-[#0a0f1e] p-6"
               >
                 <div className="mx-auto mb-6 h-1 w-10 rounded-full bg-white/20" />
-                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-white/40">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-white/50">
                   Search Location
                 </p>
                 <div className="relative mb-4">
-                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/30" />
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/50" />
                   <input
                     ref={inputRef}
                     type="text"
@@ -344,7 +344,7 @@ export function CommandBar({
                           <MapPin className="h-4 w-4 shrink-0 text-blue-400/60" />
                           <span>
                             <span className="font-semibold">{result.city}</span>
-                            <span className="text-white/40">
+                            <span className="text-white/50">
                               {result.state ? `, ${result.state}` : `, ${result.country}`}
                             </span>
                           </span>

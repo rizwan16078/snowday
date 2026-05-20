@@ -43,7 +43,7 @@ export function CityDistrictsBlock({ cityName, districts }: Props) {
             <h3 className="text-xl sm:text-2xl font-display font-black text-white">
               {cityName} {label}
             </h3>
-            <p className="text-xs text-white/40 uppercase tracking-widest mt-1">
+            <p className="text-xs text-white/50 uppercase tracking-widest mt-1">
               Per-district snow day probability
             </p>
           </div>
@@ -59,10 +59,10 @@ export function CityDistrictsBlock({ cityName, districts }: Props) {
                 <div className="text-sm font-bold text-white/90 truncate">
                   {d.name}
                 </div>
-                <div className="text-[11px] text-white/40 uppercase tracking-wider mt-0.5">
+                <div className="text-[11px] text-white/50 uppercase tracking-wider mt-0.5">
                   {d.enrollment.toLocaleString("en-US")} students · {d.type}
                 </div>
-                <div className="text-[11px] text-white/25 mt-1 truncate">
+                <div className="text-[11px] text-white/50 mt-1 truncate">
                   {d.websiteDomain}
                 </div>
               </div>

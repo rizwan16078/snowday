@@ -108,7 +108,7 @@ export function TrustLayer() {
             <h3 className="text-sm font-bold text-white/90 mb-2">
               {step.title}
             </h3>
-            <p className="text-xs text-white/40 leading-relaxed">
+            <p className="text-xs text-white/50 leading-relaxed">
               {step.description}
             </p>
           </motion.div>
@@ -131,7 +131,7 @@ export function TrustLayer() {
               </div>
               <div>
                 <p className="text-sm font-bold text-white/90">What the forecast weighs</p>
-                <p className="text-[10px] text-white/30">Core inputs used on every prediction</p>
+                <p className="text-[10px] text-white/50">Core inputs used on every prediction</p>
               </div>
             </div>
             <div className="mt-3 max-w-md text-sm text-white/45 leading-relaxed">
@@ -142,7 +142,7 @@ export function TrustLayer() {
           <div className="grid grid-cols-2 gap-4">
             {forecastSignals.map((signal) => (
               <div key={signal.name} className="text-center">
-                <p className="text-[10px] text-white/30 uppercase tracking-wider mb-1">
+                <p className="text-[10px] text-white/50 uppercase tracking-wider mb-1">
                   {signal.name}
                 </p>
                 <p className="text-sm font-semibold text-emerald-300">

@@ -98,9 +98,9 @@ export function RegionalLinks() {
                   href={`/snow-day-calculator/${city.slug}`}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-white/50 hover:text-white hover:bg-white/5 transition-all group"
                 >
-                  <MapPin className="w-3 h-3 text-blue-400/40 group-hover:text-blue-400 transition-colors" />
+                  <MapPin className="w-3 h-3 text-blue-400/40 group-hover:text-blue-400 transition-colors" aria-hidden="true" />
                   <span>{city.name}</span>
-                  <span className="ml-auto text-[10px] text-white/15 group-hover:text-white/30 transition-colors">
+                  <span className="ml-auto text-[10px] text-white/40 group-hover:text-white/50 transition-colors">
                     →
                   </span>
                 </Link>

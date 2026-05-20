@@ -37,7 +37,7 @@ function TeamMember({
       <p className="text-sm font-bold text-white/90 group-hover:text-white transition-colors">
         {name}
       </p>
-      <p className="text-xs text-white/40 mt-1 leading-tight">{role}</p>
+      <p className="text-xs text-white/50 mt-1 leading-tight">{role}</p>
     </div>
   );
 }
@@ -112,21 +112,21 @@ export default function TeamPage() {
             className="group p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
           >
             <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">Snow Day Calculator</p>
-            <p className="text-xs text-white/40">Real-time prediction engine.</p>
+            <p className="text-xs text-white/50">Real-time prediction engine.</p>
           </Link>
           <Link
             href="/weather"
             className="group p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
           >
             <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">Weather Dashboard</p>
-            <p className="text-xs text-white/40">Hourly &amp; 10-day forecasts.</p>
+            <p className="text-xs text-white/50">Hourly &amp; 10-day forecasts.</p>
           </Link>
           <Link
             href="/about"
             className="group p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 transition-all"
           >
             <p className="text-sm font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">About SnowSense™</p>
-            <p className="text-xs text-white/40">Our mission &amp; data strategy.</p>
+            <p className="text-xs text-white/50">Our mission &amp; data strategy.</p>
           </Link>
         </div>
       </AnimatedSection>

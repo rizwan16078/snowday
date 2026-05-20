@@ -100,7 +100,7 @@ export function HighIntentDistrictSection({
             </div>
             <div className="rounded-2xl border border-white/5 bg-white/[0.02] px-4 py-4">
               <p className="text-sm font-bold text-white/90">{districtName}</p>
-              <p className="text-[11px] text-white/40 uppercase tracking-wider mt-1">
+              <p className="text-[11px] text-white/50 uppercase tracking-wider mt-1">
                 {websiteDomain}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">

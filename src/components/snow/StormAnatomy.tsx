@@ -49,7 +49,7 @@ const cards: AnatomyCard[] = [
     key: "iceRisk",
     label: "Ice Risk",
     unit: "threat",
-    icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" /></svg>,
+    icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" /></svg>,
     description: "Freezing rain, sleet, and black ice probability",
     gradient: "from-cyan-500/20 to-blue-400/10",
     accentColor: "#22d3ee",
@@ -222,7 +222,7 @@ export function StormAnatomy({ prediction }: StormAnatomyProps) {
                 </p>
 
                 {/* Subtext */}
-                <p className="text-xs text-white/40 leading-relaxed">
+                <p className="text-xs text-white/50 leading-relaxed">
                   {card.getSubtext(prediction)}
                 </p>
 

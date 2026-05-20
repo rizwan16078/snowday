@@ -35,22 +35,22 @@ export function CityContentSection({ content }: Props) {
       {/* Stats Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="glass-card rounded-2xl p-4 text-center">
-          <Snowflake className="w-4 h-4 text-blue-400 mx-auto mb-2" />
+          <Snowflake className="w-4 h-4 text-blue-400 mx-auto mb-2" aria-hidden="true" />
           <p className="text-2xl font-black font-display text-white">{content.avgSnowDaysPerYear}</p>
           <p className="text-[10px] text-white/50 uppercase tracking-wider mt-0.5">Snow Days / Year</p>
         </div>
         <div className="glass-card rounded-2xl p-4 text-center">
-          <BarChart3 className="w-4 h-4 text-blue-400 mx-auto mb-2" />
+          <BarChart3 className="w-4 h-4 text-blue-400 mx-auto mb-2" aria-hidden="true" />
           <p className="text-2xl font-black font-display text-white">{content.avgAnnualSnowfallInches}"</p>
           <p className="text-[10px] text-white/50 uppercase tracking-wider mt-0.5">Avg Annual Snow</p>
         </div>
         <div className="glass-card rounded-2xl p-4 text-center">
-          <Clock className="w-4 h-4 text-blue-400 mx-auto mb-2" />
+          <Clock className="w-4 h-4 text-blue-400 mx-auto mb-2" aria-hidden="true" />
           <p className="text-sm font-black font-display text-white leading-tight">{content.typicalDecisionTime}</p>
           <p className="text-[10px] text-white/50 uppercase tracking-wider mt-0.5">Decision Time</p>
         </div>
         <div className="glass-card rounded-2xl p-4 text-center">
-          <Building2 className="w-4 h-4 text-blue-400 mx-auto mb-2" />
+          <Building2 className="w-4 h-4 text-blue-400 mx-auto mb-2" aria-hidden="true" />
           <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${ratingColor[content.infrastructureRating]}`}>
             {content.infrastructureRating}
           </span>
@@ -62,7 +62,7 @@ export function CityContentSection({ content }: Props) {
       <div className="glass-card rounded-2xl p-5">
         <div className="flex items-start gap-3">
           <div className="p-2 rounded-xl bg-blue-500/10 mt-0.5 shrink-0">
-            <Snowflake className="w-4 h-4 text-blue-400" />
+            <Snowflake className="w-4 h-4 text-blue-400" aria-hidden="true" />
           </div>
           <div>
             <h3 className="text-sm font-bold text-white/90 mb-1">
@@ -76,7 +76,7 @@ export function CityContentSection({ content }: Props) {
       {/* Historical Pattern */}
       <div className="glass-card rounded-2xl p-5">
         <h3 className="text-sm font-bold text-white/80 mb-3 flex items-center gap-2">
-          <BarChart3 className="w-4 h-4 text-violet-400" />
+          <BarChart3 className="w-4 h-4 text-violet-400" aria-hidden="true" />
           Historical School Closure Patterns
         </h3>
         <p className="text-sm text-white/50 leading-relaxed">{content.historicalPattern}</p>
@@ -85,13 +85,13 @@ export function CityContentSection({ content }: Props) {
       {/* District Notes */}
       <div className="glass-card rounded-2xl p-5">
         <h3 className="text-sm font-bold text-white/80 mb-3 flex items-center gap-2">
-          <Clock className="w-4 h-4 text-amber-400" />
+          <Clock className="w-4 h-4 text-amber-400" aria-hidden="true" />
           How {content.city} Makes the Decision
         </h3>
         <p className="text-sm text-white/50 leading-relaxed mb-3">{content.districtNotes}</p>
         <div className="flex flex-wrap gap-2 mt-3">
           {content.notificationChannels.map((channel) => (
-            <span key={channel} className="text-[10px] font-bold bg-white/5 border border-white/8 text-white/40 px-2.5 py-1 rounded-full">
+            <span key={channel} className="text-[10px] font-bold bg-white/5 border border-white/8 text-white/50 px-2.5 py-1 rounded-full">
               {channel}
             </span>
           ))}
@@ -101,13 +101,13 @@ export function CityContentSection({ content }: Props) {
       {/* Regional Facts */}
       <div className="glass-card rounded-2xl p-5">
         <h3 className="text-sm font-bold text-white/80 mb-4 flex items-center gap-2">
-          <MapPin className="w-4 h-4 text-emerald-400" />
+          <MapPin className="w-4 h-4 text-emerald-400" aria-hidden="true" />
           {content.city} Snow Day Facts
         </h3>
         <ul className="space-y-2.5">
           {content.regionalFacts.map((fact, i) => (
             <li key={i} className="flex gap-2.5 text-sm text-white/50 leading-relaxed">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400/60 shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-400/60 shrink-0 mt-0.5" aria-hidden="true" />
               {fact}
             </li>
           ))}

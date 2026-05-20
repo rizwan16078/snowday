@@ -113,7 +113,7 @@ export function HighIntentCitySection({
                       <p className="text-sm font-bold text-white/90 truncate">
                         {district.name}
                       </p>
-                      <p className="text-[11px] text-white/40 uppercase tracking-wider mt-1">
+                      <p className="text-[11px] text-white/50 uppercase tracking-wider mt-1">
                         {district.enrollment.toLocaleString("en-US")} students · {district.type}
                       </p>
                     </div>

@@ -85,7 +85,7 @@ export function PremiumFAQ({ location = "your city" }: PremiumFAQProps) {
               >
                 <span className="text-sm font-semibold text-white/90 pr-8">{faq.q}</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-white/40 shrink-0 transition-transform duration-300 ${
+                  className={`w-4 h-4 text-white/50 shrink-0 transition-transform duration-300 ${
                     isOpen ? "rotate-180 text-white/80" : ""
                   }`}
                 />
