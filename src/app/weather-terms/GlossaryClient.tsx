@@ -89,7 +89,7 @@ export function GlossaryClient({ terms, letters }: GlossaryClientProps) {
             {query && (
               <button
                 onClick={() => setQuery("")}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-white/50 hover:text-white transition-colors"
                 aria-label="Clear search"
               >
                 <X className="w-4 h-4" />

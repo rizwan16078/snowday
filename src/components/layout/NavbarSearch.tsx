@@ -118,7 +118,7 @@ export function NavbarSearch() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex items-center justify-center rounded-lg p-2 text-zinc-400 transition-colors hover:text-white hover:bg-white/5"
+        className="flex items-center justify-center rounded-lg p-2.5 text-zinc-400 transition-colors hover:text-white hover:bg-white/5"
         aria-label="Search locations"
       >
         <Search className="h-5 w-5" />
@@ -155,7 +155,7 @@ export function NavbarSearch() {
               ) : (
                 <button
                   onClick={() => { setOpen(false); setQuery(""); setResults([]); }}
-                  className="absolute right-5 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/60 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-white/50 hover:text-white/60 transition-colors"
                   aria-label="Close search"
                 >
                   <X className="h-3.5 w-3.5" />

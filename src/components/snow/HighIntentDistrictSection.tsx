@@ -57,7 +57,7 @@ export function HighIntentDistrictSection({
           <h3 className="text-2xl sm:text-3xl font-display font-black text-white">
             What makes {districtName} different
           </h3>
-          <p className="text-sm text-white/45 max-w-2xl mx-auto mt-3">
+          <p className="text-sm text-white/50 max-w-2xl mx-auto mt-3">
             The strongest district pages should show the official source, the
             local closure threshold, recent events, and the nearby systems most
             likely to disagree with this district on a borderline storm.

@@ -95,7 +95,7 @@ function ServiceItem({
           <h4 className="text-sm font-bold text-white/90 mb-1 group-hover:text-white transition-colors">
             {title}
           </h4>
-          <p className="text-xs text-white/45 leading-relaxed">{description}</p>
+          <p className="text-xs text-white/50 leading-relaxed">{description}</p>
         </div>
       </div>
     </div>
@@ -355,7 +355,7 @@ export default function AboutPage() {
         </div>
         <div className="mt-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-center gap-3">
           <MapPin className="w-4 h-4 text-blue-400 shrink-0" />
-          <p className="text-xs text-white/45">
+          <p className="text-xs text-white/50">
             Working remotely across <strong className="text-white/70">4 time zones</strong>{" "}
             — North America &amp; EU. Office hours overlap 09:00&ndash;13:00 UTC.
           </p>

@@ -133,7 +133,7 @@ export function HeroPrediction({
           className="animate-slide-up mt-3"
           style={{ animationDelay: "0.42s", animationFillMode: "backwards" }}
         >
-          <p className="max-w-sm text-sm font-medium text-white/45 sm:text-base">
+          <p className="max-w-sm text-sm font-medium text-white/50 sm:text-base">
             Edge shell active for {locationLabel || "your district"} while hourly
             forecast intelligence streams in.
           </p>

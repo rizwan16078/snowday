@@ -174,7 +174,7 @@ export function CommandBar({
                   setQuery("");
                   setResults([]);
                 }}
-                className="absolute right-2 top-1/2 p-0.5 text-white/50 transition-colors hover:text-white/60 -translate-y-1/2"
+                className="absolute right-1 top-1/2 p-2 text-white/50 transition-colors hover:text-white/60 -translate-y-1/2"
                 aria-label="Close search"
               >
                 <X className="h-3.5 w-3.5" />

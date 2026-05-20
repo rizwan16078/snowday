@@ -393,7 +393,7 @@ export function ShareSystem({
                 </p>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 rounded-lg hover:bg-white/5 text-white/50 hover:text-white/60 transition-colors"
+                  className="p-2 rounded-lg hover:bg-white/5 text-white/50 hover:text-white/60 transition-colors"
                   aria-label="Close share modal"
                 >
                   <X className="w-4 h-4" />

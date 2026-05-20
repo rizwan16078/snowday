@@ -100,7 +100,7 @@ export function RegionalLinks() {
                 >
                   <MapPin className="w-3 h-3 text-blue-400/40 group-hover:text-blue-400 transition-colors" aria-hidden="true" />
                   <span>{city.name}</span>
-                  <span className="ml-auto text-[10px] text-white/40 group-hover:text-white/50 transition-colors">
+                  <span className="ml-auto text-[10px] text-white/50 group-hover:text-white/50 transition-colors">
                     →
                   </span>
                 </Link>

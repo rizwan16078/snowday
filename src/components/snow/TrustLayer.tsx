@@ -134,7 +134,7 @@ export function TrustLayer() {
                 <p className="text-[10px] text-white/50">Core inputs used on every prediction</p>
               </div>
             </div>
-            <div className="mt-3 max-w-md text-sm text-white/45 leading-relaxed">
+            <div className="mt-3 max-w-md text-sm text-white/50 leading-relaxed">
               SnowSense is a forecast aid, not an official closure notice. Final school decisions still depend on district leadership and real-world road conditions.
             </div>
           </div>

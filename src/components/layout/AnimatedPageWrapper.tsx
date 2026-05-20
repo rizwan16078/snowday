@@ -59,10 +59,10 @@ export function AnimatedSection({
     <section 
       className="space-y-4 group"
     >
-      <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 inline-block relative">
+      <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 inline-block relative">
         {title}
         <div className="absolute -bottom-1 left-0 w-0 h-px bg-blue-400/50 group-hover:w-full transition-all duration-500 ease-out" />
-      </h3>
+      </h2>
       <div className="text-white/70 leading-relaxed space-y-4 text-[15px] sm:text-base">
         {children}
       </div>

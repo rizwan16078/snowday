@@ -514,7 +514,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
 
               <div className="mt-8 grid gap-4 md:grid-cols-4">
                 <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-4">
-                  <div className="flex items-center gap-2 text-white/45">
+                  <div className="flex items-center gap-2 text-white/50">
                     <Droplets className="h-4 w-4 text-cyan-300" />
                     <span className="text-[11px] uppercase tracking-[0.28em]">Precipitation</span>
                   </div>
@@ -526,7 +526,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                   </p>
                 </div>
                 <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-4">
-                  <div className="flex items-center gap-2 text-white/45">
+                  <div className="flex items-center gap-2 text-white/50">
                     <Wind className="h-4 w-4 text-sky-300" />
                     <span className="text-[11px] uppercase tracking-[0.28em]">Wind Direction</span>
                   </div>
@@ -538,7 +538,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                   </p>
                 </div>
                 <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-4">
-                  <div className="flex items-center gap-2 text-white/45">
+                  <div className="flex items-center gap-2 text-white/50">
                     <Eye className="h-4 w-4 text-slate-200" />
                     <span className="text-[11px] uppercase tracking-[0.28em]">Visibility</span>
                   </div>
@@ -550,7 +550,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                   </p>
                 </div>
                 <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-4">
-                  <div className="flex items-center gap-2 text-white/45">
+                  <div className="flex items-center gap-2 text-white/50">
                     <Gauge className="h-4 w-4 text-emerald-300" />
                     <span className="text-[11px] uppercase tracking-[0.28em]">Outdoor Read</span>
                   </div>
@@ -563,7 +563,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
 
           <div className="grid gap-6">
             <article className="glass-card rounded-[2rem] p-6">
-              <div className="flex items-center gap-2 text-white/42">
+              <div className="flex items-center gap-2 text-white/50">
                 <CalendarDays className="h-4 w-4 text-sky-300" />
                 <span className="text-[11px] uppercase tracking-[0.3em]">Today</span>
               </div>
@@ -599,7 +599,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
             </article>
 
             <article className="glass-card rounded-[2rem] p-6">
-              <div className="flex items-center gap-2 text-white/42">
+              <div className="flex items-center gap-2 text-white/50">
                 <Clock3 className="h-4 w-4 text-cyan-300" />
                 <span className="text-[11px] uppercase tracking-[0.3em]">Next 6 Hours</span>
               </div>
@@ -624,7 +624,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
 
             {tomorrow ? (
               <article className="glass-card rounded-[2rem] p-6">
-                <div className="flex items-center gap-2 text-white/42">
+                <div className="flex items-center gap-2 text-white/50">
                   <ArrowRight className="h-4 w-4 text-blue-300" />
                   <span className="text-[11px] uppercase tracking-[0.3em]">Tomorrow</span>
                 </div>
@@ -656,7 +656,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
               </p>
               <h2 className="mt-2 font-display text-2xl font-bold text-white">The next 24 hours</h2>
             </div>
-            <p className="text-sm text-white/46">
+            <p className="text-sm text-white/50">
               Read it like AccuWeather, but keep the SnowSense finish.
             </p>
           </div>
@@ -709,7 +709,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                   Extended outlook
                 </h2>
               </div>
-              <p className="text-sm text-white/46">
+              <p className="text-sm text-white/50">
                 Highs, lows, precipitation odds, and wind at a glance.
               </p>
             </div>
@@ -730,7 +730,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                       <div>
                         <p className="text-base font-semibold text-white">
                           {label}
-                          <span className="ml-2 text-sm font-medium text-white/42">
+                          <span className="ml-2 text-sm font-medium text-white/50">
                             {formatMonthDay(`${day.date}T00:00`)}
                           </span>
                         </p>
@@ -754,7 +754,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                         <p className="mt-1 text-sm font-semibold text-white">
                           {Math.round(day.windSpeedMaxKph)} km/h
                         </p>
-                        <p className="mt-1 text-xs text-white/42">
+                        <p className="mt-1 text-xs text-white/50">
                           Gusts {Math.round(day.windGustsMaxKph)} km/h
                         </p>
                       </div>
@@ -764,7 +764,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                       <p className="text-2xl font-bold text-white">
                         {Math.round(day.temperatureMax)}°
                       </p>
-                      <p className="text-lg font-semibold text-white/45">
+                      <p className="text-lg font-semibold text-white/50">
                         {Math.round(day.temperatureMin)}°
                       </p>
                     </div>
@@ -776,7 +776,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
 
           <div className="grid gap-6">
             <section id="air-quality" className="glass-card rounded-[2rem] p-6">
-              <div className="flex items-center gap-2 text-white/42">
+              <div className="flex items-center gap-2 text-white/50">
                 <Activity className="h-4 w-4 text-emerald-300" />
                 <span className="text-[11px] uppercase tracking-[0.3em]">Air Quality</span>
               </div>
@@ -816,7 +816,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
             </section>
 
             <section id="sun-moon" className="glass-card rounded-[2rem] p-6">
-              <div className="flex items-center gap-2 text-white/42">
+              <div className="flex items-center gap-2 text-white/50">
                 <Moon className="h-4 w-4 text-slate-200" />
                 <span className="text-[11px] uppercase tracking-[0.3em]">Sun & Moon</span>
               </div>
@@ -824,7 +824,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                 <>
                   <div className="mt-5 grid gap-3 sm:grid-cols-2">
                     <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                      <div className="flex items-center gap-2 text-white/46">
+                      <div className="flex items-center gap-2 text-white/50">
                         <Sunrise className="h-4 w-4 text-amber-300" />
                         <span className="text-[11px] uppercase tracking-[0.24em]">Sunrise</span>
                       </div>
@@ -833,7 +833,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                       </p>
                     </div>
                     <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                      <div className="flex items-center gap-2 text-white/46">
+                      <div className="flex items-center gap-2 text-white/50">
                         <Sunset className="h-4 w-4 text-orange-300" />
                         <span className="text-[11px] uppercase tracking-[0.24em]">Sunset</span>
                       </div>
@@ -869,7 +869,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
             </section>
 
             <section className="glass-card rounded-[2rem] p-6">
-              <div className="flex items-center gap-2 text-white/42">
+              <div className="flex items-center gap-2 text-white/50">
                 <Compass className="h-4 w-4 text-sky-300" />
                 <span className="text-[11px] uppercase tracking-[0.3em]">Quick Read</span>
               </div>

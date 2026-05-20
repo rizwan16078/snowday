@@ -62,7 +62,7 @@ export function HighIntentCitySection({
           <h3 className="text-2xl sm:text-3xl font-display font-black text-white">
             Why schools in {cityName.split(",")[0]} close when they do
           </h3>
-          <p className="text-sm text-white/45 max-w-2xl mx-auto mt-3">
+          <p className="text-sm text-white/50 max-w-2xl mx-auto mt-3">
             This page goes deeper on the local thresholds, official district sources,
             recent winter events, and the nearby cities that make a different call.
           </p>

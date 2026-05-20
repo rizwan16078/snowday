@@ -77,7 +77,7 @@ export function CalibrationLayer({
                 </div>
                 <button
                   onClick={onClose}
-                  className="p-1.5 rounded-lg hover:bg-white/5 text-white/50 hover:text-white/60 transition-colors"
+                  className="p-2 rounded-lg hover:bg-white/5 text-white/50 hover:text-white/60 transition-colors"
                   aria-label="Close calibration"
                 >
                   <X className="w-4 h-4" />
