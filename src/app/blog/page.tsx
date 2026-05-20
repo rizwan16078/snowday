@@ -146,7 +146,7 @@ export default function BlogIndexPage() {
               </span>
             </div>
             <div className="p-5 flex flex-col flex-1">
-              <div className="flex items-center gap-3 text-[10px] text-white/25 mb-3">
+              <div className="flex items-center gap-3 text-[10px] text-white/50 mb-3">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-3 h-3" />
                   {new Date(post.date).toLocaleDateString("en-US", {

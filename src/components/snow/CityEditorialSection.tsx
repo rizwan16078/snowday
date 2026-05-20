@@ -88,7 +88,7 @@ export function CityEditorialSection({ content, cityName, stateName }: Props) {
         </div>
 
         {/* Metadata footer — subtle, but visible for transparency */}
-        <p className="text-center text-[10px] text-white/25 uppercase tracking-[0.25em]">
+        <p className="text-center text-[10px] text-white/50 uppercase tracking-[0.25em]">
           {stateName} · {content.wordCount} words of {cityName.split(",")[0]}-specific context
         </p>
       </div>

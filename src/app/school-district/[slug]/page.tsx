@@ -341,11 +341,11 @@ export default async function DistrictPage({ params }: Props) {
 
           {prediction && !prediction.isFallback && (
             <div className="mt-12 flex flex-col items-center gap-2 animate-scroll-bounce">
-              <span className="text-[10px] text-white/20 uppercase tracking-widest font-medium">
+              <span className="text-[10px] text-white/50 uppercase tracking-widest font-medium">
                 District Details
               </span>
               <ChevronDown
-                className="w-4 h-4 text-white/20"
+                className="w-4 h-4 text-white/50"
                 aria-hidden="true"
               />
             </div>
@@ -458,7 +458,7 @@ export default async function DistrictPage({ params }: Props) {
             </p>
 
             {/* Word-count footer (transparency, light styling) */}
-            <p className="text-center text-[10px] text-white/25 uppercase tracking-[0.25em]">
+            <p className="text-center text-[10px] text-white/50 uppercase tracking-[0.25em]">
               {district.stateName} · {content.wordCount} words of {district.name}-specific context
             </p>
           </div>

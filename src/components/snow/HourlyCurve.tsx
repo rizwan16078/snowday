@@ -107,7 +107,7 @@ export function HourlyCurve({ prediction }: HourlyCurveProps) {
           {labels.map((l, i) => l ? <text key={i} x={P + i * ((W - P * 2) / (data.length - 1))} y={H - 8} textAnchor="middle" fill="rgba(255,255,255,0.2)" fontSize="10" fontFamily="Inter, system-ui">{l}</text> : null)}
         </svg>
 
-        <div className="flex items-center justify-center gap-6 mt-4 text-[10px] text-white/20">
+        <div className="flex items-center justify-center gap-6 mt-4 text-[10px] text-white/50">
           <span>Data refreshed every 30 min</span>
         </div>
       </motion.div>

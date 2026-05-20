@@ -209,7 +209,7 @@ export default async function BlogPostPage({ params }: Props) {
                   href={`/blog/${prevPost.slug}`}
                   className="glass-card rounded-2xl p-4 hover:border-blue-400/30 transition-all group"
                 >
-                  <p className="text-[10px] text-white/25 uppercase tracking-widest mb-1 flex items-center gap-1">
+                  <p className="text-[10px] text-white/50 uppercase tracking-widest mb-1 flex items-center gap-1">
                     <ArrowLeft className="w-3 h-3" /> Previous
                   </p>
                   <p className="text-sm font-bold text-white/70 group-hover:text-white transition-colors leading-snug">
@@ -222,7 +222,7 @@ export default async function BlogPostPage({ params }: Props) {
                   href={`/blog/${nextPost.slug}`}
                   className="glass-card rounded-2xl p-4 hover:border-blue-400/30 transition-all group sm:text-right"
                 >
-                  <p className="text-[10px] text-white/25 uppercase tracking-widest mb-1 flex items-center gap-1 sm:justify-end">
+                  <p className="text-[10px] text-white/50 uppercase tracking-widest mb-1 flex items-center gap-1 sm:justify-end">
                     Next <ArrowRight className="w-3 h-3" />
                   </p>
                   <p className="text-sm font-bold text-white/70 group-hover:text-white transition-colors leading-snug">

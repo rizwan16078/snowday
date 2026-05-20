@@ -71,7 +71,7 @@ export function HighIntentDistrictSection({
                 <Snowflake className="w-5 h-5 text-blue-400" aria-hidden="true" />
               </div>
               <div>
-                <p className="text-[10px] text-white/35 uppercase tracking-[0.28em] font-bold">
+                <p className="text-[10px] text-white/50 uppercase tracking-[0.28em] font-bold">
                   Local threshold
                 </p>
                 <h3 className="text-lg font-display font-black text-white">
@@ -90,7 +90,7 @@ export function HighIntentDistrictSection({
                 <Building2 className="w-5 h-5 text-purple-400" aria-hidden="true" />
               </div>
               <div>
-                <p className="text-[10px] text-white/35 uppercase tracking-[0.28em] font-bold">
+                <p className="text-[10px] text-white/50 uppercase tracking-[0.28em] font-bold">
                   Official sources
                 </p>
                 <h3 className="text-lg font-display font-black text-white">
@@ -130,7 +130,7 @@ export function HighIntentDistrictSection({
                   <CloudSnow className="w-5 h-5 text-sky-400" aria-hidden="true" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-white/35 uppercase tracking-[0.28em] font-bold">
+                  <p className="text-[10px] text-white/50 uppercase tracking-[0.28em] font-bold">
                     Recent storm examples
                   </p>
                   <h3 className="text-lg font-display font-black text-white">
@@ -146,7 +146,7 @@ export function HighIntentDistrictSection({
                   >
                     <div className="flex items-baseline justify-between gap-3 mb-2">
                       <p className="text-sm font-bold text-white/90">{storm.type}</p>
-                      <span className="text-[11px] text-white/35 uppercase tracking-wider">
+                      <span className="text-[11px] text-white/50 uppercase tracking-wider">
                         {formatStormDate(storm.date)}
                       </span>
                     </div>
@@ -171,7 +171,7 @@ export function HighIntentDistrictSection({
                   <MapPin className="w-5 h-5 text-amber-400" aria-hidden="true" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-white/35 uppercase tracking-[0.28em] font-bold">
+                  <p className="text-[10px] text-white/50 uppercase tracking-[0.28em] font-bold">
                     Nearby district contrast
                   </p>
                   <h3 className="text-lg font-display font-black text-white">

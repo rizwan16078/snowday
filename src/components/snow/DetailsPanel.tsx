@@ -151,7 +151,7 @@ export function DetailsPanel({ prediction }: DetailsPanelProps) {
       )}
 
       {/* Technical metadata */}
-      <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-white/20">
+      <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-white/50">
         {prediction.lastUpdated && (
           <span>
             Computed {new Date(prediction.lastUpdated).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}

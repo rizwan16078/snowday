@@ -498,13 +498,13 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
 
                 <div className="grid min-w-[11rem] gap-3 text-right">
                   <div>
-                    <p className="text-[11px] uppercase tracking-[0.3em] text-white/35">Humidity</p>
+                    <p className="text-[11px] uppercase tracking-[0.3em] text-white/50">Humidity</p>
                     <p className="mt-1 text-2xl font-bold text-white">
                       {Math.round(outlook.current.humidityPercent)}%
                     </p>
                   </div>
                   <div>
-                    <p className="text-[11px] uppercase tracking-[0.3em] text-white/35">Wind</p>
+                    <p className="text-[11px] uppercase tracking-[0.3em] text-white/50">Wind</p>
                     <p className="mt-1 text-2xl font-bold text-white">
                       {Math.round(outlook.current.windSpeedKph)} km/h
                     </p>
@@ -740,7 +740,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
 
                     <div className="grid grid-cols-2 gap-4 md:min-w-[14rem]">
                       <div>
-                        <p className="text-[11px] uppercase tracking-[0.24em] text-white/34">Precip</p>
+                        <p className="text-[11px] uppercase tracking-[0.24em] text-white/50">Precip</p>
                         <p className="mt-1 text-sm font-semibold text-white">
                           {day.precipitationProbabilityMax}%
                         </p>
@@ -750,7 +750,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                         />
                       </div>
                       <div>
-                        <p className="text-[11px] uppercase tracking-[0.24em] text-white/34">Wind</p>
+                        <p className="text-[11px] uppercase tracking-[0.24em] text-white/50">Wind</p>
                         <p className="mt-1 text-sm font-semibold text-white">
                           {Math.round(day.windSpeedMaxKph)} km/h
                         </p>
@@ -789,25 +789,25 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
               </div>
               <div className="mt-5 grid grid-cols-2 gap-3 text-sm text-white/58">
                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-white/34">PM2.5</p>
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-white/50">PM2.5</p>
                   <p className="mt-2 text-xl font-bold text-white">
                     {outlook.airQuality ? outlook.airQuality.pm2_5.toFixed(1) : "--"}
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-white/34">PM10</p>
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-white/50">PM10</p>
                   <p className="mt-2 text-xl font-bold text-white">
                     {outlook.airQuality ? outlook.airQuality.pm10.toFixed(1) : "--"}
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-white/34">Ozone</p>
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-white/50">Ozone</p>
                   <p className="mt-2 text-xl font-bold text-white">
                     {outlook.airQuality ? outlook.airQuality.ozone.toFixed(0) : "--"}
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-white/34">UV</p>
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-white/50">UV</p>
                   <p className="mt-2 text-xl font-bold text-white">
                     {outlook.airQuality ? outlook.airQuality.uvIndex.toFixed(0) : "--"}
                   </p>
@@ -846,7 +846,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                   <div className="mt-5 rounded-3xl border border-white/10 bg-white/[0.03] p-4">
                     <div className="flex items-center justify-between gap-4">
                       <div>
-                        <p className="text-[11px] uppercase tracking-[0.24em] text-white/34">
+                        <p className="text-[11px] uppercase tracking-[0.24em] text-white/50">
                           Daylight
                         </p>
                         <p className="mt-2 text-xl font-bold text-white">
@@ -854,7 +854,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-[11px] uppercase tracking-[0.24em] text-white/34">
+                        <p className="text-[11px] uppercase tracking-[0.24em] text-white/50">
                           Moon phase
                         </p>
                         <p className="mt-2 text-xl font-bold text-white">{moonPhase}</p>

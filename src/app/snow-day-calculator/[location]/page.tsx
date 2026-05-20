@@ -382,10 +382,10 @@ export default async function LocationPage({ params }: Props) {
 
           {!prediction.isFallback && (
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-scroll-bounce">
-              <span className="text-[10px] text-white/20 uppercase tracking-widest font-medium">
+              <span className="text-[10px] text-white/50 uppercase tracking-widest font-medium">
                 Analysis Details
               </span>
-              <ChevronDown className="w-4 h-4 text-white/20" />
+              <ChevronDown className="w-4 h-4 text-white/50" />
             </div>
           )}
         </main>

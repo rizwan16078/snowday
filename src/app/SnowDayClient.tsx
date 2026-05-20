@@ -336,10 +336,10 @@ export default function SnowDayShell({
 
             {showDetails && !hasScrolled ? (
               <div className="animate-scroll-bounce absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
-                <span className="text-[10px] font-medium uppercase tracking-widest text-white/20">
+                <span className="text-[10px] font-medium uppercase tracking-widest text-white/50">
                   Details
                 </span>
-                <ChevronDown className="h-4 w-4 text-white/20" />
+                <ChevronDown className="h-4 w-4 text-white/50" />
               </div>
             ) : null}
           </>

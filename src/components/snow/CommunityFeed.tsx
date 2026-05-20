@@ -57,7 +57,7 @@ export function CommunityFeed({ items }: CommunityFeedProps) {
               <span className="text-sm font-semibold text-white/85">
                 {featured.city}, {featured.state || featured.country}
               </span>
-              <span className="text-white/20">→</span>
+              <span className="text-white/50">→</span>
               <span
                 className="text-sm font-bold"
                 style={{ color: statusColors[featured.status] }}
@@ -65,7 +65,7 @@ export function CommunityFeed({ items }: CommunityFeedProps) {
                 {featured.probability}% Snow Risk
               </span>
             </div>
-            <span className="text-[10px] text-white/20">{featured.timeAgo}</span>
+            <span className="text-[10px] text-white/50">{featured.timeAgo}</span>
           </div>
         ) : null}
 

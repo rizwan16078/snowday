@@ -419,7 +419,7 @@ export function ShareSystem({
                 <div className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-3">
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/35">
+                      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/50">
                         Custom Share Card
                       </p>
                       <p className="mt-1 text-sm text-white/70">
@@ -442,7 +442,7 @@ export function ShareSystem({
 
               {/* URL preview */}
               <div className="px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.04]">
-                <p className="text-[10px] text-white/20 font-mono truncate">
+                <p className="text-[10px] text-white/50 font-mono truncate">
                   {shareUrl}
                 </p>
               </div>

@@ -75,7 +75,7 @@ export function HighIntentCitySection({
                 <Snowflake className="w-5 h-5 text-blue-400" aria-hidden="true" />
               </div>
               <div>
-                <p className="text-[10px] text-white/35 uppercase tracking-[0.28em] font-bold">
+                <p className="text-[10px] text-white/50 uppercase tracking-[0.28em] font-bold">
                   Local threshold
                 </p>
                 <h3 className="text-lg font-display font-black text-white">
@@ -94,7 +94,7 @@ export function HighIntentCitySection({
                 <Building2 className="w-5 h-5 text-purple-400" aria-hidden="true" />
               </div>
               <div>
-                <p className="text-[10px] text-white/35 uppercase tracking-[0.28em] font-bold">
+                <p className="text-[10px] text-white/50 uppercase tracking-[0.28em] font-bold">
                   Official districts
                 </p>
                 <h3 className="text-lg font-display font-black text-white">
@@ -147,7 +147,7 @@ export function HighIntentCitySection({
                   <CloudSnow className="w-5 h-5 text-sky-400" aria-hidden="true" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-white/35 uppercase tracking-[0.28em] font-bold">
+                  <p className="text-[10px] text-white/50 uppercase tracking-[0.28em] font-bold">
                     Recent storm examples
                   </p>
                   <h3 className="text-lg font-display font-black text-white">
@@ -163,7 +163,7 @@ export function HighIntentCitySection({
                   >
                     <div className="flex items-baseline justify-between gap-3 mb-2">
                       <p className="text-sm font-bold text-white/90">{storm.type}</p>
-                      <span className="text-[11px] text-white/35 uppercase tracking-wider">
+                      <span className="text-[11px] text-white/50 uppercase tracking-wider">
                         {formatStormDate(storm.date)}
                       </span>
                     </div>
@@ -188,7 +188,7 @@ export function HighIntentCitySection({
                   <MapPin className="w-5 h-5 text-amber-400" aria-hidden="true" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-white/35 uppercase tracking-[0.28em] font-bold">
+                  <p className="text-[10px] text-white/50 uppercase tracking-[0.28em] font-bold">
                     Nearby city contrast
                   </p>
                   <h3 className="text-lg font-display font-black text-white">

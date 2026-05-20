@@ -240,7 +240,7 @@ export function StormAnatomy({ prediction }: StormAnatomyProps) {
                 </div>
 
                 {/* Description */}
-                <p className="text-[10px] text-white/20 mt-3">
+                <p className="text-[10px] text-white/50 mt-3">
                   {card.description}
                 </p>
               </div>
