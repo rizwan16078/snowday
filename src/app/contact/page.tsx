@@ -9,6 +9,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/contact",
   },
+  openGraph: {
+    type: "website",
+    title: "Contact Us — SnowSense™",
+    description: "Get in touch with the SnowSense™ team for support, partnerships, or feedback.",
+    url: "https://www.snowdaycalculate.com/contact",
+  },
+  twitter: {
+    card: "summary",
+    title: "Contact Us — SnowSense™",
+    description: "Get in touch with the SnowSense™ team for support, partnerships, or feedback.",
+  },
 };
 
 function ContactMethod({ icon: Icon, title, description, href, label }: { icon: any, title: string, description: string, href: string, label: string }) {

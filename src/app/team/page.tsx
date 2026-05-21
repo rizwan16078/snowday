@@ -11,6 +11,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/team",
   },
+  openGraph: {
+    type: "website",
+    title: "Our Team & Authors — SnowSense™",
+    description: "Meet the meteorologists, data scientists, and developers behind SnowSense™.",
+    url: "https://www.snowdaycalculate.com/team",
+  },
+  twitter: {
+    card: "summary",
+    title: "Our Team & Authors — SnowSense™",
+    description: "Meet the meteorologists, data scientists, and developers behind SnowSense™.",
+  },
 };
 
 function TeamMember({

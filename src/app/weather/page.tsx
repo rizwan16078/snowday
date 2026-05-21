@@ -39,9 +39,24 @@ export const runtime = "edge";
 export const metadata: Metadata = {
   title: "Weather Outlook",
   description:
-    "Live local weather outlook powered by free forecast data from Open-Meteo.",
+    "Live local weather with hourly forecast, 10-day outlook, air quality index, UV, sunrise/sunset, and snow day probability — updated every 30 minutes.",
   alternates: {
     canonical: "/weather",
+  },
+  openGraph: {
+    type: "website",
+    title: "Live Weather Outlook — SnowSense™",
+    description:
+      "Hourly forecast, 10-day outlook, air quality, and snow day probability for your location. Updated every 30 minutes.",
+    url: "https://www.snowdaycalculate.com/weather",
+    images: [{ url: "/api/og", width: 1200, height: 630, alt: "SnowSense™ Weather Outlook" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Live Weather Outlook — SnowSense™",
+    description:
+      "Hourly forecast, 10-day outlook, air quality, and snow day probability for your location.",
+    images: ["/api/og"],
   },
 };
 
