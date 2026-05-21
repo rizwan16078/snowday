@@ -51,6 +51,8 @@ export async function SnowSenseEntry({
     return null;
   });
 
+  const serverResolved = !!headerBag.get("x-resolved-loc");
+
   return (
     <SnowDayShell
       initialPrediction={initialPrediction}
@@ -59,6 +61,7 @@ export async function SnowSenseEntry({
       schoolType={type}
       initialRibbon={buildRibbonData(location)}
       radarSrc={buildRadarUrl(location)}
+      serverResolved={serverResolved}
     />
   );
 }

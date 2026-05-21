@@ -117,9 +117,6 @@ async function detectLocationFromDirectIP(): Promise<GeocodingResult | null> {
 }
 
 export async function detectLocationClientSide(): Promise<GeocodingResult | null> {
-  const browserLocation = await detectLocationFromBrowser();
-  if (browserLocation) return browserLocation;
-
   const ipLocation = await detectLocationFromServerIP();
   if (ipLocation) return ipLocation;
 

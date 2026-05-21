@@ -34,6 +34,7 @@ interface SnowDayShellProps {
   schoolType: SchoolType;
   initialRibbon: SnowSenseRibbon;
   radarSrc: string;
+  serverResolved?: boolean;
 }
 
 function buildLocationLabel(location: ResolvedLocation): string {
@@ -47,6 +48,7 @@ export default function SnowDayShell({
   schoolType,
   initialRibbon,
   radarSrc,
+  serverResolved = false,
 }: SnowDayShellProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -145,6 +147,7 @@ export default function SnowDayShell({
       manualLocation ||
       hasExplicitNonDefaultLocation ||
       location.slug !== DEFAULT_LOCATION_SLUG ||
+      serverResolved ||
       attemptedClientIPResolution.current
     ) {
       return;
