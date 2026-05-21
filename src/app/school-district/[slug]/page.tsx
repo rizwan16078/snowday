@@ -241,7 +241,6 @@ export default async function DistrictPage({ params }: Props) {
 
         <main
           className="relative z-10 min-h-screen flex flex-col items-center px-4 pb-12 pt-28 sm:pt-32"
-          role="main"
         >
           {/* Breadcrumb */}
           <nav
@@ -376,7 +375,7 @@ export default async function DistrictPage({ params }: Props) {
         ) : null}
 
         {/* ─── Editorial: Decision process ──────────────────────────────── */}
-        <section className="relative z-10 py-16 px-4">
+        <section aria-label="Decision process" className="relative z-10 py-16 px-4">
           <div className="max-w-3xl mx-auto space-y-10">
             <div>
               <h2 className="text-xl sm:text-2xl font-display font-black text-white mb-4">
@@ -510,7 +509,7 @@ export default async function DistrictPage({ params }: Props) {
         )}
 
         {/* Link back to parent city + state */}
-        <section className="relative z-10 py-8 px-4 text-center">
+        <section aria-label="Related links" className="relative z-10 py-8 px-4 text-center">
           <div className="inline-flex flex-wrap justify-center gap-3">
             <Link
               href={`/snow-day-calculator/${city.slug}`}

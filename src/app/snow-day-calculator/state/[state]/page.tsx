@@ -128,7 +128,7 @@ export default async function StateHubPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
-      <main className="min-h-screen px-4 py-16 max-w-5xl mx-auto" role="main">
+      <main className="min-h-screen px-4 py-16 max-w-5xl mx-auto">
         {/* Breadcrumb pill */}
         <nav aria-label="Breadcrumb" className="mb-8">
           <ol className="inline-flex items-center gap-2 text-xs text-white/50 bg-white/5 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
@@ -189,7 +189,7 @@ export default async function StateHubPage({ params }: Props) {
         </header>
 
         {/* Editorial paragraphs */}
-        <section className="prose prose-invert max-w-none mb-12 space-y-4">
+        <section aria-label="About this state" className="prose prose-invert max-w-none mb-12 space-y-4">
           {content.paragraphs.map((p, i) => (
             <p key={i} className="text-white/60 leading-relaxed text-[15px]">
               {p}

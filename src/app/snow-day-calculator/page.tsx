@@ -44,7 +44,6 @@ export default function SnowDayIndexPage() {
       />
       <main
         className="min-h-screen px-4 py-16 max-w-5xl mx-auto"
-        role="main"
       >
         <header className="text-center mb-12">
           <p className="text-[10px] text-blue-400/70 uppercase tracking-[0.3em] font-bold mb-3">

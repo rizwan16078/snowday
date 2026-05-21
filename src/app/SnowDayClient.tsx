@@ -250,7 +250,6 @@ export default function SnowDayShell({
 
       <main
         className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 pt-24"
-        role="main"
       >
         {showErrorState ? (
           <div className="flex max-w-md flex-col items-center gap-4 text-center">

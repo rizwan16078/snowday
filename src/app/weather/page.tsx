@@ -472,6 +472,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
 
         <section
           id="today"
+          aria-label="Today's forecast"
           className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.5fr)_minmax(320px,0.9fr)]"
         >
           <div className="glass-card relative overflow-hidden rounded-[2rem] p-6 sm:p-8">
@@ -648,7 +649,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
           </div>
         </section>
 
-        <section id="hourly" className="mt-8 glass-card rounded-[2rem] p-6 sm:p-8">
+        <section id="hourly" aria-label="Hourly forecast" className="mt-8 glass-card rounded-[2rem] p-6 sm:p-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/50">
@@ -697,6 +698,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
 
         <section
           id="ten-day"
+          aria-label="10-day forecast"
           className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.8fr)]"
         >
           <div className="glass-card rounded-[2rem] p-6 sm:p-8">
@@ -775,7 +777,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
           </div>
 
           <div className="grid gap-6">
-            <section id="air-quality" className="glass-card rounded-[2rem] p-6">
+            <section id="air-quality" aria-label="Air quality" className="glass-card rounded-[2rem] p-6">
               <div className="flex items-center gap-2 text-white/50">
                 <Activity className="h-4 w-4 text-emerald-300" />
                 <span className="text-[11px] uppercase tracking-[0.3em]">Air Quality</span>
@@ -815,7 +817,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
               </div>
             </section>
 
-            <section id="sun-moon" className="glass-card rounded-[2rem] p-6">
+            <section id="sun-moon" aria-label="Sun and moon" className="glass-card rounded-[2rem] p-6">
               <div className="flex items-center gap-2 text-white/50">
                 <Moon className="h-4 w-4 text-slate-200" />
                 <span className="text-[11px] uppercase tracking-[0.3em]">Sun & Moon</span>
@@ -890,7 +892,7 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
           </div>
         </section>
 
-        <section id="top-reads" className="mt-8 glass-card rounded-[2rem] p-6 sm:p-8">
+        <section id="top-reads" aria-label="Top reads" className="mt-8 glass-card rounded-[2rem] p-6 sm:p-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/50">

@@ -159,9 +159,9 @@ export function GlossaryClient({ terms, letters }: GlossaryClientProps) {
 
         {/* Grouped term list */}
         {visibleLetters.map((letter) => (
-          <section key={letter} id={`letter-${letter}`} className="mb-14 scroll-mt-44">
+          <section key={letter} id={`letter-${letter}`} aria-labelledby={`letter-heading-${letter}`} className="mb-14 scroll-mt-44">
             <div className="flex items-center gap-4 mb-6">
-              <h2 className="text-4xl font-display font-black text-blue-400/80">
+              <h2 id={`letter-heading-${letter}`} className="text-4xl font-display font-black text-blue-400/80">
                 {letter}
               </h2>
               <div className="flex-1 h-px bg-gradient-to-r from-blue-400/20 via-white/5 to-transparent" />

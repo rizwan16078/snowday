@@ -25,12 +25,14 @@ export function BlogFAQ({ items }: BlogFAQProps) {
             className="glass-card rounded-2xl overflow-hidden border border-white/10 transition-all hover:border-blue-400/30"
           >
             <button
+              id={`blog-faq-trigger-${i}`}
               onClick={() => setOpenIndex(isOpen ? null : i)}
               className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left transition-colors hover:bg-white/[0.02]"
               aria-expanded={isOpen}
+              aria-controls={`blog-faq-panel-${i}`}
             >
               <div className="flex items-center gap-3 flex-1 min-w-0">
-                <HelpCircle className="w-4 h-4 text-blue-400 shrink-0" />
+                <HelpCircle className="w-4 h-4 text-blue-400 shrink-0" aria-hidden="true" />
                 <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
                   {item.question}
                 </h3>
@@ -39,9 +41,13 @@ export function BlogFAQ({ items }: BlogFAQProps) {
                 className={`w-5 h-5 text-white/50 shrink-0 transition-transform duration-300 ${
                   isOpen ? "rotate-180 text-blue-400" : ""
                 }`}
+                aria-hidden="true"
               />
             </button>
             <div
+              id={`blog-faq-panel-${i}`}
+              role="region"
+              aria-labelledby={`blog-faq-trigger-${i}`}
               className={`grid transition-all duration-300 ease-in-out ${
                 isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
               }`}

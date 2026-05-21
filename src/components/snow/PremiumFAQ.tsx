@@ -79,20 +79,26 @@ export function PremiumFAQ({ location = "your city" }: PremiumFAQProps) {
               }`}
             >
               <button
+                id={`faq-trigger-${i}`}
                 onClick={() => setOpenIdx(isOpen ? null : i)}
                 className="w-full flex items-center justify-between p-5 text-left"
                 aria-expanded={isOpen}
+                aria-controls={`faq-panel-${i}`}
               >
                 <span className="text-sm font-semibold text-white/90 pr-8">{faq.q}</span>
                 <ChevronDown
                   className={`w-4 h-4 text-white/50 shrink-0 transition-transform duration-300 ${
                     isOpen ? "rotate-180 text-white/80" : ""
                   }`}
+                  aria-hidden="true"
                 />
               </button>
 
               {/* CSS-only accordion — max-height transition replaces AnimatePresence */}
               <div
+                id={`faq-panel-${i}`}
+                role="region"
+                aria-labelledby={`faq-trigger-${i}`}
                 className="overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out"
                 style={{ maxHeight: isOpen ? "400px" : "0px", opacity: isOpen ? 1 : 0 }}
               >

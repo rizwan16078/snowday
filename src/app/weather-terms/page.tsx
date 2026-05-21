@@ -67,7 +67,7 @@ export default function WeatherTermsPage() {
 
       <main className="min-h-screen pb-24">
         {/* Hero */}
-        <section className="relative pt-32 pb-12 px-4 overflow-hidden">
+        <section aria-label="Weather glossary hero" className="relative pt-32 pb-12 px-4 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-blue-500/[0.06] via-transparent to-transparent pointer-events-none" />
           <div className="absolute top-32 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-blue-500/[0.04] blur-[120px] pointer-events-none" />
 
@@ -124,7 +124,7 @@ export default function WeatherTermsPage() {
         <GlossaryClient terms={GLOSSARY_TERMS} letters={letters} />
 
         {/* CTA Footer */}
-        <section className="max-w-4xl mx-auto px-4 mt-20">
+        <section aria-label="Apply what you learned" className="max-w-4xl mx-auto px-4 mt-20">
           <div className="glass-card rounded-3xl p-8 sm:p-10 text-center border border-blue-400/20 bg-gradient-to-br from-blue-500/[0.06] via-transparent to-transparent">
             <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-blue-300 mb-3">
               Apply What You Just Learned

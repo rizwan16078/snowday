@@ -205,7 +205,7 @@ export default function WeatherGuidePage() {
 
       <main className="min-h-screen pb-24">
         {/* HERO */}
-        <section className="relative pt-32 pb-16 px-4 overflow-hidden">
+        <section aria-label="Weather guide hero" className="relative pt-32 pb-16 px-4 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-blue-500/[0.06] via-transparent to-transparent pointer-events-none" />
           <div className="absolute top-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-blue-500/[0.05] blur-[140px] pointer-events-none" />
 
@@ -267,7 +267,7 @@ export default function WeatherGuidePage() {
         </section>
 
         {/* TABLE OF CONTENTS */}
-        <section className="max-w-5xl mx-auto px-4 mb-20">
+        <section aria-label="Table of contents" className="max-w-5xl mx-auto px-4 mb-20">
           <div className="glass-card rounded-3xl p-6 sm:p-8 border border-white/[0.06]">
             <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-blue-300 mb-4">
               On This Hub
@@ -309,6 +309,7 @@ export default function WeatherGuidePage() {
               <section
                 key={section.id}
                 id={section.id}
+                aria-labelledby={`${section.id}-heading`}
                 className="scroll-mt-24"
               >
                 {/* Section Header */}
@@ -319,7 +320,7 @@ export default function WeatherGuidePage() {
                     <Icon className={`w-6 h-6 ${section.iconColor}`} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h2 className="text-2xl sm:text-3xl font-display font-black text-white leading-tight mb-2">
+                    <h2 id={`${section.id}-heading`} className="text-2xl sm:text-3xl font-display font-black text-white leading-tight mb-2">
                       {section.title}
                     </h2>
                     <p className="text-sm text-white/55 leading-relaxed max-w-2xl">
@@ -403,7 +404,7 @@ export default function WeatherGuidePage() {
         </div>
 
         {/* FEATURED GLOSSARY TERMS */}
-        <section className="max-w-5xl mx-auto px-4 mt-24">
+        <section aria-label="Featured glossary terms" className="max-w-5xl mx-auto px-4 mt-24">
           <div className="flex items-end justify-between gap-4 mb-8 flex-wrap">
             <div>
               <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-blue-300 mb-2">
@@ -443,7 +444,7 @@ export default function WeatherGuidePage() {
         </section>
 
         {/* FINAL CTA */}
-        <section className="max-w-5xl mx-auto px-4 mt-24">
+        <section aria-label="Get your forecast" className="max-w-5xl mx-auto px-4 mt-24">
           <div className="glass-card rounded-3xl p-8 sm:p-12 text-center border border-blue-400/20 bg-gradient-to-br from-blue-500/[0.08] via-transparent to-cyan-500/[0.04] relative overflow-hidden">
             <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
             <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
