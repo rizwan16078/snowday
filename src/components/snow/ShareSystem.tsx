@@ -24,6 +24,10 @@ interface ShareSystemProps {
   locationSlug: string;
   daysUsed: number;
   schoolType: SchoolType;
+  /** Controlled open state (optional). */
+  open?: boolean;
+  /** Callback when open state changes (optional). */
+  onOpenChange?: (open: boolean) => void;
 }
 
 const statusEmoji: Record<string, string> = {
@@ -261,8 +265,15 @@ export function ShareSystem({
   locationSlug,
   daysUsed,
   schoolType,
+  open: controlledOpen,
+  onOpenChange,
 }: ShareSystemProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isOpen = controlledOpen ?? internalOpen;
+  const setIsOpen = (value: boolean) => {
+    if (onOpenChange) onOpenChange(value);
+    else setInternalOpen(value);
+  };
   const [copied, setCopied] = useState(false);
   const [sharingCard, setSharingCard] = useState(false);
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
@@ -359,7 +370,7 @@ export function ShareSystem({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass hover:bg-white/8 transition-all text-sm font-semibold text-white/60 hover:text-white/90"
+        className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass hover:bg-white/8 transition-all text-sm font-semibold text-white/60 hover:text-white/90"
         aria-label="Share this prediction"
       >
         <Share2 className="w-4 h-4" />

@@ -9,6 +9,7 @@ import {
   Search,
   X,
   Settings,
+  Share2,
 } from "lucide-react";
 import { useSystemUI } from "@/components/providers/SystemUIContext";
 import type { LocationSelection, SchoolType } from "@/types/snow";
@@ -22,6 +23,7 @@ interface CommandBarProps {
   onLocationChange: (location: LocationSelection) => void;
   onCalibrationToggle: () => void;
   onRefresh: () => void;
+  onShare?: () => void;
 }
 
 type SearchResult = LocationSelection;
@@ -34,6 +36,7 @@ export function CommandBar({
   onLocationChange,
   onCalibrationToggle,
   onRefresh,
+  onShare,
 }: CommandBarProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -264,6 +267,15 @@ export function CommandBar({
             </button>
 
             <div className="ml-auto flex shrink-0 items-center gap-2">
+              {onShare && (
+                <button
+                  onClick={onShare}
+                  className="shrink-0 rounded-xl bg-white/5 px-3 py-2 transition-colors hover:bg-white/8"
+                  aria-label="Share prediction"
+                >
+                  <Share2 className="h-3.5 w-3.5 text-white/60" />
+                </button>
+              )}
               <button
                 onClick={onCalibrationToggle}
                 className="shrink-0 rounded-xl bg-white/5 px-3 py-2 transition-colors hover:bg-white/8"

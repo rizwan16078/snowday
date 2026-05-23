@@ -252,7 +252,7 @@ export default function SnowDayShell({
       />
 
       <main
-        className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 pt-24"
+        className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 pt-24 pb-16 md:pb-4"
       >
         {showErrorState ? (
           <div className="flex max-w-md flex-col items-center gap-4 text-center">
@@ -349,7 +349,7 @@ export default function SnowDayShell({
       </main>
 
       {activePrediction ? (
-        <div className="relative z-10 mt-16 flex flex-col gap-24 pb-32">
+        <div className="relative z-10 mt-0 md:mt-16 flex flex-col gap-24 pb-32">
           {showDetails ? (
             <>
               <DetailsPanel prediction={activePrediction} />
