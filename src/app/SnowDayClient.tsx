@@ -58,6 +58,7 @@ export default function SnowDayShell({
   const [hasScrolled, setHasScrolled] = useState(false);
   const [calibrationOpen, setCalibrationOpen] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
   const attemptedClientIPResolution = useRef(false);
   const locationLabel = useMemo(() => buildLocationLabel(location), [location]);
 
@@ -252,7 +253,7 @@ export default function SnowDayShell({
       />
 
       <main
-        className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 pt-24 pb-16 md:pb-4"
+        className="relative z-10 flex flex-col items-center px-4 pt-24 pb-2 md:min-h-screen md:justify-center md:pb-0"
       >
         {showErrorState ? (
           <div className="flex max-w-md flex-col items-center gap-4 text-center">
@@ -312,6 +313,7 @@ export default function SnowDayShell({
                 onLocationChange={handleLocationChange}
                 onCalibrationToggle={() => setCalibrationOpen((open) => !open)}
                 onRefresh={handleRefresh}
+                onShare={() => setShareOpen(true)}
               />
               <button
                 onClick={handleGPSLocate}
@@ -325,19 +327,21 @@ export default function SnowDayShell({
             </div>
 
             {activePrediction ? (
-              <div className="mt-6">
+              <div className="mt-6 hidden md:block">
                 <ShareSystem
                   prediction={activePrediction}
                   locationStr={locationLabel}
                   locationSlug={location.slug}
                   daysUsed={daysUsed}
                   schoolType={schoolType}
+                  open={shareOpen}
+                  onOpenChange={setShareOpen}
                 />
               </div>
             ) : null}
 
             {showDetails && !hasScrolled ? (
-              <div className="animate-scroll-bounce absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
+              <div className="animate-scroll-bounce absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex">
                 <span className="text-[10px] font-medium uppercase tracking-widest text-white/50">
                   Details
                 </span>
@@ -349,7 +353,7 @@ export default function SnowDayShell({
       </main>
 
       {activePrediction ? (
-        <div className="relative z-10 mt-0 md:mt-16 flex flex-col gap-24 pb-32">
+        <div className="relative z-10 mt-8 md:mt-16 flex flex-col gap-24 pb-32">
           {showDetails ? (
             <>
               <DetailsPanel prediction={activePrediction} />

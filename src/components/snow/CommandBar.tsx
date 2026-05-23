@@ -249,11 +249,11 @@ export function CommandBar({
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-        className="safe-area-bottom fixed inset-x-0 bottom-0 z-50 md:hidden"
+        className="w-full md:hidden"
         role="toolbar"
         aria-label="Prediction controls"
       >
-        <div className="glass-command mx-2 mb-2 rounded-2xl px-2.5 py-2.5 sm:mx-3 sm:mb-3 sm:px-3">
+        <div className="glass-command w-full rounded-2xl px-2.5 py-2.5 sm:px-3">
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setIsSearchOpen(true)}

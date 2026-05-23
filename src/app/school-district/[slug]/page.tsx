@@ -240,7 +240,7 @@ export default async function DistrictPage({ params }: Props) {
         />
 
         <main
-          className="relative z-10 min-h-screen flex flex-col items-center px-4 pb-12 pt-28 sm:pt-32"
+          className="relative z-10 flex flex-col items-center px-4 pb-12 pt-28 sm:pt-32 md:min-h-screen md:justify-center"
         >
           {/* Breadcrumb */}
           <nav

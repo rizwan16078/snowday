@@ -330,7 +330,7 @@ export default async function LocationPage({ params }: Props) {
       <div className="relative min-h-screen">
         <WeatherCanvas probability={prediction.probability} isFallback={prediction.isFallback} />
 
-        <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4">
+        <main className="relative z-10 flex flex-col items-center px-4 pb-12 pt-28 sm:pt-32 md:min-h-screen md:justify-center">
           {/* Breadcrumb - Absolute positioned at top for immersive feel */}
           <nav aria-label="Breadcrumb" className="absolute top-8 left-1/2 -translate-x-1/2 w-full max-w-lg text-center">
             <ol className="inline-flex items-center gap-2 text-xs text-white/50 bg-white/5 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
