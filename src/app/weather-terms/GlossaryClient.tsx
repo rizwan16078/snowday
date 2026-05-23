@@ -197,25 +197,17 @@ export function GlossaryClient({ terms, letters }: GlossaryClientProps) {
                   </>
                 );
 
-                // If the term has a related blog post, the whole card is clickable.
-                // Otherwise it remains a static anchor target so users can deep-link
-                // to it via /weather-terms#<slug>.
-                if (t.relatedBlog) {
-                  return (
-                    <Link
-                      key={t.slug}
-                      id={t.slug}
-                      href={`/blog/${t.relatedBlog}`}
-                      className={cardClasses}
-                    >
-                      {inner}
-                    </Link>
-                  );
-                }
+                // All terms now have dedicated pages at /weather-terms/[slug].
+                // If the term also has a related blog post, show a secondary link.
                 return (
-                  <article key={t.slug} id={t.slug} className={cardClasses}>
+                  <Link
+                    key={t.slug}
+                    id={t.slug}
+                    href={`/weather-terms/${t.slug}`}
+                    className={cardClasses}
+                  >
                     {inner}
-                  </article>
+                  </Link>
                 );
               })}
             </div>

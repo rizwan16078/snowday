@@ -37,6 +37,7 @@ import {
   isHighIntentDistrict,
 } from "@/lib/high-intent-content";
 import { getRecentStorms } from "@/lib/storm-events";
+import { blogPosts } from "@/lib/blog-data";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -523,6 +524,52 @@ export default async function DistrictPage({ params }: Props) {
               className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white px-4 py-2 rounded-full glass-card transition-colors"
             >
               All {district.stateName} districts
+            </Link>
+          </div>
+        </section>
+
+        {/* Related Reading — internal links to pillar blog posts.
+            Shows posts relevant to school closure decisions and policy.
+            Improves internal linking density and topical authority. */}
+        <section className="relative z-10 py-12 px-4 max-w-2xl mx-auto">
+          <h2 className="text-xs text-white/50 uppercase tracking-widest font-bold mb-4">
+            Related Reading
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {blogPosts
+              .filter((p) =>
+                [
+                  "how-do-superintendents-decide-snow-days",
+                  "snow-day-vs-2-hour-delay-what-determines-the-call",
+                  "remote-learning-snow-days-virtual-vs-traditional",
+                  "snow-day-makeup-policies-by-state",
+                ].includes(p.slug)
+              )
+              .slice(0, 4)
+              .map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group glass-card rounded-xl p-4 hover:bg-white/[0.04] transition-colors"
+                >
+                  <h3 className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors leading-snug">
+                    {post.title}
+                  </h3>
+                  <p className="mt-1 text-xs text-white/40 line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <span className="mt-2 inline-block text-[10px] text-blue-400/60 uppercase tracking-widest font-bold">
+                    {post.readTime}
+                  </span>
+                </Link>
+              ))}
+          </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link href="/school-closings" className="text-xs text-blue-300/60 hover:text-blue-300 transition-colors">
+              School Closings →
+            </Link>
+            <Link href="/weather-guide" className="text-xs text-blue-300/60 hover:text-blue-300 transition-colors">
+              Weather Guide →
             </Link>
           </div>
         </section>

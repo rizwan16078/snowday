@@ -115,6 +115,22 @@ const websiteSchema = {
   },
 };
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "SnowSense™",
+  url: "https://www.snowdaycalculate.com",
+  logo: "https://www.snowdaycalculate.com/icon-512.png",
+  description:
+    "AI-powered snow day predictions, weather science, and school closure guides. Real-time probability scoring built on NWS, Open-Meteo, and HRRR weather data.",
+  sameAs: [],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer support",
+    url: "https://www.snowdaycalculate.com/contact",
+  },
+};
+
 const webAppSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
@@ -163,6 +179,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
         <a
           href="#main-content"

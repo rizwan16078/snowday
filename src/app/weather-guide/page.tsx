@@ -51,12 +51,18 @@ const SECTIONS = [
     iconColor: "text-blue-300",
     posts: [
       "how-many-inches-of-snow-cancels-school",
+      "how-do-superintendents-decide-snow-days",
+      "snow-day-vs-2-hour-delay-what-determines-the-call",
+      "snow-day-calculator-accuracy-how-reliable",
+      "best-snow-day-apps-and-alert-systems",
       "first-indicator-bad-weather",
       "may-outer-banks-weather",
     ],
     tools: [
       { label: "Snow Day Calculator", href: "/snow-day-calculator", desc: "Real-time probability for your zip code." },
       { label: "Live Weather Dashboard", href: "/weather", desc: "Track wind chill and pressure in real time." },
+      { label: "School Closings Directory", href: "/school-closings", desc: "Browse school closings by state, city, or district." },
+      { label: "Snow Day History", href: "/snow-day-history", desc: "Biggest US snowstorms and their school closure impacts." },
     ],
   },
   {
@@ -83,11 +89,17 @@ const SECTIONS = [
     color: "from-purple-500/20 to-blue-500/10",
     iconColor: "text-purple-300",
     posts: [
+      "how-to-prepare-for-a-blizzard-winter-storm-safety",
+      "winter-driving-safety-tips-snow-ice",
       "does-cold-weather-make-you-nervous",
       "maintain-roof-harsh-weather",
       "can-you-paint-in-cold-weather",
       "can-you-pour-concrete-cold-weather",
       "how-to-move-furniture-during-bad-weather",
+    ],
+    tools: [
+      { label: "Wind Chill Chart", href: "/wind-chill-chart", desc: "NWS wind chill chart with frostbite risk times." },
+      { label: "Snow Day Activities", href: "/snow-day-activities", desc: "50+ things to do when school is closed." },
     ],
   },
   {
@@ -102,6 +114,25 @@ const SECTIONS = [
       "how-to-dress-for-60-degree-weather",
       "what-to-wear-running-in-50-degree-weather",
       "what-to-wear-running-in-40-degree-weather",
+    ],
+    tools: [
+      { label: "Wind Chill Chart", href: "/wind-chill-chart", desc: "Check wind chill before you head out." },
+    ],
+  },
+  {
+    id: "school-policy-elearning",
+    title: "School Policy & E-Learning",
+    description:
+      "Remote learning days, makeup policies, and the slow death of the traditional snow day. What your district decides — and what it means for your calendar.",
+    icon: BookOpen,
+    color: "from-indigo-500/20 to-blue-500/10",
+    iconColor: "text-indigo-300",
+    posts: [
+      "remote-learning-snow-days-virtual-vs-traditional",
+      "snow-day-makeup-policies-by-state",
+    ],
+    tools: [
+      { label: "School Closings Directory", href: "/school-closings", desc: "Check school closings by state, city, or district." },
     ],
   },
   {
@@ -427,7 +458,7 @@ export default function WeatherGuidePage() {
             {featuredTerms.map((term) => (
               <Link
                 key={term.slug}
-                href={`/weather-terms#${term.slug}`}
+                href={`/weather-terms/${term.slug}`}
                 className="group glass-card rounded-2xl p-5 border border-white/[0.06] transition-all hover:border-blue-400/30 hover:bg-white/[0.02]"
               >
                 <div className="flex items-center gap-3 mb-2">

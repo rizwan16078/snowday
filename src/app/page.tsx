@@ -91,6 +91,53 @@ export async function generateMetadata({
   };
 }
 
+const homeFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How accurate is the SnowSense snow day calculator?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "SnowSense uses live NWS, Open-Meteo, and HRRR weather data calibrated against regional closure thresholds. Predictions update every 30 minutes. No tool is 100% accurate because the final call is made by a human superintendent, but our model consistently outperforms raw weather forecasts for school closure prediction.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What factors determine a snow day?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Four factors: snowfall accumulation rate, ice risk (freezing rain/black ice), temperature and wind chill, and storm timing relative to the morning commute. Regional infrastructure — how many plows a city has — also heavily influences whether schools close.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What time do schools announce snow days?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Most snow day decisions are made between 4 AM and 6 AM. Superintendents drive key routes, review road crew reports, and announce via automated text/call systems, district websites, and local TV by 5:30 AM. Southern districts sometimes announce the night before.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can school be cancelled for cold weather without snow?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. When wind chill drops below -20°F, many northern districts cancel school for student safety at bus stops and because diesel school buses struggle to start. These 'cold days' happen 2–4 times per winter in Minnesota, Wisconsin, and the Dakotas.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How many inches of snow does it take to cancel school?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "There is no universal number. Boston may stay open through 10 inches, while Atlanta closes for 1–2 inches. The threshold depends on regional plow infrastructure, snow type (wet vs dry), storm timing, and the district's remaining snow day budget.",
+      },
+    },
+  ],
+};
+
 export default async function HomePage({ searchParams }: HomePageProps) {
   return (
     <>
@@ -99,6 +146,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbListSchema([
           { name: "Home", path: "/" },
         ])) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqSchema) }}
       />
       <SnowSenseEntry searchParams={searchParams} />
     </>

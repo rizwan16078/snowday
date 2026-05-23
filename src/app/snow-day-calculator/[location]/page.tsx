@@ -32,6 +32,7 @@ import {
   getStormDataGeneratedAt,
 } from "@/lib/storm-events";
 import { RecentStormsCard } from "@/components/snow/RecentStormsCard";
+import { blogPosts } from "@/lib/blog-data";
 import type { GeocodingResult } from "@/types/snow";
 import { ChevronDown } from "lucide-react";
 
@@ -478,6 +479,58 @@ export default async function LocationPage({ params }: Props) {
               snowInches: city.snowInches,
             }))}
           />
+        ) : null}
+
+        {/* Related Reading — internal links to pillar blog posts.
+            Shows 3–4 posts relevant to the city's context (snow day guides,
+            winter preparedness, calculator accuracy). Improves internal
+            linking density and topical authority signals. */}
+        {cityRecord ? (
+          <section className="relative z-10 py-12 px-4 max-w-2xl mx-auto">
+            <h2 className="text-xs text-white/50 uppercase tracking-widest font-bold mb-4">
+              Related Reading
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {blogPosts
+                .filter((p) =>
+                  [
+                    "how-many-inches-of-snow-cancels-school",
+                    "how-do-superintendents-decide-snow-days",
+                    "snow-day-calculator-accuracy-how-reliable",
+                    "best-snow-day-apps-and-alert-systems",
+                  ].includes(p.slug)
+                )
+                .slice(0, 4)
+                .map((post) => (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className="group glass-card rounded-xl p-4 hover:bg-white/[0.04] transition-colors"
+                  >
+                    <h3 className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors leading-snug">
+                      {post.title}
+                    </h3>
+                    <p className="mt-1 text-xs text-white/40 line-clamp-2">
+                      {post.excerpt}
+                    </p>
+                    <span className="mt-2 inline-block text-[10px] text-blue-400/60 uppercase tracking-widest font-bold">
+                      {post.readTime}
+                    </span>
+                  </Link>
+                ))}
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link href="/weather-guide" className="text-xs text-blue-300/60 hover:text-blue-300 transition-colors">
+                Weather Guide →
+              </Link>
+              <Link href="/wind-chill-chart" className="text-xs text-blue-300/60 hover:text-blue-300 transition-colors">
+                Wind Chill Chart →
+              </Link>
+              <Link href="/school-closings" className="text-xs text-blue-300/60 hover:text-blue-300 transition-colors">
+                School Closings →
+              </Link>
+            </div>
+          </section>
         ) : null}
       </div>
     </>

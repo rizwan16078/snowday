@@ -36,11 +36,46 @@ export default function SnowDayIndexPage() {
   // Every state we have at least one city for, sorted alphabetically.
   const stateSlugs = getAllStateSlugs();
 
+  const calculatorFaqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "How do I check snow day probability for my city?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Search by ZIP code, city name, or school district on the SnowSense calculator. Your location is auto-detected if you allow it. Predictions update every 30 minutes with live NWS and Open-Meteo weather data.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Does SnowSense cover all US states?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Yes. SnowSense covers ${ALL_CITIES.length}+ cities across all 50 states, plus ${ALL_DISTRICTS.length} school districts. State hub pages list every covered city in that state.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is the difference between a snow day and a 2-hour delay?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "A snow day means school is fully closed. A 2-hour delay means school starts later, giving road crews time to clear routes before buses run. Districts often issue delays first, then upgrade to full closures if conditions don't improve by 7 AM.",
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(calculatorFaqSchema) }}
       />
       <main
         className="min-h-screen px-4 py-16 max-w-5xl mx-auto"

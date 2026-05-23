@@ -57,6 +57,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     definition:
       "A thin, transparent layer of ice that forms on roads and sidewalks, usually when temperatures hover near freezing and moisture refreezes. It is nearly invisible against dark pavement, making it one of the most dangerous winter driving hazards.",
     category: "safety",
+    relatedBlog: "winter-driving-safety-tips-snow-ice",
   },
   {
     slug: "blizzard",
@@ -64,6 +65,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     definition:
       "A severe winter storm officially defined by sustained winds over 35 mph, considerable falling or blowing snow, and visibility under a quarter-mile for at least three hours. Snow accumulation is not part of the criteria.",
     category: "snow",
+    relatedBlog: "how-to-prepare-for-a-blizzard-winter-storm-safety",
   },
   {
     slug: "blowing-snow",
@@ -200,7 +202,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     definition:
       "Tissue damage caused when skin and underlying tissues freeze, most commonly affecting fingers, toes, ears, and nose. Wind chill can cause frostbite in under 30 minutes at extreme cold temperatures.",
     category: "safety",
-    relatedBlog: "why-do-ears-hurt-cold-weather",
+    relatedBlog: "how-to-prepare-for-a-blizzard-winter-storm-safety",
   },
 
   // H
@@ -383,6 +385,15 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     definition:
       "A day on which schools or workplaces close due to heavy snow, ice, or dangerous wind chill. Closure decisions depend on accumulation rate, road conditions, and the timing of the storm relative to the morning commute.",
     category: "snow",
+    relatedBlog: "how-do-superintendents-decide-snow-days",
+  },
+  {
+    slug: "two-hour-delay",
+    term: "2-Hour Delay",
+    definition:
+      "A school schedule adjustment that postpones the start of the school day by two hours, typically used when road conditions are expected to improve by mid-morning. Two-hour delays allow districts to avoid a full closure while still keeping students safe during the worst of the morning commute. Also called a 'late start' or 'delayed opening.'",
+    category: "snow",
+    relatedBlog: "snow-day-vs-2-hour-delay-what-determines-the-call",
   },
   {
     slug: "snow-squall",
@@ -418,6 +429,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     definition:
       "Air or wind chill temperatures below 0°F. Subzero conditions can cause frostbite within minutes of exposure to bare skin and are the threshold at which schools commonly close for cold alone.",
     category: "cold",
+    relatedBlog: "what-temperature-causes-school-cancellations",
   },
 
   // T
@@ -460,7 +472,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     definition:
       "The apparent temperature your skin perceives when wind speed strips heat from your body. Wind chill is what makes a 20°F day with strong wind feel like -5°F, and it is the primary measure used in cold-weather school closure decisions.",
     category: "cold",
-    relatedBlog: "why-do-ears-hurt-cold-weather",
+    relatedBlog: "how-to-prepare-for-a-blizzard-winter-storm-safety",
   },
   {
     slug: "wind-shear",

@@ -86,3 +86,24 @@ export function getStormDataGeneratedAt(): Date | null {
 export function getStormDataCityCount(): number {
   return Object.keys(data.byCity).length;
 }
+
+/**
+ * Aggregate storm events for all cities in a given state.
+ * Deduplicates by date+type (same storm hitting multiple cities).
+ * Returns events sorted by date descending.
+ */
+export function getStormsByState(stateCode: string, limit = 10): StormEvent[] {
+  const seen = new Set<string>();
+  const out: StormEvent[] = [];
+  for (const [citySlug, events] of Object.entries(data.byCity)) {
+    // City slugs end with -XX where XX is the state code
+    if (!citySlug.endsWith(`-${stateCode.toLowerCase()}`)) continue;
+    for (const e of events) {
+      const key = `${e.date}|${e.type}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push(e);
+    }
+  }
+  return out.sort((a, b) => (a.date < b.date ? 1 : -1)).slice(0, limit);
+}

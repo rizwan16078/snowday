@@ -2,6 +2,8 @@ import { MetadataRoute } from "next";
 import { blogPosts, getAllSlugs } from "@/lib/blog-data";
 import { ALL_CITIES, getAllStateSlugs } from "@/lib/cities/helpers";
 import { ALL_DISTRICTS } from "@/lib/districts/helpers";
+import { GLOSSARY_TERMS } from "@/lib/glossary-data";
+import { getTopCitiesByPopulation } from "@/lib/cities/helpers";
 
 const BASE = (
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.snowdaycalculate.com"
@@ -35,6 +37,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/legal/privacy`, lastModified: SITE_LAST_UPDATED, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE}/legal/terms`, lastModified: SITE_LAST_UPDATED, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE}/legal/editorial-guidelines`, lastModified: SITE_LAST_UPDATED, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE}/wind-chill-chart`, lastModified: SITE_LAST_UPDATED, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/school-closings`, lastModified: SITE_LAST_UPDATED, changeFrequency: "hourly", priority: 0.9 },
+    { url: `${BASE}/snow-day-history`, lastModified: SITE_LAST_UPDATED, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/snow-day-activities`, lastModified: SITE_LAST_UPDATED, changeFrequency: "monthly", priority: 0.7 },
   ];
 
   // ── Blog posts ───────────────────────────────────────────────────────────
@@ -93,11 +99,51 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
+  // ── Glossary term pages ──────────────────────────────────────────────────
+  // Individual term pages target definition featured snippets.
+  const glossaryRoutes: MetadataRoute.Sitemap = GLOSSARY_TERMS.map((t) => ({
+    url: `${BASE}/weather-terms/${t.slug}`,
+    lastModified: SITE_LAST_UPDATED,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  // ── School closings by state ─────────────────────────────────────────────
+  // State-level closings pages target "school closings [state]" queries.
+  const closingsStateRoutes: MetadataRoute.Sitemap = getAllStateSlugs().map((slug) => ({
+    url: `${BASE}/school-closings/${slug}`,
+    lastModified: SITE_LAST_UPDATED,
+    changeFrequency: "hourly" as const,
+    priority: 0.7,
+  }));
+
+  // ── Wind chill by city ──────────────────────────────────────────────────
+  // City-level wind chill pages target "wind chill [city]" queries.
+  const windChillRoutes: MetadataRoute.Sitemap = getTopCitiesByPopulation(100).map((c) => ({
+    url: `${BASE}/wind-chill-chart/${c.slug}`,
+    lastModified: SITE_LAST_UPDATED,
+    changeFrequency: "hourly" as const,
+    priority: c.population > 200_000 ? 0.7 : 0.6,
+  }));
+
+  // ── Snow day history by state ────────────────────────────────────────────
+  // State-level history pages target "biggest snowstorm [state]" queries.
+  const historyStateRoutes: MetadataRoute.Sitemap = getAllStateSlugs().map((slug) => ({
+    url: `${BASE}/snow-day-history/${slug}`,
+    lastModified: SITE_LAST_UPDATED,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
   return [
     ...staticRoutes,
     ...blogRoutes,
     ...stateRoutes,
     ...districtRoutes,
+    ...glossaryRoutes,
+    ...closingsStateRoutes,
+    ...windChillRoutes,
+    ...historyStateRoutes,
     ...cityRoutes,
   ];
 }

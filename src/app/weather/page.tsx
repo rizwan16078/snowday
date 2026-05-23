@@ -434,6 +434,39 @@ export default async function WeatherPage({ searchParams }: WeatherPageProps) {
           { name: "Weather Outlook", path: "/weather" },
         ])) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "How often is the weather data updated?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "SnowSense refreshes weather data every 30 minutes using NWS, Open-Meteo, and HRRR models. The 10-day outlook updates hourly. Air quality data updates every 60 minutes.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Does the weather outlook show snow day probability?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes. The weather outlook integrates SnowSense snow day probability alongside hourly and 10-day forecasts, air quality, UV index, and sunrise/sunset data.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "What weather models does SnowSense use?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "SnowSense combines data from the NWS (National Weather Service), Open-Meteo (ECMWF and GFS models), and NOAA HRRR (High-Resolution Rapid Refresh) for short-range winter storm forecasting.",
+              },
+            },
+          ],
+        }) }}
+      />
     <main className="relative min-h-screen overflow-hidden bg-[#050913] px-4 pb-20 pt-28 text-white">
       <ClientLocationResolver initialLocationSlug={location.slug} />
       <div className="pointer-events-none absolute inset-0">
