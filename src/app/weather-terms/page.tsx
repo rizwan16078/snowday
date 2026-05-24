@@ -123,6 +123,35 @@ export default function WeatherTermsPage() {
         {/* Interactive glossary */}
         <GlossaryClient terms={GLOSSARY_TERMS} letters={letters} />
 
+        {/* Browse by Category */}
+        <section className="max-w-4xl mx-auto px-4 mt-14">
+          <h2 className="text-xs text-white/50 uppercase tracking-widest font-bold mb-4">
+            Browse by Category
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+            {[
+              { slug: "snow", label: "Snow & Ice" },
+              { slug: "cold", label: "Cold & Temperature" },
+              { slug: "weather-science", label: "Weather Science" },
+              { slug: "storm", label: "Storms" },
+              { slug: "atmospheric", label: "Atmospheric" },
+              { slug: "phenomenon", label: "Phenomena" },
+              { slug: "safety", label: "Safety & Alerts" },
+            ].map((cat) => (
+              <Link
+                key={cat.slug}
+                href={`/weather-terms/category/${cat.slug}`}
+                className="group flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2.5 hover:bg-white/[0.06] hover:border-white/10 transition-all"
+              >
+                <span className="text-sm font-medium text-white/75 group-hover:text-white truncate">
+                  {cat.label}
+                </span>
+                <BookOpen className="w-3.5 h-3.5 text-blue-400/40 group-hover:text-blue-400/70 shrink-0 ml-2" />
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* CTA Footer */}
         <section aria-label="Apply what you learned" className="max-w-4xl mx-auto px-4 mt-20">
           <div className="glass-card rounded-3xl p-8 sm:p-10 text-center border border-blue-400/20 bg-gradient-to-br from-blue-500/[0.06] via-transparent to-transparent">

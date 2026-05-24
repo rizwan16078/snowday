@@ -387,6 +387,31 @@ export default function SnowDayHistoryPage() {
           </div>
         </section>
 
+        {/* Browse by City */}
+        <section className="mb-14">
+          <h2 className="text-xs text-white/50 uppercase tracking-widest font-bold mb-4">
+            Browse by City — Biggest Snowstorms
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+            {getTopCitiesByPopulation(24).map((city) => (
+              <Link
+                key={city.slug}
+                href={`/snow-day-history/city/${city.slug}`}
+                className="group flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2.5 hover:bg-white/[0.06] hover:border-white/10 transition-all"
+              >
+                <div className="min-w-0">
+                  <div className="text-sm font-medium text-white/80 group-hover:text-white truncate">
+                    {city.displayName}
+                  </div>
+                  <div className="text-[10px] text-white/50 uppercase tracking-widest mt-0.5">
+                    {city.snowInches}" avg snow
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* CTA */}
         <div className="text-center">
           <Link

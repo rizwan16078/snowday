@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
+import { getAllStateSlugs } from "@/lib/cities/helpers";
 import {
   Thermometer,
   Wind,
@@ -459,6 +460,27 @@ export default function WindChillChartPage() {
               >
                 <span className="text-sm font-medium text-white/75 group-hover:text-white truncate">
                   {c.name}
+                </span>
+                <Thermometer className="w-3.5 h-3.5 text-cyan-400/40 group-hover:text-cyan-400/70 shrink-0 ml-2" />
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Browse by State */}
+        <section className="mb-14">
+          <h2 className="text-xs text-white/50 uppercase tracking-widest font-bold mb-4">
+            Browse by State — Wind Chill Hubs
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+            {getAllStateSlugs().slice(0, 24).map((slug) => (
+              <Link
+                key={slug}
+                href={`/wind-chill-chart/state/${slug}`}
+                className="group flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2.5 hover:bg-white/[0.06] hover:border-white/10 transition-all"
+              >
+                <span className="text-sm font-medium text-white/75 group-hover:text-white truncate capitalize">
+                  {slug.replace(/-/g, " ")}
                 </span>
                 <Thermometer className="w-3.5 h-3.5 text-cyan-400/40 group-hover:text-cyan-400/70 shrink-0 ml-2" />
               </Link>

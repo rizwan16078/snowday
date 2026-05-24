@@ -135,15 +135,56 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  // ── School closings by city ──────────────────────────────────────────────
+  // City-level closings pages target "is school closed in [city]" queries.
+  const closingsCityRoutes: MetadataRoute.Sitemap = getTopCitiesByPopulation(100).map((c) => ({
+    url: `${BASE}/school-closings/city/${c.slug}`,
+    lastModified: SITE_LAST_UPDATED,
+    changeFrequency: "hourly" as const,
+    priority: c.population > 200_000 ? 0.7 : 0.6,
+  }));
+
+  // ── Snow day history by city ─────────────────────────────────────────────
+  // City-level history pages target "biggest snowstorm in [city]" queries.
+  const historyCityRoutes: MetadataRoute.Sitemap = getTopCitiesByPopulation(100).map((c) => ({
+    url: `${BASE}/snow-day-history/city/${c.slug}`,
+    lastModified: SITE_LAST_UPDATED,
+    changeFrequency: "monthly" as const,
+    priority: c.population > 200_000 ? 0.6 : 0.5,
+  }));
+
+  // ── Wind chill by state ──────────────────────────────────────────────────
+  // State-level wind chill hub pages target "wind chill [state]" queries.
+  const windChillStateRoutes: MetadataRoute.Sitemap = getAllStateSlugs().map((slug) => ({
+    url: `${BASE}/wind-chill-chart/state/${slug}`,
+    lastModified: SITE_LAST_UPDATED,
+    changeFrequency: "daily" as const,
+    priority: 0.6,
+  }));
+
+  // ── Glossary category pages ──────────────────────────────────────────────
+  // Category hub pages target "[category] weather terms" queries.
+  const GLOSSARY_CATEGORIES = ["snow", "cold", "weather-science", "storm", "atmospheric", "phenomenon", "safety"];
+  const glossaryCategoryRoutes: MetadataRoute.Sitemap = GLOSSARY_CATEGORIES.map((cat) => ({
+    url: `${BASE}/weather-terms/category/${cat}`,
+    lastModified: SITE_LAST_UPDATED,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
   return [
     ...staticRoutes,
     ...blogRoutes,
     ...stateRoutes,
     ...districtRoutes,
     ...glossaryRoutes,
+    ...glossaryCategoryRoutes,
     ...closingsStateRoutes,
+    ...closingsCityRoutes,
     ...windChillRoutes,
+    ...windChillStateRoutes,
     ...historyStateRoutes,
+    ...historyCityRoutes,
     ...cityRoutes,
   ];
 }

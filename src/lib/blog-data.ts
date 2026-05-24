@@ -968,6 +968,295 @@ Download your local ABC/NBC/CBS affiliate's app and enable push notifications fo
 
 > **The Trench Truth:** The parents who are never caught off guard have one thing in common: they're registered with their district's automated notification system AND they check probability the night before. The ones who are always surprised are relying on a single channel — usually social media, which is the slowest and least reliable. Set up two channels minimum. Three is better. Check your [snow day probability](/) tonight and sleep with confidence.`,
   },
+  {
+    slug: "frostbite-vs-frostnip-symptoms-treatment",
+    title: "Frostbite vs. Frostnip: How to Tell the Difference (Before It's Too Late)",
+    excerpt: "Frostnip makes your fingers tingle and turn white. Frostbite makes them go numb and turn blue. The difference between the two is the difference between a warm bath and the emergency room.",
+    date: "2025-02-22",
+    readTime: "6 min read",
+    category: "Winter Preparedness",
+    image: "/blog/frostbite-vs-frostnip.svg",
+    imageAlt: "Hand showing frostnip symptoms with thermometer showing subzero temperature",
+    metaTitle: "Frostbite vs Frostnip — Symptoms & Treatment",
+    metaDescription: "Frostnip tingles and turns white. Frostbite goes numb and turns blue. Learn the difference and when to go to the ER — before it's too late.",
+    content: `Your fingers are white and tingling. Is it frostnip or frostbite? The answer determines whether you need a warm bath or an ambulance.
+
+## Frostnip: The Warning Shot
+
+Frostnip is the early stage of cold injury — skin has cooled below freezing but tissue is not yet permanently damaged. Symptoms:
+
+- **Skin turns pale or white** (especially fingertips, earlobes, nose)
+- **Tingling or stinging sensation** — it hurts, not goes numb
+- **Skin feels firm but not hard** — still pliable when pressed
+- **Rapid warming reverses it** — no lasting damage
+
+Treatment: Get inside immediately. Warm the affected area with body heat (armpit, warm hands) or lukewarm water (99–108°F). Never rub or massage. Do not use hot water — you'll burn numb skin.
+
+## Frostbite: The Real Thing
+
+Frostbite means tissue has frozen. Ice crystals have formed inside cells. This is a medical emergency. Symptoms:
+
+- **Skin turns white, then blue-gray, then black** as severity increases
+- **Complete numbness** — you can't feel the area at all
+- **Skin feels hard and frozen** — like a block of wood
+- **Blisters appear** within 24–48 hours (in severe cases)
+
+Treatment: Get to an emergency room immediately. Do NOT rub, massage, or apply direct heat. Do NOT walk on frostbitten feet if you can avoid it. Rapid hospital rewarming is the standard of care.
+
+## The Wind Chill Connection
+
+Both conditions are driven by wind chill, not just temperature. At -15°F with 30 mph wind, frostbite can occur in 15 minutes on exposed skin. Check the [wind chill chart](/wind-chill-chart) before going outside in extreme cold.
+
+## Who's Most At Risk
+
+- Children (they lose heat faster and may not notice symptoms)
+- Elderly (reduced circulation)
+- Anyone with diabetes or vascular disease
+- People who've had frostbite before (scarred tissue is more vulnerable)
+
+> **The Trench Truth:** The most dangerous frostbite happens to people who think they're fine. Your body stops sending pain signals once tissue freezes — the absence of pain is the worst sign. If your fingers go from hurting to not hurting in extreme cold, that's not improvement. That's frostbite. Check the [wind chill risk](/wind-chill-chart) and cover every inch of exposed skin when it's below zero.`,
+  },
+  {
+    slug: "cold-weather-pet-safety-dogs-cats",
+    title: "Cold Weather Pet Safety: When It's Too Cold for Dogs and Cats",
+    excerpt: "Your dog wants to go outside. At 20°F, that's fine. At 0°F with wind chill, you're risking frostbite on their paws in under 15 minutes. Here's the exact temperature guide for every pet.",
+    date: "2025-02-18",
+    readTime: "5 min read",
+    category: "Winter Preparedness",
+    image: "/blog/cold-weather-pet-safety.svg",
+    imageAlt: "Dog wearing winter coat in snow with thermometer showing cold temperature",
+    metaTitle: "Cold Weather Pet Safety — Temperature Guide",
+    metaDescription: "At 0°F with wind chill, your dog can get frostbite in 15 minutes. Here's the exact temperature guide for when it's too cold for dogs and cats.",
+    content: `Your dog is staring at the door. It's 5°F outside with a -15°F wind chill. Should you let them out?
+
+## Temperature Thresholds for Pets
+
+**Above 45°F:** Safe for all breeds. Short-haired dogs may need a sweater at the low end.
+
+**35–45°F:** Small, thin-coated, and elderly dogs need a sweater or coat. Limit outdoor time to 30 minutes.
+
+**20–35°F:** All dogs need monitoring. Short-haired breeds need coats. Limit exposure to 15–20 minutes. Cats should stay indoors.
+
+**Below 20°F:** Dangerous for most pets. Limit outdoor time to 10 minutes for bathroom breaks only. Watch for shivering, lifting paws, or reluctance to keep walking.
+
+**Below 0°F (or wind chill below -10°F):** Only quick bathroom trips. Frostbite risk on ears, tails, and paws within 15 minutes. Wipe paws after returning — road salt is toxic if licked.
+
+## Paws Are the Weak Point
+
+Dogs don't wear shoes. Their paw pads are tough but not immune to cold. At temperatures below 20°F:
+
+- **Ice and salt** cause cracking and chemical burns
+- **Snow balls** form between toes, forcing toes apart and freezing the skin between them
+- **Booties** look silly but prevent the #1 winter paw injury
+
+After every walk in winter: wipe all four paws with a warm, damp cloth. Check between toes for ice balls.
+
+## Cats Are Not Small Dogs
+
+Outdoor cats face different risks:
+
+- **Car engines:** Cats crawl under hoods for warmth. Bang on your hood before starting your car in winter
+- **Antifreeze:** Sweet-tasting and lethal. One teaspoon kills a cat. Clean up any spills immediately
+- **Frozen water:** Outdoor water bowls freeze. Heated bowls exist — use them
+
+## The Wind Chill Rule
+
+If the [wind chill](/wind-chill-chart) is below 10°F, no pet should be outside for more than a bathroom break. Wind chill strips heat from animals just as fast as humans — faster for small pets with high surface-area-to-volume ratios.
+
+> **The Trench Truth:** The people who lose pets to cold weather are the ones who think "animals are built for this." Your husky? Maybe. Your pit bull? Absolutely not. Breed matters more than species. Check the [wind chill](/wind-chill-chart) before you open the door — if it's too cold for you in a light jacket, it's too cold for a short-haired dog.`,
+  },
+  {
+    slug: "ice-storm-safety-preparation-guide",
+    title: "Ice Storm Safety: How to Survive When Everything Freezes Solid",
+    excerpt: "An ice storm is not a winter storm with ice. It's a completely different disaster that coats everything in a sheet of glass, takes down power lines by the thousands, and turns roads into skating rinks for days.",
+    date: "2025-01-18",
+    readTime: "7 min read",
+    category: "Winter Preparedness",
+    image: "/blog/ice-storm-safety.svg",
+    imageAlt: "Ice-coated tree branches and power lines during ice storm",
+    metaTitle: "Ice Storm Safety — Preparation & Survival Guide",
+    metaDescription: "Ice storms coat everything in glass, take down power lines, and trap you for days. Here's the 48-hour preparation checklist that keeps your family safe.",
+    content: `A quarter-inch of ice is beautiful. A half-inch of ice is dangerous. Three-quarters of an inch of ice is a disaster.
+
+## What Makes Ice Storms Different
+
+Unlike snow storms, ice storms don't accumulate upward — they coat everything in a glaze. Every surface becomes a sheet of glass. The weight of ice brings down:
+
+- **Power lines** (a half-inch of ice on a power line adds 500 pounds of weight per span)
+- **Tree branches** (the #1 cause of power outages during ice storms)
+- **Car windshields** (impossible to scrape — you must thaw with heat)
+
+## Before the Storm: The 48-Hour Checklist
+
+**Power preparation:**
+- Charge all devices and power banks
+- Fill bathtubs with water (for flushing toilets if power fails and well pump stops)
+- Stock 3 days of non-perishable food that doesn't require cooking
+- Test flashlights and batteries
+- If you have a generator, test it and stock fuel — NEVER run indoors
+
+**Vehicle preparation:**
+- Fill gas tank (a full tank prevents fuel-line freezing)
+- Park where falling tree branches won't crush your car
+- Keep an ice scraper, blanket, and snacks in the car
+
+## During the Storm: Stay Inside
+
+The #1 rule of ice storms: **Do not go outside unless absolutely necessary.**
+
+- Sidewalks are skating rinks — falls cause broken wrists, hips, and head injuries
+- Falling ice and branches can kill
+- Driving is suicidal until roads are treated
+
+If you must drive: assume every surface is ice. Brake early, turn slowly, increase following distance to 8–10 seconds. Check [weather conditions](/weather) before leaving.
+
+## After the Storm: The Hidden Dangers
+
+- **Downed power lines are lethal** — stay 35 feet away and call 911
+- **Ice melting from roofs falls in sheets** — wear a helmet near buildings
+- **Carbon monoxide kills** — never use a generator, grill, or stove indoors for heat
+
+> **The Trench Truth:** Ice storms are the most underestimated winter disaster. Snow you can shovel. Ice you just wait for. And while you're waiting, the power is out, the roads are impassable, and tree branches are falling like artillery shells. The people who survive ice storms best are the ones who prepared 48 hours before the forecast said "freezing rain." Check [weather conditions](/weather) and the [snow day probability](/) when freezing rain is in the forecast.`,
+  },
+  {
+    slug: "wind-chill-warning-advisory-explained",
+    title: "Wind Chill Warning vs. Advisory: What Each Means for School Closures",
+    excerpt: "A Wind Chill Advisory means it's dangerous. A Wind Chill Warning means it's life-threatening. Here's exactly what triggers each — and why schools close for warnings but rarely for advisories.",
+    date: "2025-02-08",
+    readTime: "5 min read",
+    category: "Weather Science",
+    image: "/blog/wind-chill-warning-advisory.svg",
+    imageAlt: "Weather alert screen showing wind chill warning with frostbite risk indicator",
+    metaTitle: "Wind Chill Warning vs Advisory — School Closures",
+    metaDescription: "A Wind Chill Advisory means dangerous cold. A Warning means life-threatening cold. Here's what each means for school closures and your morning.",
+    content: `Your phone buzzes at 4 AM: "Wind Chill Warning." Is school closed? Almost certainly. But what about a "Wind Chill Advisory"? That's a different story.
+
+## Wind Chill Advisory
+
+**Criteria:** Wind chill between -15°F and -24°F (varies by NWS region)
+
+**What it means:** Cold enough to cause frostbite on exposed skin in 30 minutes. Dangerous but manageable with proper clothing.
+
+**School impact:** Schools typically **stay open** during advisories. Rural districts with long bus routes may delay 2 hours. Urban districts with walking students may close if the advisory coincides with morning commute times.
+
+**What you should do:** Cover all exposed skin. Limit outdoor time to 15 minutes. Check your [snow day probability](/) — advisories alone rarely trigger closures.
+
+## Wind Chill Warning
+
+**Criteria:** Wind chill of -25°F or colder (some regions use -30°F or -35°F)
+
+**What it means:** Frostbite can occur in 10 minutes or less on exposed skin. This is life-threatening cold, not just uncomfortable cold.
+
+**School impact:** Schools **almost always close** during wind chill warnings. The liability of forcing children to walk or wait at bus stops in -40°F wind chill is too high. Rural, urban, northern, southern — warnings close schools.
+
+## The Regional Double Standard
+
+Here's what confuses people: a wind chill of -20°F triggers a Warning in Arkansas but only an Advisory in Minnesota. Why?
+
+Because the NWS regional offices set their own thresholds based on what's **unusual** for the area. -20°F wind chill in Minnesota is Tuesday. -20°F wind chill in Arkansas is unprecedented. The thresholds reflect infrastructure preparedness, not absolute danger.
+
+## Why Schools Close for Warnings
+
+The decision isn't about whether kids *can* survive the cold. It's about:
+
+1. **Bus stop waits:** Children stand at stops for 10–15 minutes. In -35°F wind chill, that's frostbite territory
+2. **Walking students:** Urban districts have kids walking 0.5–1 mile. No shelter en route
+3. **Car trouble:** Dead batteries and stalled cars strand kids at stops
+4. **Liability:** A single frostbite case is a lawsuit and a news cycle
+
+Check the [wind chill chart](/wind-chill-chart) for your city to see where current conditions fall.
+
+> **The Trench Truth:** The most frustrated parents are the ones in Minnesota watching schools close for wind chills that wouldn't rate a second glance in Fairbanks. Regional thresholds exist because infrastructure and behavior adapt to local norms. A Minnesota kid has a parka, boots, and a 3-minute walk. An Arkansas kid has a light jacket and a 15-minute walk. Same wind chill, wildly different risk. Check your [local wind chill](/wind-chill-chart) and [snow day probability](/) when the alert hits your phone.`,
+  },
+  {
+    slug: "snow-day-activities-indoor-kids-guide",
+    title: "50+ Snow Day Activities for Kids (That Don't Involve a Screen)",
+    excerpt: "The snow day is magical for exactly 45 minutes. Then the kids are back inside, bouncing off walls, and you're out of ideas. Here are 50+ activities that actually work — organized by age and chaos level.",
+    date: "2025-01-12",
+    readTime: "8 min read",
+    category: "Snow Day Guide",
+    image: "/blog/snow-day-activities-indoor.svg",
+    imageAlt: "Kids doing indoor activities on snow day with snow falling outside window",
+    metaTitle: "50+ Snow Day Activities for Kids (No Screens)",
+    metaDescription: "The snow day is magical for 45 minutes. Then the kids are bouncing off walls. Here are 50+ indoor activities organized by age and chaos level.",
+    content: `You have approximately 45 minutes from the moment the kids burst back inside — pink-cheeked and soaking wet — until they start climbing the furniture. Here's your survival guide.
+
+## Low Chaos (Ages 4-7)
+
+1. **Blanket fort city** — every room gets a fort, each fort gets a name
+2. **Indoor picnic** — spread a blanket on the living room floor, eat lunch like it's a park
+3. **Shadow puppets** — flashlight + dark room + wall = theater
+4. **Baking project** — cookies, muffins, or bread (the measuring is educational)
+5. **Bathtub boat races** — plastic containers + bathtub + straws for blowing
+6. **Treasure hunt** — hide 10 objects, write clues on index cards
+7. **Play-doh restaurant** — they make the food, you're the customer
+8. **Sock skating** — hardwood floor + socks = indoor ice rink
+9. **Cardboard box transformation** — one box becomes a spaceship, house, or robot
+10. **Audiobook time** — library apps have free kids' audiobooks
+
+## Medium Chaos (Ages 8-12)
+
+11. **Indoor obstacle course** — couch cushions, chairs, blankets, timer
+12. **Science experiments** — baking soda volcano, homemade slime, crystal growing
+13. **Board game tournament** — bracket-style elimination with a prize
+14. **Stop-motion animation** — phone app + Legos = movie studio
+15. **Indoor bowling** — water bottles + soft ball
+16. **Origami challenge** — YouTube tutorials + paper = 47 paper cranes
+17. **Write and perform a play** — 30 minutes to write, 10 minutes to perform
+18. **Build a marble run** — cardboard tubes, tape, marbles
+19. **Cooking challenge** — "make something delicious using only these 5 ingredients"
+20. **Indoor scavenger hunt** — "find something blue, something round, something from 2020"
+
+## High Energy (All Ages)
+
+21. **Dance party** — 15 minutes of full-volume jumping
+22. **Balloon tennis** — paper plate + paint stirrer = racket, balloon = ball
+23. **Hallway laser maze** — yarn + tape + hallway = spy mission
+24. **Pillow fight arena** — clear the room, set rules, let them go
+25. **Indoor snowball fight** — rolled-up socks or crumpled paper
+26. **Exercise circuit** — 10 jumping jacks, 5 push-ups, 20-second plank, repeat
+27. **Freeze dance** — music plays, they dance, music stops, they freeze
+28. **Red light / green light** — works in hallways and large rooms
+
+## Quiet Time (Sanity Savers)
+
+29. **Reading hour** — everyone reads, including you
+30. **Puzzle station** — 500-piece puzzle on a card table, leave it up all day
+31. **Drawing challenge** — "draw your dream house" / "design a video game level"
+32. **Journaling** — "write about the best snow day ever"
+33. **Calming music + coloring** — the combo works better than either alone
+34. **Meditation for kids** — guided apps exist and they actually work
+35. **Nap time** — not just for toddlers. Everyone benefits from a 20-minute reset
+
+## Outdoor (When They Need to Burn It Off)
+
+36. **Snowman building contest** — tallest, most creative, smallest
+37. **Snow fort construction** — block molds exist, or use plastic containers
+38. **Snowball target practice** — draw a target on a tree or fence
+39. **Snow angel gallery** — make 10 in a row, photograph from above
+40. **Snow painting** — spray bottles + food coloring + water = snow canvas
+41. **Icicle hunt** — find the longest icicle on the block
+42. **Animal track identification** — fresh snow reveals every visitor
+43. **Sledding** — the classic, still undefeated
+44. **Snow kitchen** — mud kitchen rules apply to snow too
+
+## Educational (Sneaky Learning)
+
+45. **Weather journal** — record temperature, snowfall, cloud types
+46. **Math with snow** — measure snow depth, calculate volume, graph accumulation
+47. **Map the neighborhood** — draw your street from memory
+48. **History of snow days** — research when the first snow day was called
+49. **Cloud identification** — use the [weather glossary](/weather-terms) to name what you see
+50. **Calculate wind chill** — use the [wind chill chart](/wind-chill-chart) formula with real data
+
+## The 45-Minute Rule
+
+No single activity should last more than 45 minutes. Kids' attention spans are real. Rotate: active → quiet → creative → active. The day goes faster when you plan transitions.
+
+Check the [snow day activities page](/snow-day-activities) for more ideas, and the [snow day calculator](/) to see if tomorrow is a snow day too.
+
+> **The Trench Truth:** The parents who survive snow days are the ones who plan the activities the night before. Not because they're overachievers — because they've learned that 9 AM on a snow day with zero ideas is a special kind of hell. Print this list. Tape it to the fridge. When the phone rings at 5 AM, you'll be ready. Check tonight's [snow day probability](/) and prep accordingly.`,
+  },
 ];
 
 export const blogPosts: BlogPost[] = [...manualBlogPosts, ...generatedBlogPosts].sort(
