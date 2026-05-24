@@ -13,7 +13,6 @@ import {
   Snowflake,
   ArrowLeft,
   Calendar,
-  Wind,
   Thermometer,
 } from "lucide-react";
 import {

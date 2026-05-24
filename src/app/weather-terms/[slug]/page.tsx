@@ -13,7 +13,6 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, BookOpen, Snowflake } from "lucide-react";
 import {
   GLOSSARY_TERMS,
-  getGlossaryLetters,
 } from "@/lib/glossary-data";
 import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
 import { trimMetaTitle, trimMetaDescription } from "@/lib/seo-meta";

@@ -15,12 +15,10 @@ import {
   Snowflake,
   ArrowLeft,
   AlertCircle,
-  Clock,
 } from "lucide-react";
 import {
   getAllStateSlugs,
   getCitiesInState,
-  STATE_NAMES,
 } from "@/lib/cities/helpers";
 import { getDistrictsInState } from "@/lib/districts/helpers";
 import { generateStateContent } from "@/lib/cities/state-content";

@@ -13,7 +13,6 @@ import {
   Wind,
   AlertTriangle,
   ArrowLeft,
-  Clock,
   Snowflake,
 } from "lucide-react";
 import { fetchWeather } from "@/lib/weather";
@@ -22,7 +21,6 @@ import {
   getTopCitiesByPopulation,
   type CityRecord,
 } from "@/lib/cities/helpers";
-import { geocodeSearch } from "@/lib/geocoding";
 import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
 import { trimMetaTitle, trimMetaDescription } from "@/lib/seo-meta";
 import type { GeocodingResult } from "@/types/snow";
@@ -158,7 +156,7 @@ export default async function WindChillCityPage({ params }: Props) {
   }
 
   const tempF = (weather.temperature * 9) / 5 + 32;
-  const windMph = weather.windSpeed * 0.621371; // km/h → mph
+  const windMph = weather.windSpeedKph * 0.621371; // km/h → mph
   const windChill = calcWindChill(tempF, windMph);
   const frostbite = frostbiteTime(windChill);
 
