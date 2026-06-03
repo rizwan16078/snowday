@@ -138,6 +138,9 @@ export interface GeocodingResult {
   zip?: string;
   slug?: string;
   timezone?: string;
+  /** True when this result maps to a catalog city with a canonical
+   * /snow-day-calculator/[slug] page (slug is then the catalog slug). */
+  isCatalogCity?: boolean;
 }
 
 export type StrictnessLevel = "lenient" | "normal" | "strict";
@@ -149,6 +152,12 @@ export type SchoolType = "public" | "private";
 export interface PredictionConfig {
   strictness: StrictnessLevel;
   latitude: number;
+  /**
+   * Optional injectable "now". Production callers omit this and the engine
+   * uses `new Date()`. Tests/eval pass a fixed date so date-dependent logic
+   * (off-season detection, `lastUpdated`) is deterministic and reproducible.
+   */
+  referenceDate?: Date;
 }
 
 /**
@@ -191,6 +200,8 @@ export interface LocationSelection {
   lat: number;
   lon: number;
   timezone?: string;
+  /** True when this selection has a canonical /snow-day-calculator/[slug] page. */
+  isCatalogCity?: boolean;
 }
 
 export interface SnowSenseRibbon {

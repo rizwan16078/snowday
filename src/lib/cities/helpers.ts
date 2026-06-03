@@ -205,6 +205,28 @@ export function getCityRecord(slug: string): CityRecord | undefined {
   return CITY_BY_SLUG.get(slug);
 }
 
+/** state full name (lowercased) → USPS code, derived from STATE_NAMES. */
+const STATE_CODE_BY_NAME: Record<string, string> = Object.fromEntries(
+  Object.entries(STATE_NAMES).map(([code, name]) => [name.toLowerCase(), code]),
+);
+
+/**
+ * Map a geocoded result to a catalog city with a canonical page, by EXACT
+ * name + state match only. Deliberately does NOT fall back to nearest-by-coords
+ * — that would mis-route a suburb (e.g. "Cambridge, MA") to a different city's
+ * page. Accepts either a full state name ("Massachusetts") or a USPS code ("MA").
+ */
+export function matchCatalogCity(
+  city: string,
+  stateNameOrCode: string,
+): CityRecord | undefined {
+  if (!city || !stateNameOrCode) return undefined;
+  const lower = stateNameOrCode.toLowerCase();
+  const code = STATE_CODE_BY_NAME[lower] ?? (/^[a-z]{2}$/.test(lower) ? lower.toUpperCase() : undefined);
+  if (!code) return undefined;
+  return getCityRecord(citySlug(city, code));
+}
+
 export function getCitiesInState(stateSlugStr: string): CityRecord[] {
   return CITIES_BY_STATE_SLUG.get(stateSlugStr) ?? [];
 }

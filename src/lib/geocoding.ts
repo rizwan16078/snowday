@@ -144,12 +144,25 @@ export async function detectLocationFromIP(ipAddress?: string): Promise<Geocodin
 // ─── Forward Geocoding (search query → lat/lon) ──────────────────────────────
 
 export async function geocodeSearch(query: string): Promise<GeocodingResult[]> {
-  const params = new URLSearchParams({
-    q: query,
-    format: "json",
-    limit: "5",
-    addressdetails: "1",
-  });
+  const trimmed = query.trim();
+  // A bare 5-digit US ZIP returns nonsense from free-text search (Nominatim
+  // matches numeric strings anywhere on earth). Use the structured `postalcode`
+  // field constrained to the US so "90210" → Beverly Hills, not Ukraine.
+  const isUsZip = /^\d{5}$/.test(trimmed);
+  const params = isUsZip
+    ? new URLSearchParams({
+        postalcode: trimmed,
+        countrycodes: "us",
+        format: "json",
+        limit: "5",
+        addressdetails: "1",
+      })
+    : new URLSearchParams({
+        q: query,
+        format: "json",
+        limit: "5",
+        addressdetails: "1",
+      });
 
   try {
     const res = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, {

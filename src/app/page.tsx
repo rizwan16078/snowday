@@ -100,7 +100,7 @@ const homeFaqSchema = {
       name: "How accurate is the SnowSense snow day calculator?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "SnowSense uses live NWS, Open-Meteo, and HRRR weather data calibrated against regional closure thresholds. Predictions update every 30 minutes. No tool is 100% accurate because the final call is made by a human superintendent, but our model consistently outperforms raw weather forecasts for school closure prediction.",
+        text: "SnowSense uses live Open-Meteo forecast data — which aggregates NOAA (HRRR/GFS) and ECMWF models — calibrated against regional closure thresholds. Predictions update every 30 minutes. No tool is 100% accurate because the final call is made by a human superintendent, but our model consistently outperforms raw weather forecasts for school closure prediction.",
       },
     },
     {

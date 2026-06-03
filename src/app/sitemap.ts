@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { blogPosts, getAllSlugs } from "@/lib/blog-data";
+import { blogPosts, getAllSlugs, isBlogPostNoindex } from "@/lib/blog-data";
 import { ALL_CITIES, getAllStateSlugs } from "@/lib/cities/helpers";
 import { ALL_DISTRICTS } from "@/lib/districts/helpers";
 import { GLOSSARY_TERMS } from "@/lib/glossary-data";
@@ -53,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]);
 
   const postBySlug = new Map(blogPosts.map((p) => [p.slug, p]));
-  const blogRoutes: MetadataRoute.Sitemap = getAllSlugs().map((slug) => {
+  const blogRoutes: MetadataRoute.Sitemap = getAllSlugs().filter(slug => !isBlogPostNoindex(slug)).map((slug) => {
     const post = postBySlug.get(slug);
     const lastModified = post?.date ? new Date(post.date) : SITE_LAST_UPDATED;
     const isPillar = PILLAR_SLUGS.has(slug);
@@ -172,9 +172,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  // ── Blog category hub pages ──────────────────────────────────────────────
+  const blogCategoryRoutes: MetadataRoute.Sitemap = [
+    "snow-day-guide",
+    "weather-science",
+    "regional-analysis",
+    "winter-preparedness",
+    "weather-health",
+  ].map(cat => ({
+    url: `${BASE}/blog/category/${cat}`,
+    lastModified: SITE_LAST_UPDATED,
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
+
   return [
     ...staticRoutes,
     ...blogRoutes,
+    ...blogCategoryRoutes,
     ...stateRoutes,
     ...districtRoutes,
     ...glossaryRoutes,

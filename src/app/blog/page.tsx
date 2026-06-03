@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { blogPosts } from "@/lib/blog-data";
+import { blogPosts, isBlogPostNoindex, BLOG_CATEGORIES } from "@/lib/blog-data";
 import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 
@@ -46,7 +46,8 @@ const breadcrumbSchema = breadcrumbListSchema([
 ]);
 
 export default function BlogIndexPage() {
-  const [featured, ...rest] = blogPosts;
+  const visiblePosts = blogPosts.filter(p => !isBlogPostNoindex(p.slug));
+  const [featured, ...rest] = visiblePosts;
 
   return (
     <>
@@ -71,6 +72,25 @@ export default function BlogIndexPage() {
           snow tolerance — so you're never caught off guard.
         </p>
       </header>
+
+      {/* Category navigation */}
+      <nav className="flex flex-wrap justify-center gap-2 mb-12" aria-label="Blog categories">
+        <Link
+          href="/blog"
+          className="text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full bg-blue-600/20 border border-blue-500/30 text-blue-300 transition-all"
+        >
+          All
+        </Link>
+        {(Object.entries(BLOG_CATEGORIES) as [string, string][]).map(([slug, name]) => (
+          <Link
+            key={slug}
+            href={`/blog/category/${slug}`}
+            className="text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white hover:border-white/20 transition-all"
+          >
+            {name}
+          </Link>
+        ))}
+      </nav>
 
       {/* Featured Post */}
       <Link

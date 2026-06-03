@@ -133,7 +133,7 @@ export function DetailsPanel({ prediction }: DetailsPanelProps) {
             />
             <WeatherStat
               label="Snowfall"
-              value={`${weather.snowfallMM.toFixed(1)}mm`}
+              value={`${weather.snowfallMM.toFixed(1)}cm`}
               sub="next 24h"
             />
             <WeatherStat

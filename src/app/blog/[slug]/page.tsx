@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getBlogPost, getAllSlugs, blogPosts } from "@/lib/blog-data";
+import { getBlogPost, getAllSlugs, blogPosts, isBlogPostNoindex } from "@/lib/blog-data";
 import { breadcrumbListSchema } from "@/lib/breadcrumb-schema";
 import { trimMetaTitle, trimMetaDescription } from "@/lib/seo-meta";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
@@ -24,8 +24,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return { title: "Article Not Found" };
 
   const canonicalUrl = `https://www.snowdaycalculate.com/blog/${slug}`;
-  const trimmedTitle = trimMetaTitle(post.metaTitle, 48);
+  const trimmedTitle = trimMetaTitle(post.metaTitle, 58);
   const trimmedDescription = trimMetaDescription(post.metaDescription);
+  const noindex = isBlogPostNoindex(slug);
+  const ogImage = `/api/og?loc=${encodeURIComponent(post.metaTitle)}`;
   const blogKeywords = [
     post.category.toLowerCase(),
     post.metaTitle.toLowerCase().split(/[:|—–]/)[0].trim(),
@@ -37,6 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: trimmedTitle,
     description: trimmedDescription,
     keywords: blogKeywords,
+    ...(noindex ? { robots: { index: false, follow: true } } : {}),
     alternates: {
       canonical: `/blog/${slug}`,
     },
@@ -45,16 +48,69 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonicalUrl,
       title: trimMetaTitle(post.metaTitle, 60),
       description: trimmedDescription,
-      images: [{ url: post.image, width: 1200, height: 630, alt: post.imageAlt }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: post.imageAlt }],
     },
     twitter: {
       card: "summary_large_image",
       title: trimMetaTitle(post.metaTitle, 60),
       description: trimmedDescription,
-      images: [post.image],
+      images: [ogImage],
     },
   };
 }
+
+const HOWTO_SCHEMAS: Record<string, object> = {
+  "how-to-prepare-for-a-blizzard-winter-storm-safety": {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to Prepare for a Blizzard: 48-Hour Safety Checklist",
+    description: "A step-by-step blizzard preparation guide covering supplies, vehicle prep, and what to do during and after the storm.",
+    totalTime: "PT2H",
+    step: [
+      { "@type": "HowToStep", name: "Gas up all vehicles", text: "Fill your gas tank 48+ hours before the storm. Gas stations may lose power or run dry." },
+      { "@type": "HowToStep", name: "Stock 3 days of non-perishable food", text: "Store food that doesn't require refrigeration in case power goes out for multiple days." },
+      { "@type": "HowToStep", name: "Fill prescriptions", text: "Refill any medications before the storm. Pharmacies may close during and after a blizzard." },
+      { "@type": "HowToStep", name: "Charge all devices and power banks", text: "Charge every device and backup power bank before the storm hits." },
+      { "@type": "HowToStep", name: "Test flashlights and batteries", text: "Verify flashlights work with fresh batteries. Headlamps are better for hands-free use." },
+      { "@type": "HowToStep", name: "Check carbon monoxide detector", text: "Test the CO detector — running generators or fireplaces during outages creates CO risk." },
+      { "@type": "HowToStep", name: "Bring pets inside", text: "Bring all pets indoors before the storm. Wind chill affects animals as quickly as humans." },
+      { "@type": "HowToStep", name: "Stay inside during the storm", text: "Do not go outside unless absolutely necessary. Frostbite can occur in 15 minutes at extreme wind chills." },
+      { "@type": "HowToStep", name: "Never run a generator indoors", text: "Carbon monoxide from indoor generators kills more people during blizzards than cold exposure." },
+      { "@type": "HowToStep", name: "Keep faucets dripping", text: "Allow faucets to drip slowly to prevent pipe freezing if your home loses heat." },
+    ],
+  },
+  "winter-driving-safety-tips-snow-ice": {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to Drive Safely in Snow and Ice",
+    description: "Step-by-step winter driving safety guide, including how to handle skids on ice and when conditions require staying home.",
+    step: [
+      { "@type": "HowToStep", name: "Reduce speed significantly", text: "Reduce speed by 30% in snow, 50% on packed snow, and 70%+ on ice. Stopping distances increase 10x on ice." },
+      { "@type": "HowToStep", name: "Increase following distance", text: "Maintain 6–10 seconds of following distance. The normal 3-second distance is dangerous in winter conditions." },
+      { "@type": "HowToStep", name: "Identify black ice hotspots", text: "Watch bridges, overpasses, shaded areas, and intersections — these freeze first and cause the most crashes." },
+      { "@type": "HowToStep", name: "Handle a front-wheel skid", text: "Take foot off gas. Look where you want to go. Wait for traction, then gently steer in the desired direction." },
+      { "@type": "HowToStep", name: "Handle a rear-wheel skid", text: "Take foot off gas. Steer into the skid (same direction the rear is sliding). Avoid overcorrecting. Wait for grip." },
+      { "@type": "HowToStep", name: "Avoid slamming the brakes on ice", text: "Hard braking on ice removes all steering control. Use gentle, controlled braking only." },
+      { "@type": "HowToStep", name: "Check conditions before leaving", text: "Check the snow day probability. If above 60%, roads are dangerous and non-essential travel should be avoided." },
+    ],
+  },
+  "ice-storm-safety-preparation-guide": {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to Prepare for an Ice Storm: Safety Checklist",
+    description: "Step-by-step preparation guide for surviving an ice storm, covering power outages, vehicle preparation, and post-storm hazards.",
+    totalTime: "PT2H",
+    step: [
+      { "@type": "HowToStep", name: "Charge all devices and power banks", text: "Power outages from ice storms can last 48+ hours. Charge every device before the storm arrives." },
+      { "@type": "HowToStep", name: "Fill bathtubs with water", text: "Fill bathtubs for flushing toilets if the power fails and your well pump stops working." },
+      { "@type": "HowToStep", name: "Stock 3 days of non-perishable food", text: "Stock food that doesn't require cooking. Ice storms frequently cause multi-day power outages." },
+      { "@type": "HowToStep", name: "Prepare your vehicle", text: "Fill the gas tank, park away from trees, and keep an ice scraper, blanket, and emergency kit in the car." },
+      { "@type": "HowToStep", name: "Stay inside during the storm", text: "Do not go outside. Sidewalks become skating rinks and falling ice and branches can be lethal." },
+      { "@type": "HowToStep", name: "Stay away from downed power lines", text: "After the storm, stay 35 feet away from any downed line and call 911 immediately." },
+      { "@type": "HowToStep", name: "Never use combustion sources indoors", text: "Never use a generator, grill, or stove indoors for heat. Carbon monoxide is a top ice storm killer." },
+    ],
+  },
+};
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
@@ -74,15 +130,26 @@ export default async function BlogPostPage({ params }: Props) {
     description: post.metaDescription,
     image: `https://www.snowdaycalculate.com${post.image}`,
     datePublished: post.date,
-    dateModified: post.dateModified || post.date,
-    author: { "@type": "Organization", name: "SnowSense™" },
+    dateModified: post.dateModified || "2026-05-20",
+    author: {
+      "@type": "Person",
+      "@id": "https://www.snowdaycalculate.com/team#khan",
+      name: "A. Khan",
+      url: "https://www.snowdaycalculate.com/team",
+    },
     publisher: {
       "@type": "Organization",
       name: "SnowSense™",
       url: "https://www.snowdaycalculate.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.snowdaycalculate.com/icon-512.png",
+      },
     },
     mainEntityOfPage: `https://www.snowdaycalculate.com/blog/${slug}`,
   };
+
+  const howToSchema = HOWTO_SCHEMAS[slug] ?? null;
 
   const faqSchema = faqItems.length > 0 ? {
     "@context": "https://schema.org",
@@ -118,6 +185,12 @@ export default async function BlogPostPage({ params }: Props) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+      {howToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
         />
       )}
       <main className="min-h-screen">

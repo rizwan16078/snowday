@@ -13,6 +13,10 @@ import type {
 // ─── Regional Classification ────────────────────────────────────────────────
 
 function getRegionType(lat: number): RegionType {
+  // Absolute latitude is intentional: it's a distance-from-equator proxy for
+  // snow preparedness, so it stays correct in either hemisphere (a city at
+  // -45° is as snow-hardened as one at +45°). Hemisphere-specific behaviour
+  // that actually depends on season lives in `isOffSeason`, not here.
   const absLat = Math.abs(lat);
   if (absLat >= 40) return "northern";
   if (absLat >= 30) return "moderate";
@@ -104,7 +108,9 @@ function scoreTiming(hourlySnow: WeatherData["hourlySnow"]): number {
   let morningSnow = 0;
 
   for (const h of hourlySnow) {
-    if (h.hour >= 22 || h.hour <= 5) overnightSnow += h.snowMM;
+    // Overnight window ends at 04:59 so hour 5 belongs only to the morning
+    // commute bucket below (previously hour 5 was double-counted in both).
+    if (h.hour >= 22 || h.hour <= 4) overnightSnow += h.snowMM;
     if (h.hour >= 5 && h.hour <= 8) morningSnow += h.snowMM;
   }
 
@@ -114,18 +120,40 @@ function scoreTiming(hourlySnow: WeatherData["hourlySnow"]): number {
   return Math.round(Math.max(overnightScore, morningScore));
 }
 
+// ─── Standalone-Hazard Bonuses ───────────────────────────────────────────────
+// Snowfall dominates the weighted composite, but two hazards can close schools
+// with little or no accumulation: extreme wind chill and significant ice. The
+// weighted model alone under-weights both (temperature is 15%, ice is 25%), so
+// we add capped additive bonuses keyed off the actual hazard severity.
+
+function getColdDayBonus(feelsLikeC: number): number {
+  // Wind chill, not air temp, is what closes schools (bus-stop exposure, buses
+  // failing to start). Risk climbs below ~10°F (-12°C); at/below -20°F (-29°C)
+  // it's a strong standalone closure signal in northern districts.
+  if (feelsLikeC > -12) return 0;
+  return Math.min(50, Math.round(((-12 - feelsLikeC) / 17) * 45));
+}
+
+function getIceBonus(iceRiskScore: number): number {
+  // A glaze of freezing rain shuts roads with zero plowable snow. Once ice risk
+  // is significant (≥60), add up to +28 so an ice storm reaches at least
+  // "Possible" on its own.
+  if (iceRiskScore < 60) return 0;
+  return Math.min(28, Math.round((iceRiskScore - 60) * 0.7));
+}
+
 // ─── Warm Region & Off-Season Checks ────────────────────────────────────────
 
 function isWarmRegion(tempC: number): boolean {
   return tempC > 15;
 }
 
-function isOffSeason(lat: number, timezone?: string): boolean {
+function isOffSeason(lat: number, timezone?: string, now: Date = new Date()): boolean {
   const month = Number(
     new Intl.DateTimeFormat("en-US", {
       month: "numeric",
       timeZone: timezone || "UTC",
-    }).format(new Date())
+    }).format(now)
   );
   // Northern hemisphere: off-season = May–September
   // Southern hemisphere: off-season = November–March
@@ -148,11 +176,11 @@ function generateExplanation(
   const parts: string[] = [];
 
   if (snowMM > 15) {
-    parts.push(`Heavy snowfall of ${snowMM.toFixed(1)}mm is forecast`);
+    parts.push(`Heavy snowfall of ${snowMM.toFixed(1)}cm is forecast`);
   } else if (snowMM > 5) {
-    parts.push(`Moderate snowfall of ${snowMM.toFixed(1)}mm is expected`);
+    parts.push(`Moderate snowfall of ${snowMM.toFixed(1)}cm is expected`);
   } else if (snowMM > 0) {
-    parts.push(`Light snowfall of ${snowMM.toFixed(1)}mm is possible`);
+    parts.push(`Light snowfall of ${snowMM.toFixed(1)}cm is possible`);
   } else {
     parts.push("No significant snowfall is forecast");
   }
@@ -201,7 +229,8 @@ export function runPredictionEngine(
   weather: WeatherData,
   config: PredictionConfig
 ): SnowDayPrediction {
-  const now = new Date().toISOString();
+  const referenceDate = config.referenceDate ?? new Date();
+  const now = referenceDate.toISOString();
 
   // ── Warm region fallback
   if (isWarmRegion(weather.temperature)) {
@@ -220,7 +249,7 @@ export function runPredictionEngine(
   }
 
   // ── Off-season check
-  if (isOffSeason(config.latitude, weather.timezone) && weather.snowfallMM < 1) {
+  if (isOffSeason(config.latitude, weather.timezone, referenceDate) && weather.snowfallMM < 1) {
     return {
       probability: 2,
       confidence: 88,
@@ -242,11 +271,15 @@ export function runPredictionEngine(
   const timingScore = scoreTiming(weather.hourlySnow);
 
   // ── Weighted composite (snowfall is most important)
-  const rawScore =
+  const weightedScore =
     snowfallScore * 0.45 +
     iceRiskScore * 0.25 +
     temperatureScore * 0.15 +
     timingScore * 0.15;
+
+  // ── Standalone-hazard bonuses (extreme cold, significant ice)
+  const rawScore =
+    weightedScore + getColdDayBonus(weather.feelsLike) + getIceBonus(iceRiskScore);
 
   // ── Apply regional + strictness modifiers
   const regionalMod = getRegionalModifier(config.latitude);

@@ -7,7 +7,10 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "ingest:storm-events": "node scripts/ingest-storm-events.mjs"
+    "ingest:storm-events": "node scripts/ingest-storm-events.mjs",
+    "eval": "tsx eval/run-eval.ts",
+    "eval:update": "tsx eval/run-eval.ts --update",
+    "eval:judge": "tsx eval/run-eval.ts --judge"
   },
   "dependencies": {
     "@serwist/next": "^9.5.9",
@@ -30,6 +33,7 @@
     "eslint-config-next": "16.2.3",
     "prettier": "^3.8.3",
     "tailwindcss": "^4",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   },
   "overrides": {

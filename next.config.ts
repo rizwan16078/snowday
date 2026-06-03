@@ -30,7 +30,7 @@ const securityHeaders = [
       // Images: allow self, data URIs, GA tracking pixel, and external weather tile providers
       "img-src 'self' data: blob: https://*.openstreetmap.org https://*.tile.openweathermap.org https://openweathermap.org https://www.google-analytics.com https://www.googletagmanager.com",
       // API connections: Open-Meteo, NWS, geocoding, GA
-      "connect-src 'self' https://api.open-meteo.com https://api.openweathermap.org https://nominatim.openstreetmap.org https://api.weather.gov https://ipapi.co http://ip-api.com https://www.google-analytics.com",
+      "connect-src 'self' https://api.open-meteo.com https://api.openweathermap.org https://nominatim.openstreetmap.org https://api.weather.gov https://ipapi.co https://www.google-analytics.com",
       // Frames: disallow all
       "frame-src 'none'",
       // Media

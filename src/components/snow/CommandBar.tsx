@@ -86,6 +86,7 @@ export function CommandBar({
             lat: result.lat,
             lon: result.lon,
             timezone: result.timezone,
+            isCatalogCity: result.isCatalogCity,
           }))
         );
       } else {

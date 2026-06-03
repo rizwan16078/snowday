@@ -75,6 +75,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    // `site` omitted until a verified @handle exists (see sameAs note above).
     title: "SnowSense™ — Snow Day Calculator",
     description: "Check the snow day forecast for your ZIP code, city, or district.",
     images: ["/api/og"],
@@ -122,13 +123,54 @@ const organizationSchema = {
   url: "https://www.snowdaycalculate.com",
   logo: "https://www.snowdaycalculate.com/icon-512.png",
   description:
-    "AI-powered snow day predictions, weather science, and school closure guides. Real-time probability scoring built on NWS, Open-Meteo, and HRRR weather data.",
+    "Snow day predictions, weather science, and school closure guides. Real-time probability scoring built on live Open-Meteo forecast data, which aggregates NOAA (HRRR/GFS) and ECMWF models.",
+  // sameAs intentionally empty until real, verified social profiles exist.
+  // Pointing search/AI engines at placeholder handles that 404 is worse for
+  // entity trust than omitting them. Add the real profile URLs here once live.
   sameAs: [],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer support",
     url: "https://www.snowdaycalculate.com/contact",
   },
+};
+
+const teamSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://www.snowdaycalculate.com/team#khan",
+      name: "A. Khan",
+      jobTitle: "Lead Engineer",
+      worksFor: { "@type": "Organization", name: "SnowSense™", url: "https://www.snowdaycalculate.com" },
+      url: "https://www.snowdaycalculate.com/team",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.snowdaycalculate.com/team#chen",
+      name: "M. Chen",
+      jobTitle: "Atmospheric Scientist",
+      worksFor: { "@type": "Organization", name: "SnowSense™", url: "https://www.snowdaycalculate.com" },
+      url: "https://www.snowdaycalculate.com/team",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.snowdaycalculate.com/team#rivera",
+      name: "J. Rivera",
+      jobTitle: "Edge Infrastructure Engineer",
+      worksFor: { "@type": "Organization", name: "SnowSense™", url: "https://www.snowdaycalculate.com" },
+      url: "https://www.snowdaycalculate.com/team",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.snowdaycalculate.com/team#patel",
+      name: "S. Patel",
+      jobTitle: "Frontend Lead",
+      worksFor: { "@type": "Organization", name: "SnowSense™", url: "https://www.snowdaycalculate.com" },
+      url: "https://www.snowdaycalculate.com/team",
+    },
+  ],
 };
 
 const webAppSchema = {
@@ -183,6 +225,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(teamSchema) }}
         />
         <a
           href="#main-content"

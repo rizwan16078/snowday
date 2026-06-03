@@ -87,7 +87,7 @@ export function Footer() {
           </Link>
 
           <p className="text-sm text-zinc-400 font-medium leading-relaxed max-w-[240px]">
-            The most accurate snow day prediction engine, powered by real-time weather data.
+            A real-time snow day prediction engine, powered by live weather data.
           </p>
 
           {/* Contact email */}

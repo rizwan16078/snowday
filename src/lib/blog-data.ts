@@ -348,9 +348,9 @@ The four factors that control your probability score:
 You'll notice SnowSense™ shows two numbers: **Probability** and **Confidence**.
 
 - **Probability:** The estimated chance of cancellation
-- **Confidence:** How reliable the forecast data is
+- **Confidence:** How decisive that estimate is — how far the conditions push the call away from a 50/50 coin flip
 
-A 75% probability with 90% confidence means the model is very sure about its prediction. A 75% probability with 45% confidence means the storm track is uncertain and the model is less sure. Always look at both.
+A 5% or 95% probability comes with high confidence: the conditions point clearly one way. A probability near 50% comes with low confidence, because the same weather could reasonably break either way. Confidence tells you how firmly the data is leaning, not how much snow is coming.
 
 ## Check Your Current Score
 
@@ -1259,9 +1259,9 @@ Check the [snow day activities page](/snow-day-activities) for more ideas, and t
   },
 ];
 
-export const blogPosts: BlogPost[] = [...manualBlogPosts, ...generatedBlogPosts].sort(
-  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-);
+export const blogPosts: BlogPost[] = [...manualBlogPosts, ...generatedBlogPosts]
+  .map(post => ({ ...post, dateModified: post.dateModified ?? "2026-05-20" }))
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug);
@@ -1269,4 +1269,31 @@ export function getBlogPost(slug: string): BlogPost | undefined {
 
 export function getAllSlugs(): string[] {
   return blogPosts.map((p) => p.slug);
+}
+
+export const BLOG_CATEGORIES = {
+  "snow-day-guide": "Snow Day Guide",
+  "weather-science": "Weather Science",
+  "regional-analysis": "Regional Analysis",
+  "winter-preparedness": "Winter Preparedness",
+  "weather-health": "Weather Health",
+} as const;
+
+export const NOINDEX_SLUGS = new Set([
+  "can-bed-bugs-live-in-cold-weather",
+  "can-you-paint-in-cold-weather",
+  "can-you-pour-concrete-cold-weather",
+  "hawaii-weather-in-october",
+  "how-long-can-deer-hang-50-degrees",
+  "how-to-dress-for-60-degree-weather",
+  "how-to-move-furniture-during-bad-weather",
+  "is-silk-good-for-hot-weather",
+  "maintain-roof-harsh-weather",
+  "may-outer-banks-weather",
+  "science-olympiad-weather-or-not",
+  "weather-resistant-patio-furniture",
+]);
+
+export function isBlogPostNoindex(slug: string): boolean {
+  return NOINDEX_SLUGS.has(slug);
 }

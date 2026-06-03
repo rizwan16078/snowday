@@ -264,7 +264,7 @@ export default async function LocationPage({ params }: Props) {
         name: "How accurate is the SnowSense snow day calculator?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "SnowSense™ combines NWS and Open-Meteo weather data with regional tolerance modifiers and storm timing analysis. Our confidence score reflects data quality and forecast certainty.",
+          text: "SnowSense™ uses live Open-Meteo forecast data — aggregating NOAA (HRRR/GFS) and ECMWF models — with regional tolerance modifiers and storm timing analysis. Our confidence score reflects how decisively the conditions point toward (or away from) a closure.",
         },
       },
     ],

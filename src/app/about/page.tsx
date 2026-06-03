@@ -22,7 +22,7 @@ import {
 export const metadata: Metadata = {
   title: "About SnowSense — How We Predict Snow Days",
   description:
-    "How SnowSense™ predicts snow days: live NWS + Open-Meteo data, HRRR storm modeling, regional closure thresholds, and forecasts refreshed every 30 minutes.",
+    "How SnowSense™ predicts snow days: live Open-Meteo forecast data (aggregating NOAA HRRR/GFS and ECMWF models), regional closure thresholds, and forecasts refreshed every 30 minutes.",
   alternates: {
     canonical: "/about",
   },
@@ -226,7 +226,7 @@ export default function AboutPage() {
         <PillarCard 
           icon={Zap} 
           title="Real-Time Analysis" 
-          description="We ingest live updates from NWS and Open-Meteo throughout the day to capture rapid atmospheric shifts."
+          description="We ingest live Open-Meteo forecast updates throughout the day — drawing on NOAA and ECMWF models — to capture rapid atmospheric shifts."
         />
         <PillarCard 
           icon={Cpu} 
@@ -267,7 +267,7 @@ export default function AboutPage() {
           <ServiceItem
             icon={Snowflake}
             title="Real-Time Predictions"
-            description="Live probability scores updated every 30 minutes from NWS, Open-Meteo, and NOAA HRRR feeds."
+            description="Live probability scores updated every 30 minutes from Open-Meteo, which aggregates NOAA (HRRR/GFS) and ECMWF forecast models."
             accent="#60a5fa"
           />
           <ServiceItem

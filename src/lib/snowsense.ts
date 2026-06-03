@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { applyCalibration } from "@/lib/calibration";
-import { geocodeSearch } from "@/lib/geocoding";
+import { geocodeSearch, detectLocationFromHeaders } from "@/lib/geocoding";
 import {
   DEFAULT_LOCATION_SLUG,
   getAllLocations,
@@ -163,6 +163,25 @@ export async function resolveRequestLocation(
         });
       }
     }
+  }
+
+  // Vercel injects geo headers (x-vercel-ip-*) on every edge request. Use them
+  // so the FIRST server render is already the visitor's city — no New-York flash
+  // and no client-side IP redirect round-trip. The home page already opts out of
+  // the route cache via `headers()`, so this stays per-request, not shared.
+  // Falls through to New York only when geo headers are absent (local dev,
+  // non-Vercel hosts, or crawlers without geo).
+  const ipLocation = detectLocationFromHeaders(requestHeaders);
+  if (ipLocation) {
+    return buildResolvedLocation({
+      slug: ipLocation.slug || slugifyLocation(`${ipLocation.city}-${ipLocation.country}`),
+      city: ipLocation.city,
+      state: ipLocation.state,
+      country: ipLocation.country,
+      lat: ipLocation.lat,
+      lon: ipLocation.lon,
+      timezone: ipLocation.timezone,
+    });
   }
 
   return resolveLocation(DEFAULT_LOCATION_SLUG);

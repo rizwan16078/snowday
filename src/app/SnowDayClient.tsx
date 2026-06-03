@@ -196,6 +196,15 @@ export default function SnowDayShell({
 
   const handleLocationChange = useCallback(
     (nextLocation: LocationSelection) => {
+      // Catalog cities have a canonical /snow-day-calculator/[slug] page with
+      // richer content (editorial, nearby cities, districts) and a stronger SEO
+      // signal — route there instead of staying on the home ?loc= shell.
+      if (nextLocation.isCatalogCity) {
+        startTransition(() => {
+          router.push(`/snow-day-calculator/${nextLocation.slug}`);
+        });
+        return;
+      }
       updateURL({
         loc: nextLocation.slug,
         lat: nextLocation.lat.toFixed(4),
@@ -207,7 +216,7 @@ export default function SnowDayShell({
         manual: "1",
       });
     },
-    [updateURL]
+    [updateURL, router]
   );
 
   const handleDaysUsedChange = useCallback(

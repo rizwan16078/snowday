@@ -1,0 +1,134 @@
+{
+  "northern-heavy-snow-cold": {
+    "probability": 57,
+    "confidence": 61,
+    "status": "Possible",
+    "factors": {
+      "snowfall": 100,
+      "iceRisk": 0,
+      "temperature": 63,
+      "timing": 100
+    },
+    "explanation": "Heavy snowfall of 30.0cm is forecast, overnight accumulation will make morning roads dangerous, sub-freezing temperatures (-8°C) will prevent melting."
+  },
+  "warm-region-fallback": {
+    "probability": 0,
+    "confidence": 95,
+    "status": "Unlikely",
+    "factors": {
+      "snowfall": 0,
+      "iceRisk": 0,
+      "temperature": 0,
+      "timing": 0
+    },
+    "explanation": "It's 72°F — no snow day expected. Enjoy the warm weather!"
+  },
+  "off-season-fallback": {
+    "probability": 2,
+    "confidence": 88,
+    "status": "Unlikely",
+    "factors": {
+      "snowfall": 0,
+      "iceRisk": 0,
+      "temperature": 0,
+      "timing": 0
+    },
+    "explanation": "Snow day season is inactive in your region right now. Check back when temperatures drop!"
+  },
+  "light-snow-moderate": {
+    "probability": 20,
+    "confidence": 79,
+    "status": "Unlikely",
+    "factors": {
+      "snowfall": 20,
+      "iceRisk": 0,
+      "temperature": 26,
+      "timing": 50
+    },
+    "explanation": "Light snowfall of 5.0cm is possible, with snow falling during morning commute hours, sub-freezing temperatures (-1°C) will prevent melting."
+  },
+  "freezing-rain-only-moderate": {
+    "probability": 56,
+    "confidence": 60,
+    "status": "Possible",
+    "factors": {
+      "snowfall": 0,
+      "iceRisk": 100,
+      "temperature": 21,
+      "timing": 0
+    },
+    "explanation": "No significant snowfall is forecast, freezing rain and ice create serious road hazards, sub-freezing temperatures (0°C) will prevent melting."
+  },
+  "southern-ice-and-snow": {
+    "probability": 100,
+    "confidence": 95,
+    "status": "Very Likely",
+    "factors": {
+      "snowfall": 32,
+      "iceRisk": 100,
+      "temperature": 26,
+      "timing": 80
+    },
+    "explanation": "Moderate snowfall of 8.0cm is expected, overnight accumulation will make morning roads dangerous, freezing rain and ice create serious road hazards, sub-freezing temperatures (-1°C) will prevent melting, — Southern regions are typically unprepared for winter events."
+  },
+  "southern-light-snow-boundary": {
+    "probability": 36,
+    "confidence": 66,
+    "status": "Unlikely",
+    "factors": {
+      "snowfall": 16,
+      "iceRisk": 0,
+      "temperature": 21,
+      "timing": 40
+    },
+    "explanation": "Light snowfall of 4.0cm is possible, with snow falling during morning commute hours, sub-freezing temperatures (0°C) will prevent melting, — Southern regions are typically unprepared for winter events."
+  },
+  "extreme-cold-no-snow": {
+    "probability": 37,
+    "confidence": 65,
+    "status": "Unlikely",
+    "factors": {
+      "snowfall": 0,
+      "iceRisk": 30,
+      "temperature": 100,
+      "timing": 0
+    },
+    "explanation": "No significant snowfall is forecast, extreme cold (-22°C) will worsen conditions."
+  },
+  "extreme-cold-windchill": {
+    "probability": 59,
+    "confidence": 62,
+    "status": "Possible",
+    "factors": {
+      "snowfall": 0,
+      "iceRisk": 30,
+      "temperature": 100,
+      "timing": 0
+    },
+    "explanation": "No significant snowfall is forecast, extreme cold (-30°C) will worsen conditions."
+  },
+  "daytime-snow-low-timing": {
+    "probability": 42,
+    "confidence": 61,
+    "status": "Possible",
+    "factors": {
+      "snowfall": 80,
+      "iceRisk": 0,
+      "temperature": 37,
+      "timing": 0
+    },
+    "explanation": "Heavy snowfall of 20.0cm is forecast, sub-freezing temperatures (-3°C) will prevent melting."
+  },
+  "southern-significant-overnight": {
+    "probability": 74,
+    "confidence": 74,
+    "status": "Very Likely",
+    "factors": {
+      "snowfall": 72,
+      "iceRisk": 0,
+      "temperature": 47,
+      "timing": 100
+    },
+    "explanation": "Heavy snowfall of 18.0cm is forecast, overnight accumulation will make morning roads dangerous, sub-freezing temperatures (-5°C) will prevent melting, — Southern regions are typically unprepared for winter events."
+  }
+}

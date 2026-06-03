@@ -11,6 +11,7 @@ import {
   getForwardedPublicIp,
   reverseGeocode,
 } from "@/lib/geocoding";
+import { matchCatalogCity } from "@/lib/cities/helpers";
 
 export const runtime = "edge";
 
@@ -62,7 +63,14 @@ export async function GET(req: NextRequest) {
   }
 
   const results = await geocodeSearch(query.trim());
-  return NextResponse.json(results, {
+  // Tag results that have a canonical /snow-day-calculator/[slug] page so the
+  // client can route there (richer content + stronger SEO) instead of the home
+  // ?loc= param. Exact name+state match only — display fields are left intact.
+  const tagged = results.map((r) => {
+    const match = matchCatalogCity(r.city, r.state);
+    return match ? { ...r, slug: match.slug, isCatalogCity: true } : r;
+  });
+  return NextResponse.json(tagged, {
     headers: {
       "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800",
     },
