@@ -3,7 +3,7 @@
 import {
   CacheFirst,
   ExpirationPlugin,
-  NetworkFirst,
+  NetworkOnly,
   Serwist,
   StaleWhileRevalidate,
 } from "serwist";
@@ -35,20 +35,16 @@ const serwist = new Serwist({
   navigationPreload: true,
   runtimeCaching: [
     {
+      // The home ("/") and "/prediction" routes are IP-personalized (the server
+      // resolves the visitor's city from geo headers). They MUST NOT be served
+      // from the service-worker cache: a cached copy serves a stale location to
+      // the same visitor — or worse, one visitor's city to another. Always go to
+      // the network so each request gets a fresh, correctly-geolocated render.
       matcher: ({ request, url }) =>
         !isLocalHostname(url.hostname) &&
         request.mode === "navigate" &&
         (url.pathname === "/prediction" || url.pathname === "/"),
-      handler: new NetworkFirst({
-        cacheName: "snowsense-pages",
-        networkTimeoutSeconds: 4,
-        plugins: [
-          new ExpirationPlugin({
-            maxEntries: 6,
-            maxAgeSeconds: 60 * 60 * 24,
-          }),
-        ],
-      }),
+      handler: new NetworkOnly(),
     },
     {
       matcher: ({ url }) => url.pathname.startsWith("/api/radar"),
